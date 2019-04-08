@@ -1,0 +1,45 @@
+.app-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #a3ded8;
+    padding: 2em;
+    margin: 0;
+    border-bottom: 2px solid #1aae9f;
+}
+
+.app-header-condensed {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #a3ded8;
+    border-bottom: 2px solid #1aae9f;
+}
+
+.app-title {
+    font-weight: 500;
+}
+
+.app-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+
+.header-zip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+}
+
+.about-us {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+}
+
+.login {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+}
