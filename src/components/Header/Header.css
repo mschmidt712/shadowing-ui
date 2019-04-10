@@ -25,13 +25,6 @@
     font-weight: 300;
 }
 
-.header-zip {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1em;
-}
-
 .about-us {
     position: absolute;
     top: 1em;
@@ -42,4 +35,9 @@
     position: absolute;
     top: 1em;
     right: 1em;
+    display: flex;
+}
+
+.login > .icon {
+    padding: 0 0.5em 0 0;
 }
