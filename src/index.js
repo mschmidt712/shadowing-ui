@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import './index.css';
-import configureStore from './store';
+import store from './store';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render((
-     <Provider store={configureStore()}>
+     <Provider store={store}>
           <BrowserRouter>
-               <Route path="/" component={App}/>
+               <Route path="/" component={App} />
           </BrowserRouter>
      </Provider>
-     ),
+),
      document.getElementById('container')
 );
 
