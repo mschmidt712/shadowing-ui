@@ -1,0 +1,14 @@
+.google {
+  display: flex;
+  align-items: center;
+  height: auto;
+  margin: auto;
+  margin-top: 1.5em;
+  background-color: #cf4332;
+  color: white;
+}
+
+.google > i {
+  padding-right: 0.5em;
+  font-size: 2em;
+}

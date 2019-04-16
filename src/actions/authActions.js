@@ -401,6 +401,19 @@ export const facebookLoginUser = (email, picture) => {
   )
 }
 
+export const googleLoginUser = (email, picture) => {
+  console.log(picture);
+  return dispatch => (
+    dispatch({
+      type: authAction.GOOGLE_LOGIN_USER,
+      payload: {
+        email,
+        picture
+      }
+    })
+  )
+}
+
 //************************* Display Actions *************************//
 export const handleLoginClick = () => {
   return dispatch => (

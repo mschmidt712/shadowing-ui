@@ -1,5 +1,6 @@
 import React from 'react';
 import Facebook from '../Facebook/Facebook';
+import Google from '../Google/Google';
 
 import './Login.css';
 
@@ -10,7 +11,7 @@ function Login(props) {
       <div className="modal-text">
         <h1>Please Sign In</h1>
         <Facebook></Facebook>
-        <button className="primary"> Login With Google </button>
+        <Google></Google>
         <h3 className="with-horizontal-line"><span>or</span></h3>
         <div className="form">
           <label>Email</label>

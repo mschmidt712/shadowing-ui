@@ -13,7 +13,7 @@ function Header(props) {
       <i className="fas fa-user-circle"></i>
     </button>}
     {props.picture && <button className="icon">
-      <img src={props.picture} alt="Profile Image" className="round" />
+      <img src={props.picture} alt="User" className="round" />
     </button>}
     {cognitoUser &&
       <button className="primary" onClick={props.logoutUser}>Logout</button>}

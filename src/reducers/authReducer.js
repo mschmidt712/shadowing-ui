@@ -76,6 +76,14 @@ export default (state = initialState, action) => {
         email: action.payload.email,
         picture: action.payload.picture
       });
+    case authAction.GOOGLE_LOGIN_USER:
+      return Object.assign({}, state, {
+        isLoggedIn: true,
+        loginMethod: 'Google',
+        displayLogin: false,
+        email: action.payload.email,
+        picture: action.payload.picture
+      });
     case authAction.LOGIN_CLICK:
       return Object.assign({}, state, {
         displayLogin: true
