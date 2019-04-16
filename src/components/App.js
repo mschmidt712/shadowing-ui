@@ -53,7 +53,9 @@ class App extends Component {
       <div className="App">
         <AppHeader
           location={this.props.location}
+          picture={this.props.picture}
           isLoggedIn={this.props.isLoggedIn}
+          loginMethod={this.props.loginMethod}
           handleLoginClick={this.props.handleLoginClick}
           displayLogin={this.props.displayLogin}
           logoutUser={this.props.logoutUser}

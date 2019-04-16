@@ -3,8 +3,10 @@ import * as authAction from '../actions/authTypes';
 const initialState = {
   credentials: {},
   email: '',
+  picture: undefined,
   active: false,
   isLoggedIn: false,
+  loginMethod: '',
   unverifiedUser: false,
   displayLogin: false,
   displaySignUp: false,
@@ -22,6 +24,7 @@ export default (state = initialState, action) => {
         email: action.payload.email,
         active: action.payload.active,
         isLoggedIn: true,
+        loginMethod: 'Cognito',
         displayLogin: false
       });
     case authAction.AUTH_ERROR:
@@ -32,7 +35,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         credentials: action.payload.credentials,
         active: action.payload.active,
-        isLoggedIn: action.payload.isLoggedIn
+        isLoggedIn: action.payload.isLoggedIn,
+        loginMethod: 'Cognito'
       });
     case authAction.REGISTER_USER:
       return Object.assign({}, state, {
@@ -48,6 +52,7 @@ export default (state = initialState, action) => {
         displayVerification: false,
         displayConfirmation: true,
         isLoggedIn: true,
+        loginMethod: 'Cognito',
         active: false
       });
     case authAction.LOGOUT_USER:
@@ -62,6 +67,14 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         displayForgotPassword: false,
         displayLogin: true
+      });
+    case authAction.FACEBOOK_LOGIN_USER:
+      return Object.assign({}, state, {
+        isLoggedIn: true,
+        loginMethod: 'Facebook',
+        displayLogin: false,
+        email: action.payload.email,
+        picture: action.payload.picture
       });
     case authAction.LOGIN_CLICK:
       return Object.assign({}, state, {

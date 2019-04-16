@@ -1,43 +1,47 @@
 .app-header {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background-color: #a3ded8;
-    padding: 2em;
-    margin: 0;
-    border-bottom: 2px solid #1aae9f;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #a3ded8;
+  padding: 2em;
+  margin: 0;
+  border-bottom: 2px solid #1aae9f;
 }
 
 .app-header-condensed {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background-color: #a3ded8;
-    border-bottom: 2px solid #1aae9f;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #a3ded8;
+  border-bottom: 2px solid #1aae9f;
 }
 
 .app-title {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .app-subtitle {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
 }
 
 .about-us {
-    position: absolute;
-    top: 1em;
-    left: 1em;
+  position: absolute;
+  top: 1em;
+  left: 1em;
 }
 
 .login {
-    position: absolute;
-    top: 1em;
-    right: 1em;
-    display: flex;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  display: flex;
 }
 
 .login > .icon {
-    padding: 0 0.5em 0 0;
+  padding: 0 0.5em 0 0;
+}
+
+.round {
+  border-radius:100%;
 }

@@ -388,6 +388,19 @@ export const deleteUser = () => {
   }
 }
 
+export const facebookLoginUser = (email, picture) => {
+  console.log(picture);
+  return dispatch => (
+    dispatch({
+      type: authAction.FACEBOOK_LOGIN_USER,
+      payload: {
+        email,
+        picture
+      }
+    })
+  )
+}
+
 //************************* Display Actions *************************//
 export const handleLoginClick = () => {
   return dispatch => (

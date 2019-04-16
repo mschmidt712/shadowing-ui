@@ -10,6 +10,8 @@ export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
 export const CONFIRM_PASSWORD = 'CONFIRM_PASSWORD';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
+export const FACEBOOK_LOGIN_USER = 'FACEBOOK_LOGIN_USER';
+
 // Display Action Types
 export const LOGIN_CLICK = 'LOGIN_CLICK';
 export const LOGIN_CLOSE = 'LOGIN_CLOSE';

@@ -1,0 +1,13 @@
+.facebook {
+  background-color: #355898;
+  color: white;
+  display: flex;
+  height: auto;
+  align-items: center;
+  margin: auto;
+}
+
+.facebook > i {
+  padding-right: 0.5em;
+  font-size: 2em;
+}

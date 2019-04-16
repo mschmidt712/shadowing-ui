@@ -1,4 +1,6 @@
 import React from 'react';
+import Facebook from '../Facebook/Facebook';
+
 import './Login.css';
 
 function Login(props) {
@@ -7,7 +9,7 @@ function Login(props) {
       <span className="close" onClick={() => props.handleLoginClose()}>&times;</span>
       <div className="modal-text">
         <h1>Please Sign In</h1>
-        <button className="primary"> Login With Facebook </button>
+        <Facebook></Facebook>
         <button className="primary"> Login With Google </button>
         <h3 className="with-horizontal-line"><span>or</span></h3>
         <div className="form">

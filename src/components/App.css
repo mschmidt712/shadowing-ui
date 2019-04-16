@@ -34,6 +34,12 @@ button.icon {
   height: inherit;
 }
 
+button:disabled,
+button[disabled]{
+  background-color: #cccccc;
+  color: #666666;
+}
+
 /* Modal Styling */
 .modal {
   position: fixed; /* Stay in place */
