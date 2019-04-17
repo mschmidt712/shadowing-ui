@@ -57,11 +57,19 @@ export default (state = initialState, action) => {
       });
     case authAction.LOGOUT_USER:
       return Object.assign({}, state, {
-        isLoggedIn: false
+        isLoggedIn: false,
+        loginMethod: undefined,
+        email: '',
+        active: false,
+        credentials: {}
       });
     case authAction.DELETE_USER:
       return Object.assign({}, state, {
-        isLoggedIn: false
+        isLoggedIn: false,
+        loginMethod: undefined,
+        email: '',
+        active: false,
+        credentials: {}
       });
     case authAction.CONFIRM_PASSWORD:
       return Object.assign({}, state, {
@@ -73,16 +81,34 @@ export default (state = initialState, action) => {
         isLoggedIn: true,
         loginMethod: 'Facebook',
         displayLogin: false,
+        credentials: action.payload.credentials,
         email: action.payload.email,
         picture: action.payload.picture
+      });
+    case authAction.FACEBOOK_LOGOUT_USER:
+      return Object.assign({}, state, {
+        isLoggedIn: false,
+        loginMethod: undefined,
+        credentials: {},
+        email: '',
+        picture: ''
       });
     case authAction.GOOGLE_LOGIN_USER:
       return Object.assign({}, state, {
         isLoggedIn: true,
         loginMethod: 'Google',
         displayLogin: false,
+        credentials: action.payload.credentials,
         email: action.payload.email,
         picture: action.payload.picture
+      });
+    case authAction.GOOGLE_LOGOUT_USER:
+      return Object.assign({}, state, {
+        isLoggedIn: false,
+        loginMethod: undefined,
+        credentials: {},
+        email: '',
+        picture: ''
       });
     case authAction.LOGIN_CLICK:
       return Object.assign({}, state, {

@@ -388,28 +388,96 @@ export const deleteUser = () => {
   }
 }
 
-export const facebookLoginUser = (email, picture) => {
-  console.log(picture);
+//************************* Facebook Authentication Actions *************************//
+export const facebookLoginUser = (email, picture, token) => {
+  return dispatch => {
+    return getFacebookUserCredentials(token).then(credentials => {
+      return dispatch({
+        type: authAction.FACEBOOK_LOGIN_USER,
+        payload: {
+          credentials,
+          email,
+          picture
+        }
+      });
+    }).catch(err => {
+      return dispatch({
+        type: authAction.AUTH_ERROR,
+        payload: {
+          err
+        }
+      });
+    });
+  }
+}
+
+function getFacebookUserCredentials(token) {
+  const params = {
+    IdentityPoolId: awsData['identity-pool-id'],
+    Logins: {}
+  };
+  params.Logins['graph.facebook.com'] = token;
+  const credentials = new AWS.CognitoIdentityCredentials(params, { region: awsData['region'] });
+  return new Promise((resolve, reject) => {
+    return credentials.refresh(err => {
+      if (err) { return reject(err) };
+      return resolve(credentials);
+    });
+  });
+}
+
+export const facebookLogoutUser = () => {
+  localStorage.clear();
+
   return dispatch => (
     dispatch({
-      type: authAction.FACEBOOK_LOGIN_USER,
-      payload: {
-        email,
-        picture
-      }
+      type: authAction.FACEBOOK_LOGOUT_USER
     })
   )
 }
 
-export const googleLoginUser = (email, picture) => {
-  console.log(picture);
+//************************* Google Authentication Actions *************************//
+export const googleLoginUser = (email, picture, token) => {
+  return dispatch => {
+    return getGoogleUserCredentials(token).then(credentials => {
+      return dispatch({
+        type: authAction.GOOGLE_LOGIN_USER,
+        payload: {
+          credentials,
+          email,
+          picture
+        }
+      });
+    }).catch(err => {
+      return dispatch({
+        type: authAction.AUTH_ERROR,
+        payload: {
+          err
+        }
+      });
+    });
+  }
+}
+
+function getGoogleUserCredentials(token) {
+  const params = {
+    IdentityPoolId: awsData['identity-pool-id'],
+    Logins: {}
+  };
+  params.Logins['accounts.google.com'] = token;
+  const credentials = new AWS.CognitoIdentityCredentials(params, { region: awsData['region'] });
+  return new Promise((resolve, reject) => {
+    return credentials.refresh(err => {
+      if (err) { return reject(err) };
+      return resolve(credentials);
+    });
+  });
+}
+
+export const googleLogoutUser = () => {
   return dispatch => (
     dispatch({
-      type: authAction.GOOGLE_LOGIN_USER,
-      payload: {
-        email,
-        picture
-      }
+      type: authAction.GOOGLE_LOGOUT_USER
     })
   )
 }

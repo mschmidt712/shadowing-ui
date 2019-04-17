@@ -59,6 +59,8 @@ class App extends Component {
           handleLoginClick={this.props.handleLoginClick}
           displayLogin={this.props.displayLogin}
           logoutUser={this.props.logoutUser}
+          facebookLogoutUser={this.props.facebookLogoutUser}
+          googleLogoutUser={this.props.googleLogoutUser}
         />
         <Home
           googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q'
@@ -124,6 +126,8 @@ const mapDispatchToProps = dispatch => ({
   // Authentication Actions
   loginUser: (email, password) => dispatch(authActions.loginUser(email, password)),
   logoutUser: () => dispatch(authActions.logoutUser()),
+  facebookLogoutUser: () => dispatch(authActions.facebookLogoutUser()),
+  googleLogoutUser: () => dispatch(authActions.googleLogoutUser()),
   checkAuthStatus: () => dispatch(authActions.checkAuthStatus()),
   registerUser: (email, password) => dispatch(authActions.registerUser(email, password)),
   resendVerification: (email) => dispatch(authActions.resendVerification(email)),

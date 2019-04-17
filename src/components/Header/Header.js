@@ -1,12 +1,9 @@
 import React from 'react';
+import { GoogleLogout } from 'react-google-login';
+
 import './Header.css';
 
 function Header(props) {
-  let cognitoUser = false;
-  if (props.loginMethod === 'Cognito') {
-    cognitoUser = true;
-  }
-
   const userNotLoggedIn = (<button className="primary login" onClick={props.handleLoginClick}>Login</button>);
   const userLoggedIn = (<div className="login">
     {!props.picture && <button className="icon">
@@ -15,10 +12,20 @@ function Header(props) {
     {props.picture && <button className="icon">
       <img src={props.picture} alt="User" className="round" />
     </button>}
-    {cognitoUser &&
+    {props.loginMethod === "Cognito" &&
       <button className="primary" onClick={props.logoutUser}>Logout</button>}
-    {!cognitoUser &&
-      <button className="primary" disabled>Logout via {props.loginMethod}</button>}
+    {props.loginMethod === "Facebook" &&
+      <button className="primary" onClick={props.facebookLogoutUser}>Logout</button>}
+    {props.loginMethod === "Google" &&
+      <GoogleLogout
+        render={renderProps => (
+          <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="primary">
+            Logout
+          </button>
+        )}
+        onLogoutSuccess={props.googleLogoutUser}
+      >
+      </GoogleLogout>}
   </div>);
   let header;
   if (props.location && props.location.pathname === '/') {
