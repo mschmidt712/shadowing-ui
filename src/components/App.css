@@ -94,3 +94,13 @@ input {
   border: 0;
   margin: 0.5em;
 }
+
+.radio-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.radio-form > input {
+  width: initial;
+}

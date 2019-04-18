@@ -23,7 +23,7 @@ function Login(props) {
         </div>
         <span>
           New to findshadowing.com?
-          <button className="link" onClick={() => props.handleSignUpClick()}>Sign Up Here.</button>
+          <button className="link" onClick={() => { props.handleSignUpClick(); props.setOccupation(""); }}>Sign Up Here.</button>
         </span>
       </div>
     </div>

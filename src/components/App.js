@@ -19,10 +19,12 @@ class App extends Component {
     this.state = {
       email: '',
       password: '',
+      occupation: '',
       verification: ''
     };
 
     this.onInputChange = this.onInputChange.bind(this);
+    this.setOccupation = this.setOccupation.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +50,12 @@ class App extends Component {
     this.setState(newState);
   }
 
+  setOccupation(occupation) {
+    this.setState({
+      occupation
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -57,6 +65,8 @@ class App extends Component {
           isLoggedIn={this.props.isLoggedIn}
           loginMethod={this.props.loginMethod}
           handleLoginClick={this.props.handleLoginClick}
+          handleSignUpClick={this.props.handleSignUpClick}
+          setOccupation={this.setOccupation}
           displayLogin={this.props.displayLogin}
           logoutUser={this.props.logoutUser}
           facebookLogoutUser={this.props.facebookLogoutUser}
@@ -76,6 +86,7 @@ class App extends Component {
             onPasswordChange={this.onInputChange}
             handleLoginClose={this.props.handleLoginClose}
             handleSignUpClick={this.props.handleSignUpClick}
+            setOccupation={this.setOccupation}
             loginUser={this.props.loginUser}
             handleForgotPasswordClick={this.props.handleForgotPasswordClick}
           />}
@@ -83,8 +94,8 @@ class App extends Component {
           <SignUp
             email={this.state.email}
             password={this.state.password}
-            onEmailChange={this.onInputChange}
-            onPasswordChange={this.onInputChange}
+            occupation={this.state.occupation}
+            onInputChange={this.onInputChange}
             registerUser={this.props.registerUser}
             handleSignUpClose={this.props.handleSignUpClose}
           />}
