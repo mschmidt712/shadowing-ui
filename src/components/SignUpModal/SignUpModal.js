@@ -6,6 +6,20 @@ function SignUp(props) {
     doctorChecked = true;
   }
 
+  function validateForm(email, password, confirmPassword, occupation) {
+    if (!email || !password || !occupation) {
+      alert('Email, password, and occupation are required to create an account!');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match. Please try again.');
+      return;
+    }
+
+    props.registerUser(email, password, occupation)
+  }
+
   return (
     <div className="modal">
       <div className="modal-content">
@@ -17,6 +31,8 @@ function SignUp(props) {
             <input type="email" name="email" value={props.email} onChange={props.onInputChange} />
             <label>Password</label>
             <input type="password" name="password" value={props.password} onChange={props.onInputChange} />
+            <label>Confirm Password</label>
+            <input type="password" name="confirmPassword" value={props.confirmPassword} onChange={props.onInputChange} />
             <div className="form">
               <label>What kind of account would you like to create?</label>
               <div className="radio-form">
@@ -28,7 +44,7 @@ function SignUp(props) {
                 <label htmlFor="student">Student</label>
               </div>
             </div>
-            <button className="primary" onClick={() => props.registerUser(props.email, props.password, props.occupation)}>Sign Up</button>
+            <button className="primary" onClick={() => validateForm(props.email, props.password, props.confirmPassword, props.occupation)}>Sign Up</button>
           </div>
         </div>
       </div>

@@ -19,6 +19,7 @@ class App extends Component {
     this.state = {
       email: '',
       password: '',
+      confirmPassword: '',
       occupation: '',
       verification: ''
     };
@@ -94,6 +95,7 @@ class App extends Component {
           <SignUp
             email={this.state.email}
             password={this.state.password}
+            confirmPassword={this.state.confirmPassword}
             occupation={this.state.occupation}
             onInputChange={this.onInputChange}
             registerUser={this.props.registerUser}
