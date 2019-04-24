@@ -6,7 +6,6 @@ const initialState = {
   occupation: '',
   id: '',
   picture: undefined,
-  active: false,
   isLoggedIn: false,
   loginMethod: '',
   unverifiedUser: false,
@@ -24,7 +23,6 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         credentials: action.payload.credentials,
         email: action.payload.email,
-        active: covertStringToBoolean(action.payload.active),
         occupation: action.payload.occupation,
         id: action.payload.id,
         isLoggedIn: true,
@@ -38,7 +36,6 @@ export default (state = initialState, action) => {
     case authAction.CHECK_AUTH_STATUS:
       return Object.assign({}, state, {
         credentials: action.payload.credentials,
-        active: covertStringToBoolean(action.payload.active),
         email: action.payload.email,
         occupation: action.payload.occupation,
         id: action.payload.id,
@@ -60,7 +57,6 @@ export default (state = initialState, action) => {
         displayConfirmation: true,
         isLoggedIn: true,
         loginMethod: 'Cognito',
-        active: false,
         occupation: action.payload.occupation,
       });
     case authAction.LOGOUT_USER:
@@ -68,7 +64,6 @@ export default (state = initialState, action) => {
         isLoggedIn: false,
         loginMethod: undefined,
         email: '',
-        active: false,
         occupation: '',
         id: '',
         credentials: {}
@@ -78,7 +73,6 @@ export default (state = initialState, action) => {
         isLoggedIn: false,
         loginMethod: undefined,
         email: '',
-        active: false,
         occupation: '',
         credentials: {}
       });
@@ -168,13 +162,5 @@ export default (state = initialState, action) => {
       });
     default:
       return state
-  }
-}
-
-function covertStringToBoolean(bool) {
-  if (bool === "false") {
-    return false;
-  } else if (bool === "true") {
-    return true;
   }
 }

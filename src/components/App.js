@@ -30,12 +30,15 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log('Props: ', this.props);
     if (this.props.checkAuthStatus) {
       this.props.checkAuthStatus();
     }
   }
 
   componentDidUpdate() {
+    console.log('Props: ', this.props);
+
     // Handle Errors
     if (this.props.err && this.props.err.name === 'UserNotConfirmedException' && !this.state.userNotConfirmed) {
       this.props.handleUnverifiedUser();
@@ -75,6 +78,12 @@ class App extends Component {
           googleLogoutUser={this.props.googleLogoutUser}
         />
         {this.props.isLoggedIn && !this.props.active && <SignUpPage />}
+        {this.props.active && <Home
+          googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q'
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />}
         {!this.props.isLoggedIn && <Home
           googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q'
           loadingElement={<div style={{ height: `100%` }} />}
@@ -135,7 +144,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.authReducer
+  ...state.authReducer,
+  ...state.userReducer
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -39,7 +39,7 @@ class SignUpPage extends Component {
     return null
   }
 
-  convertToBoolean(bool) {
+  convertStringToBoolean(bool) {
     if (bool === 'true') {
       return true;
     } else if (bool === 'false') {

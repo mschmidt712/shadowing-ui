@@ -37,7 +37,6 @@ export const loginUser = (email, password) => {
               payload: {
                 credentials,
                 email,
-                active: attributes['custom:active'],
                 occupation: attributes['custom:occupation'],
                 id: attributes.sub
               }
@@ -158,7 +157,6 @@ export const checkAuthStatus = () => {
           payload: {
             isLoggedIn: true,
             email: attributes.email,
-            active: attributes['custom:active'],
             occupation: attributes['custom:occupation'],
             id: attributes.sub,
             credentials
@@ -192,18 +190,13 @@ export const registerUser = (email, password, occupation) => {
       Name: 'email',
       Value: email
     };
-    const dataActive = {
-      Name: 'custom:active',
-      Value: 'false'
-    };
     const dataOccupation = {
       Name: 'custom:occupation',
       Value: occupation
     };
     const attributeEmail = new CognitoUserAttribute(dataEmail);
-    const attributeActive = new CognitoUserAttribute(dataActive);
     const attributeOccupation = new CognitoUserAttribute(dataOccupation);
-    attributeList = [...attributeList, attributeEmail, attributeActive, attributeOccupation];
+    attributeList = [...attributeList, attributeEmail, attributeOccupation];
 
     return new Promise((resolve, reject) => {
       userPool.signUp(email, password, attributeList, null, function (err, result) {
