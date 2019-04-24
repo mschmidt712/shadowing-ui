@@ -21,14 +21,14 @@ function SignUp(props) {
               <label>What kind of account would you like to create?</label>
               <div className="radio-form">
                 <input type="radio" name="occupation" value="doctor" id="doctor" onChange={props.onInputChange} checked={doctorChecked} />
-                <label for="doctor">Doctor</label>
+                <label htmlFor="doctor">Doctor</label>
               </div>
               <div className="radio-form">
                 <input type="radio" name="occupation" value="student" id="student" onChange={props.onInputChange} />
-                <label for="student">Student</label>
+                <label htmlFor="student">Student</label>
               </div>
             </div>
-            <button className="primary" onClick={() => props.registerUser(props.email, props.password)}>Sign Up</button>
+            <button className="primary" onClick={() => props.registerUser(props.email, props.password, props.occupation)}>Sign Up</button>
           </div>
         </div>
       </div>

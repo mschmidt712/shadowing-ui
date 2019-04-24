@@ -3,6 +3,7 @@ import * as authAction from '../actions/authTypes';
 const initialState = {
   credentials: {},
   email: '',
+  occupation: '',
   picture: undefined,
   active: false,
   isLoggedIn: false,
@@ -23,6 +24,7 @@ export default (state = initialState, action) => {
         credentials: action.payload.credentials,
         email: action.payload.email,
         active: action.payload.active,
+        occupation: action.payload.occupation,
         isLoggedIn: true,
         loginMethod: 'Cognito',
         displayLogin: false
@@ -35,6 +37,7 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         credentials: action.payload.credentials,
         active: action.payload.active,
+        occupation: action.payload.occupation,
         isLoggedIn: action.payload.isLoggedIn,
         loginMethod: 'Cognito'
       });
@@ -53,7 +56,8 @@ export default (state = initialState, action) => {
         displayConfirmation: true,
         isLoggedIn: true,
         loginMethod: 'Cognito',
-        active: false
+        active: false,
+        occupation: action.payload.occupation,
       });
     case authAction.LOGOUT_USER:
       return Object.assign({}, state, {
@@ -61,6 +65,7 @@ export default (state = initialState, action) => {
         loginMethod: undefined,
         email: '',
         active: false,
+        occupation: '',
         credentials: {}
       });
     case authAction.DELETE_USER:
@@ -69,6 +74,7 @@ export default (state = initialState, action) => {
         loginMethod: undefined,
         email: '',
         active: false,
+        occupation: '',
         credentials: {}
       });
     case authAction.CONFIRM_PASSWORD:

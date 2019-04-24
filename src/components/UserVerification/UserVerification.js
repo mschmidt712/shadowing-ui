@@ -17,7 +17,7 @@ function Verification(props) {
           <div className="form">
             <label>Verfication Code</label>
             <input type="number" name="verification" value={props.verification} onChange={props.onVerificationChange} />
-            <button className="primary" onClick={() => props.verifyUser(props.email, props.password, props.verification)}>Sign Up</button>
+            <button className="primary" onClick={() => props.verifyUser(props.email, props.password, props.verification, props.occupation)}>Sign Up</button>
           </div>
         </div>
       </div>

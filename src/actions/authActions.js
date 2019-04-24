@@ -37,7 +37,8 @@ export const loginUser = (email, password) => {
               payload: {
                 credentials,
                 email,
-                active: attributes['custom:active']
+                active: attributes['custom:active'],
+                occupation: attributes['custom:occupation']
               }
             });
           });
@@ -66,6 +67,9 @@ const loginUserWithoutAction = (email, password) => {
     Pool: userPool
   });
   cognitoUser.authenticateUser(authenticationDetails, {
+    onSuccess: () => {
+      return;
+    },
     onFailure: (err) => {
       throw new Error(err);
     }
@@ -153,6 +157,7 @@ export const checkAuthStatus = () => {
           payload: {
             isLoggedIn: true,
             active: attributes['custom:active'],
+            occupation: attributes['custom:occupation'],
             credentials
           }
         });
@@ -175,7 +180,7 @@ export const checkAuthStatus = () => {
   }
 }
 
-export const registerUser = (email, password) => {
+export const registerUser = (email, password, occupation) => {
   return (dispatch) => {
     const userPool = new CognitoUserPool(poolData);
 
@@ -188,9 +193,14 @@ export const registerUser = (email, password) => {
       Name: 'custom:active',
       Value: 'false'
     };
+    const dataOccupation = {
+      Name: 'custom:occupation',
+      Value: occupation
+    };
     const attributeEmail = new CognitoUserAttribute(dataEmail);
     const attributeActive = new CognitoUserAttribute(dataActive);
-    attributeList = [...attributeList, attributeEmail, attributeActive];
+    const attributeOccupation = new CognitoUserAttribute(dataOccupation);
+    attributeList = [...attributeList, attributeEmail, attributeActive, attributeOccupation];
 
     return new Promise((resolve, reject) => {
       userPool.signUp(email, password, attributeList, null, function (err, result) {
@@ -216,7 +226,7 @@ export const registerUser = (email, password) => {
   }
 }
 
-export const verifyUser = (email, password, verification) => {
+export const verifyUser = (email, password, verification, occupation) => {
   return (dispatch) => {
     const userPool = new CognitoUserPool(poolData);
     const userData = {
@@ -238,7 +248,10 @@ export const verifyUser = (email, password, verification) => {
       return loginUserWithoutAction(email, password);
     }).then(() =>
       dispatch({
-        type: authAction.VERIFY_USER
+        type: authAction.VERIFY_USER,
+        payload: {
+          occupation
+        }
       })
     ).catch(err => {
       return dispatch({

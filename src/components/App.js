@@ -6,9 +6,9 @@ import './App.css';
 import AppHeader from './Header/Header';
 import Home from './Home/Home';
 import Login from './Login/Login';
-import SignUp from './SignUp/SignUp';
+import SignUp from './SignUpModal/SignUpModal';
 import UserVerification from './UserVerification/UserVerification';
-import SignUpConfirmation from './SignUpConfirmation/SignUpConfirmation';
+import SignUpConfirmation from './SignUpConfirmationModal/SignUpConfirmationModal';
 import ForgotPassword from './ForgotPassword/ForgotPassword';
 
 import * as authActions from '../actions/authActions';
@@ -104,6 +104,7 @@ class App extends Component {
             email={this.state.email}
             password={this.state.password}
             verification={this.state.verification}
+            occupation={this.state.occupation}
             unverifiedUser={this.props.unverifiedUser}
             onVerificationChange={this.onInputChange}
             verifyUser={this.props.verifyUser}
@@ -140,7 +141,7 @@ const mapDispatchToProps = dispatch => ({
   facebookLogoutUser: () => dispatch(authActions.facebookLogoutUser()),
   googleLogoutUser: () => dispatch(authActions.googleLogoutUser()),
   checkAuthStatus: () => dispatch(authActions.checkAuthStatus()),
-  registerUser: (email, password) => dispatch(authActions.registerUser(email, password)),
+  registerUser: (email, password, occupation) => dispatch(authActions.registerUser(email, password, occupation)),
   resendVerification: (email) => dispatch(authActions.resendVerification(email)),
   verifyUser: (email, password, verification) => dispatch(authActions.verifyUser(email, password, verification)),
   forgotPassword: (email) => dispatch(authActions.forgotPassword(email)),
