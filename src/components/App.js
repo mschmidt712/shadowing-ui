@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import './App.css';
 import AppHeader from './Header/Header';
 import Home from './Home/Home';
+import SignUpPage from './SignUpPage/SignUpPage';
 import Login from './Login/Login';
-import SignUp from './SignUpModal/SignUpModal';
+import SignUpModal from './SignUpModal/SignUpModal';
 import UserVerification from './UserVerification/UserVerification';
 import SignUpConfirmation from './SignUpConfirmationModal/SignUpConfirmationModal';
 import ForgotPassword from './ForgotPassword/ForgotPassword';
@@ -73,12 +74,13 @@ class App extends Component {
           facebookLogoutUser={this.props.facebookLogoutUser}
           googleLogoutUser={this.props.googleLogoutUser}
         />
-        <Home
+        {this.props.isLoggedIn && !this.props.active && <SignUpPage />}
+        {!this.props.isLoggedIn && <Home
           googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q'
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `400px` }} />}
           mapElement={<div style={{ height: `100%` }} />}
-        />
+        />}
         {this.props.displayLogin &&
           <Login
             email={this.state.email}
@@ -92,7 +94,7 @@ class App extends Component {
             handleForgotPasswordClick={this.props.handleForgotPasswordClick}
           />}
         {this.props.displaySignUp &&
-          <SignUp
+          <SignUpModal
             email={this.state.email}
             password={this.state.password}
             confirmPassword={this.state.confirmPassword}

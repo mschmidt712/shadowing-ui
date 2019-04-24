@@ -38,7 +38,8 @@ export const loginUser = (email, password) => {
                 credentials,
                 email,
                 active: attributes['custom:active'],
-                occupation: attributes['custom:occupation']
+                occupation: attributes['custom:occupation'],
+                id: attributes.sub
               }
             });
           });
@@ -156,8 +157,10 @@ export const checkAuthStatus = () => {
           type: authAction.CHECK_AUTH_STATUS,
           payload: {
             isLoggedIn: true,
+            email: attributes.email,
             active: attributes['custom:active'],
             occupation: attributes['custom:occupation'],
+            id: attributes.sub,
             credentials
           }
         });

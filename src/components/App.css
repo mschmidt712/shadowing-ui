@@ -6,7 +6,7 @@
 }
 
 /* Button Styling */
-button {
+button, input.button {
   height: 3em;
   border-radius: 5px;
   border: 0;
@@ -15,9 +15,15 @@ button {
   cursor: pointer;
 }
 
-button.primary {
+button.primary, input.primary {
   background: #6558f5;
   color: #fff;
+}
+
+button.secondary, input.secondary {
+  background: #fff;
+  color: #6558f5;
+  border: 1px solid #6558f5;
 }
 
 button.link {
@@ -87,11 +93,56 @@ button[disabled]{
   padding: 1em;
 }
 
+.form-element {
+  padding: 1em;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+}
+
+@media screen and (min-width: 480px) {
+  .form-element {
+    width: 80%;
+    flex-direction: row;
+  }
+
+  .form-element > label {
+    width: 10%;
+    min-width: 100px;
+  }
+
+  .form-input {
+    display: initial;
+    align-items: flex-start;
+  }
+
+  input {
+    width: 35%;
+  }
+}
+
+.form-element > label {
+  width: 10%;
+  min-width:100px;
+}
+
 input {
-  width: 40%;
   height: 2em;
   border-radius: 5px;
-  border: 0;
+  border: 1px solid #dfe7ed;
+  margin: 0.5em;
+}
+
+select {
+  height: 2em;
+  border-radius: 5px;
+  border: 1px solid #dfe7ed;
   margin: 0.5em;
 }
 
@@ -99,6 +150,7 @@ input {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content:  center;
 }
 
 .radio-form > input {

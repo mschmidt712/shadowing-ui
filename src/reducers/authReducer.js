@@ -4,6 +4,7 @@ const initialState = {
   credentials: {},
   email: '',
   occupation: '',
+  id: '',
   picture: undefined,
   active: false,
   isLoggedIn: false,
@@ -23,8 +24,9 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         credentials: action.payload.credentials,
         email: action.payload.email,
-        active: action.payload.active,
+        active: covertStringToBoolean(action.payload.active),
         occupation: action.payload.occupation,
+        id: action.payload.id,
         isLoggedIn: true,
         loginMethod: 'Cognito',
         displayLogin: false
@@ -36,8 +38,10 @@ export default (state = initialState, action) => {
     case authAction.CHECK_AUTH_STATUS:
       return Object.assign({}, state, {
         credentials: action.payload.credentials,
-        active: action.payload.active,
+        active: covertStringToBoolean(action.payload.active),
+        email: action.payload.email,
         occupation: action.payload.occupation,
+        id: action.payload.id,
         isLoggedIn: action.payload.isLoggedIn,
         loginMethod: 'Cognito'
       });
@@ -66,6 +70,7 @@ export default (state = initialState, action) => {
         email: '',
         active: false,
         occupation: '',
+        id: '',
         credentials: {}
       });
     case authAction.DELETE_USER:
@@ -163,5 +168,13 @@ export default (state = initialState, action) => {
       });
     default:
       return state
+  }
+}
+
+function covertStringToBoolean(bool) {
+  if (bool === "false") {
+    return false;
+  } else if (bool === "true") {
+    return true;
   }
 }
