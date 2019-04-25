@@ -4,6 +4,8 @@ import AWS from 'aws-sdk';
 import * as authAction from './authTypes';
 import awsData from '../aws-config.json';
 
+import { getStudent } from '../actions/userActions';
+
 const poolData = {
   UserPoolId: awsData['pool-id'],
   ClientId: awsData['app-client']
@@ -32,6 +34,8 @@ export const loginUser = (email, password) => {
 
             return getUserCredentials(authResult);
           }).then(credentials => {
+            dispatch(getStudent(email));
+
             return dispatch({
               type: authAction.LOGIN_USER,
               payload: {
@@ -152,6 +156,8 @@ export const checkAuthStatus = () => {
         attributes = attributesResult;
         return getUserCredentials(session);
       }).then(credentials => {
+        dispatch(getStudent(attributes.email));
+
         return dispatch({
           type: authAction.CHECK_AUTH_STATUS,
           payload: {
@@ -401,6 +407,8 @@ export const deleteUser = () => {
 export const facebookLoginUser = (email, picture, token) => {
   return dispatch => {
     return getFacebookUserCredentials(token).then(credentials => {
+      dispatch(getStudent(email));
+
       return dispatch({
         type: authAction.FACEBOOK_LOGIN_USER,
         payload: {
@@ -449,6 +457,8 @@ export const facebookLogoutUser = () => {
 export const googleLoginUser = (email, picture, token) => {
   return dispatch => {
     return getGoogleUserCredentials(token).then(credentials => {
+      dispatch(getStudent(email));
+
       return dispatch({
         type: authAction.GOOGLE_LOGIN_USER,
         payload: {

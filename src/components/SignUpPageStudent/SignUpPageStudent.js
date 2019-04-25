@@ -57,7 +57,7 @@ class SignUpPage extends Component {
       zipCode: this.state.zipCode,
     };
     const phoneNumber = this.formatPhoneNumber(this.state.phoneNumber);
-    const hipaaCert = this.convertToBoolean(this.state.hipaaCert);
+    const hipaaCert = this.convertStringToBoolean(this.state.hipaaCert);
 
     const data = {
       email: this.props.email,
@@ -190,7 +190,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createStudent: (data) => dispatch(userActions.createStudent(data))
+  createStudent: (data) => dispatch(userActions.createStudent(data)),
+  getStudent: (email) => dispatch(userActions.getStudent(email))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

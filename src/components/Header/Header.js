@@ -48,7 +48,8 @@ function Header(props) {
     header = (<header className="app-header-condensed">
       <h1 className="app-title" >Find Shadowing</h1>
       <button className="link about-us">About Us</button>
-      <button className="primary login">Login</button>
+      {!props.isLoggedIn && userNotLoggedIn}
+      {props.isLoggedIn && userLoggedIn}
     </header>);
   }
 
