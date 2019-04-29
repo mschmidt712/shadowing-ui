@@ -95,6 +95,7 @@ button[disabled]{
 }
 
 .form-element {
+  min-width: 80%;
   padding: 1em;
   margin: auto;
 }
@@ -141,11 +142,41 @@ input {
   margin: 0.5em;
 }
 
+input.dirty:invalid {
+  background-color: #FFCCCC;
+}
+
+input:disabled,
+input[disabled]{
+  background-color: #cccccc;
+  color: #666666;
+}
+
+input[type="file"] {
+  border: none;
+}
+
 select {
   height: 2em;
   border-radius: 5px;
   border: 1px solid #dfe7ed;
   margin: 0.5em;
+}
+
+select.dirty:invalid {
+  background-color: #FFCCCC;
+}
+
+textarea {
+  height: 4em;
+  border-radius: 5px;
+  border: 1px solid #dfe7ed;
+  margin: 0.5em;
+  width: 100%;
+}
+
+textarea.dirty:invalid {
+  background-color: #FFCCCC;
 }
 
 .radio-form {
@@ -156,5 +187,9 @@ select {
 }
 
 .radio-form > input {
+  width: initial;
+}
+
+.checkbox > input {
   width: initial;
 }

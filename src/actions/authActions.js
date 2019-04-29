@@ -1,10 +1,11 @@
 import { AuthenticationDetails, CognitoUserPool, CognitoUser, CognitoUserAttribute } from 'amazon-cognito-identity-js';
+import { push } from 'connected-react-router';
 import AWS from 'aws-sdk';
 
 import * as authAction from './authTypes';
 import awsData from '../aws-config.json';
 
-import { getStudent } from '../actions/userActions';
+import { getStudent, getDoctor } from '../actions/userActions';
 
 const poolData = {
   UserPoolId: awsData['pool-id'],
@@ -34,7 +35,11 @@ export const loginUser = (email, password) => {
 
             return getUserCredentials(authResult);
           }).then(credentials => {
-            dispatch(getStudent(email));
+            if (attributes['custom:occupation'] === 'student') {
+              dispatch(getStudent(attributes.email));
+            } else if (attributes['custom:occupation'] === 'doctor') {
+              dispatch(getDoctor(attributes.email));
+            }
 
             return dispatch({
               type: authAction.LOGIN_USER,
@@ -122,6 +127,7 @@ export const logoutUser = () => {
     dispatch({
       type: authAction.LOGOUT_USER
     });
+    dispatch(push('/'));
   }
 }
 
@@ -156,7 +162,11 @@ export const checkAuthStatus = () => {
         attributes = attributesResult;
         return getUserCredentials(session);
       }).then(credentials => {
-        dispatch(getStudent(attributes.email));
+        if (attributes['custom:occupation'] === 'student') {
+          dispatch(getStudent(attributes.email));
+        } else if (attributes['custom:occupation'] === 'doctor') {
+          dispatch(getDoctor(attributes.email));
+        }
 
         return dispatch({
           type: authAction.CHECK_AUTH_STATUS,
@@ -446,11 +456,12 @@ function getFacebookUserCredentials(token) {
 export const facebookLogoutUser = () => {
   localStorage.clear();
 
-  return dispatch => (
+  return dispatch => {
     dispatch({
       type: authAction.FACEBOOK_LOGOUT_USER
-    })
-  )
+    });
+    dispatch(push('/'));
+  }
 }
 
 //************************* Google Authentication Actions *************************//
@@ -494,11 +505,12 @@ function getGoogleUserCredentials(token) {
 }
 
 export const googleLogoutUser = () => {
-  return dispatch => (
+  return dispatch => {
     dispatch({
       type: authAction.GOOGLE_LOGOUT_USER
-    })
-  )
+    });
+    dispatch(push('/'));
+  }
 }
 
 //************************* Display Actions *************************//

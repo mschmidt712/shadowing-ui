@@ -82,6 +82,7 @@ export default (state = initialState, action) => {
         displayLogin: true
       });
     case authAction.FACEBOOK_LOGIN_USER:
+      console.log(action.payload)
       return Object.assign({}, state, {
         isLoggedIn: true,
         loginMethod: 'Facebook',

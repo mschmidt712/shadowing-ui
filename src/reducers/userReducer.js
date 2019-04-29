@@ -29,6 +29,28 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         active: false
       });
+    case userAction.CREATE_DOCTOR:
+      return Object.assign({}, state, {
+        name: action.payload.name,
+        degree: action.payload.degree,
+        address: action.payload.address,
+        specialty: action.payload.specialty,
+        approved: action.payload.approved,
+        active: true
+      });
+    case userAction.GET_DOCTOR_SUCCESS:
+      return Object.assign({}, state, {
+        name: action.payload.name,
+        degree: action.payload.degree,
+        address: action.payload.address,
+        specialty: action.payload.specialty,
+        approved: action.payload.approved,
+        active: true
+      });
+    case userAction.GET_DOCTOR_FAILURE:
+      return Object.assign({}, state, {
+        active: false
+      });
     default:
       return state;
   }

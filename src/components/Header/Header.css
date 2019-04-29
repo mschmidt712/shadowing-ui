@@ -38,8 +38,8 @@
   display: flex;
 }
 
-.login > .icon {
-  padding: 0 10px 0 0;
+.icon {
+  padding: 0 10px;
 }
 
 .round {

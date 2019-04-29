@@ -1,0 +1,14 @@
+.availability {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+}
+
+.availability > .checkbox {
+  width: initial;
+}
+
+.time-picker {
+  width: 40%;
+}
