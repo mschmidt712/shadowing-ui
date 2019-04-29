@@ -140,7 +140,7 @@ const mapDispatchToProps = dispatch => ({
   checkAuthStatus: () => dispatch(authActions.checkAuthStatus()),
   registerUser: (email, password, occupation) => dispatch(authActions.registerUser(email, password, occupation)),
   resendVerification: (email) => dispatch(authActions.resendVerification(email)),
-  verifyUser: (email, password, verification) => dispatch(authActions.verifyUser(email, password, verification)),
+  verifyUser: (email, password, verification, occupation) => dispatch(authActions.verifyUser(email, password, verification, occupation)),
   forgotPassword: (email) => dispatch(authActions.forgotPassword(email)),
   confirmPasswordReset: (email, verification, password) => dispatch(authActions.confirmPasswordReset(email, verification, password)),
   // Display Actions

@@ -257,14 +257,15 @@ export const verifyUser = (email, password, verification, occupation) => {
     }).then(result => {
       console.log(`Account Verification: ${result}`);
 
-      return loginUserWithoutAction(email, password);
-    }).then(() =>
+      return dispatch(loginUser(email, password));
+    }).then(() => {
       dispatch({
         type: authAction.VERIFY_USER,
         payload: {
           occupation
         }
-      })
+      });
+    }
     ).catch(err => {
       return dispatch({
         type: authAction.AUTH_ERROR,
