@@ -29,9 +29,34 @@ export const createStudent = (data) => {
   }
 }
 
-export const getStudent = (email) => {
+export const updateStudent = (data) => {
   return (dispatch) => {
-    const url = `${baseUrl}/student/${email}`;
+    const url = `${baseUrl}/student`;
+
+    return fetch(url, {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(() => {
+        dispatch({
+          type: userAction.UPDATE_STUDENT,
+          payload: data.student
+        });
+        dispatch(push('/'));
+        return;
+      })
+      .catch(err => console.error(err));
+  }
+}
+
+export const getStudent = (id) => {
+  return (dispatch) => {
+    const url = `${baseUrl}/student/${id}`;
 
     return fetch(url, {
       method: "GET",
@@ -64,8 +89,6 @@ export const getStudent = (email) => {
 
 export const createDoctor = (data, credentials) => {
   return (dispatch) => {
-    console.log('Credentials: ', credentials);
-
     const url = `${baseUrl}/doctor`;
 
     var s3 = new AWS.S3({
@@ -108,9 +131,54 @@ export const createDoctor = (data, credentials) => {
   }
 }
 
-export const getDoctor = (email) => {
+
+export const updateDoctor = (data, credentials) => {
   return (dispatch) => {
-    const url = `${baseUrl}/doctor/${email}`;
+    const url = `${baseUrl}/doctor`;
+
+    var s3 = new AWS.S3({
+      region: 'us-east-1',
+      credentials
+    });
+    var params = { Bucket: 'physician-badge-image', Key: `${data.id}.jpg`, Body: data.badgePhoto };
+    var options = { partSize: 10 * 1024 * 1024, queueSize: 1 };
+
+    return new Promise((resolve, reject) => {
+      return s3.upload(params, options, function (err, data) {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(data.Location);
+      });
+    }).then(photoUpload => {
+      const bodyData = Object.assign({}, data, {
+        badgePhoto: photoUpload
+      });
+
+      return fetch(url, {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ doctor: bodyData }),
+      })
+    }).then(response => response.json())
+      .then(() => {
+        dispatch({
+          type: userAction.UPDATE_DOCTOR,
+          payload: data
+        });
+        dispatch(push('/'));
+        return;
+      })
+      .catch(err => console.error(err));
+  }
+}
+
+export const getDoctor = (id) => {
+  return (dispatch) => {
+    const url = `${baseUrl}/doctor/${id}`;
 
     return fetch(url, {
       method: "GET",

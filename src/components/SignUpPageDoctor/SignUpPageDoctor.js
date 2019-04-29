@@ -164,7 +164,11 @@ class SignUpPageDoctor extends Component {
       approved: false
     }
 
-    this.props.createDoctor(data, this.props.credentials);
+    if (this.props.active) {
+      this.props.updateDoctor(data, this.props.credentials);
+    } else {
+      this.props.createDoctor(data, this.props.credentials);
+    }
   }
 
   render() {
@@ -221,6 +225,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   createDoctor: (data, credentials) => dispatch(userActions.createDoctor(data, credentials)),
+  updateDoctor: (data, credentials) => dispatch(userActions.updateDoctor(data, credentials)),
   getStudent: (email) => dispatch(userActions.getStudent(email))
 });
 

@@ -36,9 +36,9 @@ export const loginUser = (email, password) => {
             return getUserCredentials(authResult);
           }).then(credentials => {
             if (attributes['custom:occupation'] === 'student') {
-              dispatch(getStudent(attributes.email));
+              dispatch(getStudent(attributes.sub));
             } else if (attributes['custom:occupation'] === 'doctor') {
-              dispatch(getDoctor(attributes.email));
+              dispatch(getDoctor(attributes.sub));
             }
 
             return dispatch({
@@ -62,27 +62,6 @@ export const loginUser = (email, password) => {
       }
     });
   }
-}
-
-const loginUserWithoutAction = (email, password) => {
-  const authenticationDetails = new AuthenticationDetails({
-    Username: email,
-    Password: password,
-  });
-
-  const userPool = new CognitoUserPool(poolData);
-  const cognitoUser = new CognitoUser({
-    Username: email,
-    Pool: userPool
-  });
-  cognitoUser.authenticateUser(authenticationDetails, {
-    onSuccess: () => {
-      return;
-    },
-    onFailure: (err) => {
-      throw new Error(err);
-    }
-  });
 }
 
 function retrieveUserAttributes(user) {
@@ -163,9 +142,9 @@ export const checkAuthStatus = () => {
         return getUserCredentials(session);
       }).then(credentials => {
         if (attributes['custom:occupation'] === 'student') {
-          dispatch(getStudent(attributes.email));
+          dispatch(getStudent(attributes.sub));
         } else if (attributes['custom:occupation'] === 'doctor') {
-          dispatch(getDoctor(attributes.email));
+          dispatch(getDoctor(attributes.sub));
         }
 
         return dispatch({
@@ -420,7 +399,7 @@ export const facebookLoginUser = (email, picture, token, id) => {
     return getFacebookUserCredentials(token).then(credentials => {
       console.log('Credentials', credentials);
 
-      dispatch(getStudent(email));
+      dispatch(getStudent(id));
 
       return dispatch({
         type: authAction.FACEBOOK_LOGIN_USER,
@@ -472,7 +451,7 @@ export const facebookLogoutUser = () => {
 export const googleLoginUser = (email, picture, token, id) => {
   return dispatch => {
     return getGoogleUserCredentials(token).then(credentials => {
-      dispatch(getStudent(email));
+      dispatch(getStudent(id));
 
       return dispatch({
         type: authAction.GOOGLE_LOGIN_USER,

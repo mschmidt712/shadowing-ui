@@ -97,7 +97,11 @@ class SignUpPageStudent extends Component {
       hipaaCert
     }
 
-    this.props.createStudent({ student: data });
+    if (this.props.active) {
+      this.props.updateStudent({ student: data });
+    } else {
+      this.props.createStudent({ student: data });
+    }
   }
 
   render() {
@@ -226,6 +230,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   createStudent: (data) => dispatch(userActions.createStudent(data)),
+  updateStudent: (data) => dispatch(userActions.updateStudent(data)),
   getStudent: (email) => dispatch(userActions.getStudent(email))
 });
 
