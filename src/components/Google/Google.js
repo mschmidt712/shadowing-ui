@@ -8,7 +8,9 @@ import './Google.css';
 
 class Google extends Component {
   responseGoogle = (response) => {
-    this.props.googleLoginUser(response.profileObj.email, response.profileObj.imageUrl, response.tokenId)
+    console.log(response);
+
+    this.props.googleLoginUser(response.profileObj.email, response.profileObj.imageUrl, response.tokenId, response.googleId)
   }
 
   render() {
@@ -21,7 +23,7 @@ class Google extends Component {
             Continue with Google
           </button>
         )}
-        autoLoad={false}
+        autoLoad={true}
         onSuccess={this.responseGoogle}
         onFailure={this.responseGoogle}
         cookiePolicy={'single_host_origin'}
@@ -35,7 +37,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  googleLoginUser: (email, picture, token) => dispatch(googleLoginUser(email, picture, token))
+  googleLoginUser: (email, picture, token, id) => dispatch(googleLoginUser(email, picture, token, id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Google);

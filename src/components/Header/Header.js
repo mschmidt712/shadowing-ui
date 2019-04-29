@@ -12,11 +12,11 @@ function Header(props) {
     {props.picture && <button className="icon">
       <img src={props.picture} alt="User" className="round" />
     </button>}
-    {props.loginMethod === "Cognito" &&
+    {props.loginMethod === "cognito" &&
       <button className="primary" onClick={props.logoutUser}>Logout</button>}
-    {props.loginMethod === "Facebook" &&
+    {props.loginMethod === "facebook" &&
       <button className="primary" onClick={props.facebookLogoutUser}>Logout</button>}
-    {props.loginMethod === "Google" &&
+    {props.loginMethod === "google" &&
       <GoogleLogout
         render={renderProps => (
           <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="primary">

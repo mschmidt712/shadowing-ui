@@ -414,15 +414,18 @@ export const deleteUser = () => {
 }
 
 //************************* Facebook Authentication Actions *************************//
-export const facebookLoginUser = (email, picture, token) => {
+export const facebookLoginUser = (email, picture, token, id) => {
   return dispatch => {
     return getFacebookUserCredentials(token).then(credentials => {
+      console.log('Credentials', credentials);
+
       dispatch(getStudent(email));
 
       return dispatch({
         type: authAction.FACEBOOK_LOGIN_USER,
         payload: {
           credentials,
+          id,
           email,
           picture
         }
@@ -465,7 +468,7 @@ export const facebookLogoutUser = () => {
 }
 
 //************************* Google Authentication Actions *************************//
-export const googleLoginUser = (email, picture, token) => {
+export const googleLoginUser = (email, picture, token, id) => {
   return dispatch => {
     return getGoogleUserCredentials(token).then(credentials => {
       dispatch(getStudent(email));
@@ -475,7 +478,8 @@ export const googleLoginUser = (email, picture, token) => {
         payload: {
           credentials,
           email,
-          picture
+          picture,
+          id
         }
       });
     }).catch(err => {

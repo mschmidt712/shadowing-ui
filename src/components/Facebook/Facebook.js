@@ -8,14 +8,16 @@ import './Facebook.css';
 
 class Facebook extends Component {
   responseFacebook = (response) => {
-    this.props.facebookLoginUser(response.email, response.picture.data.url, response.accessToken);
+    console.log(response);
+
+    this.props.facebookLoginUser(response.email, response.picture.data.url, response.accessToken, response.id);
   }
 
   render() {
     return <FacebookLogin
       appId={awsData['facebook-app-id']}
-      autoLoad={false}
-      fields="name,email,picture"
+      autoLoad={true}
+      fields="id,name,email,picture"
       cssClass="facebook"
       callback={this.responseFacebook}
       icon="fa-facebook-square"
@@ -29,7 +31,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  facebookLoginUser: (email, picture, accessToken) => dispatch(facebookLoginUser(email, picture, accessToken))
+  facebookLoginUser: (email, picture, accessToken, id) => dispatch(facebookLoginUser(email, picture, accessToken, id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Facebook);

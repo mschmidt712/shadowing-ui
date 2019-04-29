@@ -94,8 +94,7 @@ class SignUpPageStudent extends Component {
       loginMethod: this.props.loginMethod,
       address,
       phoneNumber,
-      hipaaCert,
-      active: true
+      hipaaCert
     }
 
     this.props.createStudent({ student: data });

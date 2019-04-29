@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
         occupation: action.payload.occupation,
         id: action.payload.id,
         isLoggedIn: true,
-        loginMethod: 'Cognito',
+        loginMethod: 'cognito',
         displayLogin: false
       });
     case authAction.AUTH_ERROR:
@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
         occupation: action.payload.occupation,
         id: action.payload.id,
         isLoggedIn: action.payload.isLoggedIn,
-        loginMethod: 'Cognito'
+        loginMethod: 'cognito'
       });
     case authAction.REGISTER_USER:
       return Object.assign({}, state, {
@@ -56,7 +56,7 @@ export default (state = initialState, action) => {
         displayVerification: false,
         displayConfirmation: true,
         isLoggedIn: true,
-        loginMethod: 'Cognito',
+        loginMethod: 'cognito',
         occupation: action.payload.occupation,
       });
     case authAction.LOGOUT_USER:
@@ -85,9 +85,10 @@ export default (state = initialState, action) => {
       console.log(action.payload)
       return Object.assign({}, state, {
         isLoggedIn: true,
-        loginMethod: 'Facebook',
+        loginMethod: 'facebook',
         displayLogin: false,
         credentials: action.payload.credentials,
+        id: action.payload.id,
         email: action.payload.email,
         picture: action.payload.picture
       });
@@ -102,9 +103,10 @@ export default (state = initialState, action) => {
     case authAction.GOOGLE_LOGIN_USER:
       return Object.assign({}, state, {
         isLoggedIn: true,
-        loginMethod: 'Google',
+        loginMethod: 'google',
         displayLogin: false,
         credentials: action.payload.credentials,
+        id: action.payload.id,
         email: action.payload.email,
         picture: action.payload.picture
       });
