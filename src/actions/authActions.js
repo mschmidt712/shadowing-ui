@@ -397,8 +397,6 @@ export const deleteUser = () => {
 export const facebookLoginUser = (email, picture, token, id) => {
   return dispatch => {
     return getFacebookUserCredentials(token).then(credentials => {
-      console.log('Credentials', credentials);
-
       dispatch(getStudent(id));
 
       return dispatch({

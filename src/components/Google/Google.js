@@ -8,8 +8,6 @@ import './Google.css';
 
 class Google extends Component {
   responseGoogle = (response) => {
-    console.log(response);
-
     this.props.googleLoginUser(response.profileObj.email, response.profileObj.imageUrl, response.tokenId, response.googleId)
   }
 

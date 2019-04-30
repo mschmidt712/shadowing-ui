@@ -4,7 +4,8 @@ const initialState = {
   active: false,
   name: '',
   address: '',
-  phoneNumber: undefined
+  phoneNumber: undefined,
+  hipaaCert: undefined,
 };
 
 export default (state = initialState, action) => {

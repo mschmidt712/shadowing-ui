@@ -226,7 +226,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createDoctor: (data, credentials) => dispatch(userActions.createDoctor(data, credentials)),
   updateDoctor: (data, credentials) => dispatch(userActions.updateDoctor(data, credentials)),
-  getStudent: (email) => dispatch(userActions.getStudent(email))
+  getStudent: (id) => dispatch(userActions.getStudent(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPageDoctor);

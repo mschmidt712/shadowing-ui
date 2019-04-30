@@ -8,8 +8,6 @@ import './Facebook.css';
 
 class Facebook extends Component {
   responseFacebook = (response) => {
-    console.log(response);
-
     this.props.facebookLoginUser(response.email, response.picture.data.url, response.accessToken, response.id);
   }
 

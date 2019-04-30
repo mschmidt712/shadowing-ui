@@ -62,6 +62,7 @@ class App extends Component {
       <div className="App">
         <AppHeader
           location={this.props.location}
+          id={this.props.id}
           picture={this.props.picture}
           isLoggedIn={this.props.isLoggedIn}
           loginMethod={this.props.loginMethod}

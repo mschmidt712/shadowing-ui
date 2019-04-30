@@ -1,17 +1,21 @@
 import React from 'react';
 import { GoogleLogout } from 'react-google-login';
+import { Link } from 'react-router-dom';
 
 import './Header.css';
 
 function Header(props) {
   const userNotLoggedIn = (<button className="primary login" onClick={props.handleLoginClick}>Login</button>);
   const userLoggedIn = (<div className="login">
-    {!props.picture && <button className="icon">
-      <i className="fas fa-user-circle"></i>
-    </button>}
-    {props.picture && <button className="icon">
-      <img src={props.picture} alt="User" className="round" />
-    </button>}
+    <Link to={`/user?id=${props.id}`}>
+      {!props.picture &&
+        <button className="icon">
+          <i className="fas fa-user-circle"></i>
+        </button>}
+      {props.picture && <button className="icon">
+        <img src={props.picture} alt="User" className="round" />
+      </button>}
+    </Link>
     {props.loginMethod === "cognito" &&
       <button className="primary" onClick={props.logoutUser}>Logout</button>}
     {props.loginMethod === "facebook" &&

@@ -8,16 +8,18 @@ class SignUpPageStudent extends Component {
   constructor(props) {
     super(props)
 
+    console.log(props);
+
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      streetAddress: '',
-      city: '',
-      state: '',
-      zipCode: undefined,
-      phoneNumber: undefined,
-      hipaaCert: false,
+      firstName: props.firstName || '',
+      lastName: props.lastName || '',
+      email: props.email || '',
+      streetAddress: props.address.streetAddress || '',
+      city: props.address.city || '',
+      state: props.address.state || '',
+      zipCode: props.address.zipCode || undefined,
+      phoneNumber: props.phoneNumber || undefined,
+      hipaaCert: props.hipaaCert || false,
       touched: 'clean'
     }
 
@@ -26,6 +28,24 @@ class SignUpPageStudent extends Component {
 
     this.validateForm = this.validateForm.bind(this);
     this.createStudent = this.createStudent.bind(this);
+  }
+
+  componentDidUpdate(previousProps, previousState) {
+    if (previousProps !== this.props) {
+      const [firstName, lastName] = this.props.name.split(' ');
+
+      this.setState({
+        firstName: firstName || '',
+        lastName: lastName || '',
+        email: this.props.email || '',
+        streetAddress: this.props.address.streetAddress || '',
+        city: this.props.address.city || '',
+        state: this.props.address.state || '',
+        zipCode: this.props.address.zipCode || undefined,
+        phoneNumber: this.props.phoneNumber || undefined,
+        hipaaCert: this.props.hipaaCert || false,
+      });
+    }
   }
 
   onInputChange(event) {
@@ -207,11 +227,11 @@ class SignUpPageStudent extends Component {
           <ReactTooltip />
           <div className="form-input">
             <div className="radio-form">
-              <input type="radio" name="hipaaCert" value={true} id="yes" onChange={this.onInputChange} className={this.state.touched} required />
+              <input type="radio" name="hipaaCert" value={true} id="yes" onChange={this.onInputChange} className={this.state.touched} checked={this.state.hipaaCert} required />
               <label htmlFor="yes">Yes</label>
             </div>
             <div className="radio-form">
-              <input type="radio" name="hipaaCert" value={false} id="no" onChange={this.onInputChange} className={this.state.touched} required />
+              <input type="radio" name="hipaaCert" value={false} id="no" onChange={this.onInputChange} className={this.state.touched} checked={!this.state.hipaaCert} required />
               <label htmlFor="no">No</label>
             </div>
           </div>
@@ -231,7 +251,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createStudent: (data) => dispatch(userActions.createStudent(data)),
   updateStudent: (data) => dispatch(userActions.updateStudent(data)),
-  getStudent: (email) => dispatch(userActions.getStudent(email))
+  getStudent: (id) => dispatch(userActions.getStudent(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPageStudent);
