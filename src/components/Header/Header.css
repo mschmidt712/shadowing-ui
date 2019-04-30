@@ -23,6 +23,10 @@
   .app-header {
     padding: 2em;
   }
+
+  .app-title {
+    font-size: 2em;
+  }
 }
 
 .app-header-condensed > h1 {
@@ -31,6 +35,7 @@
 
 .app-title {
   font-weight: 500;
+  font-size: 1.5em;
 }
 
 .app-subtitle {
