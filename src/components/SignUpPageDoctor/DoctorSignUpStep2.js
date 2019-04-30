@@ -38,9 +38,9 @@ export default function Step2(props) {
         <input type="checkbox" id={day} name={day} checked={props.availability[day].checked} onChange={props.handleAvailabilityDays} className="checkbox" />
         <label htmlFor={day}>{capitalizeWord(day)}</label>
         {props.availability[day].checked && <div className="form-input">
-          <input type="time" name={`${day}_start`} value={props.availability[day][0]} onChange={props.handleAvailabilityTimes} placeholder="Start" className="time-picker" />
+          <input type="time" name={`${day}_start`} value={props.availability[day].times[0]} onChange={props.handleAvailabilityTimes} placeholder="Start" className="time-picker" />
           to
-          <input type="time" name={`${day}_end`} value={props.availability[day][1]} onChange={props.handleAvailabilityTimes} placeholder="End" className="time-picker" />
+          <input type="time" name={`${day}_end`} value={props.availability[day].times[1]} onChange={props.handleAvailabilityTimes} placeholder="End" className="time-picker" />
         </div>}
       </div>
     </div>

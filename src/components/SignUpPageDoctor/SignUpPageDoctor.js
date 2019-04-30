@@ -71,7 +71,7 @@ class SignUpPageDoctor extends Component {
       specialty: props.specialty || '',
       maxRequests: props.maxRequests || undefined,
       availability,
-      shiftLengthMin: props.shiftLength ? props.shiftLength[0] : undefined,
+      shiftLengthMin: props.shiftLength ? Number(props.shiftLength[0]) : undefined,
       shiftLengthMax: props.shiftLength ? props.shiftLength[1] : undefined,
       additionalComments: props.additionalComments || '',
       photoUpload: props.badgePhoto || '',
