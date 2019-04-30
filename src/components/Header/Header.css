@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   background-color: #a3ded8;
-  padding: 2em;
+  padding: 3em 2em 2em;
   margin: 0;
   border-bottom: 2px solid #1aae9f;
 }
@@ -11,9 +11,22 @@
 .app-header-condensed {
   position: relative;
   display: flex;
-  flex-direction: column;
+  height: 100px;
+  align-items: center;
+  justify-content: space-between;
   background-color: #a3ded8;
   border-bottom: 2px solid #1aae9f;
+  padding: 0 1em;
+}
+
+@media screen and (min-width: 480px) {
+  .app-header {
+    padding: 2em;
+  }
+}
+
+.app-header-condensed > h1 {
+  font-size: 1.5em;
 }
 
 .app-title {
@@ -31,11 +44,16 @@
   left: 1em;
 }
 
-.login {
+.app-header > .login {
   position: absolute;
   top: 1em;
   right: 1em;
   display: flex;
+}
+
+.login {
+  display: flex;
+  align-items: center;
 }
 
 .icon {
