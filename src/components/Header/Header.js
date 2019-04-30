@@ -7,6 +7,9 @@ import './Header.css';
 function Header(props) {
   const userNotLoggedIn = (<button className="primary login" onClick={props.handleLoginClick}>Login</button>);
   const userLoggedIn = (<div className="login">
+    <button className="icon">
+      <i class="fas fa-envelope"></i>
+    </button>
     <Link to={`/user?id=${props.id}`}>
       {!props.picture &&
         <button className="icon">
