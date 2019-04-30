@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router'
 
 import './index.css';
@@ -17,15 +17,39 @@ ReactDOM.render((
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Route path="/" component={App} />
-      <Route exact path="/" render={() => <Home
-        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q"
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `400px` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-      />} />
-      <Route path="/user" component={UserPage} />
-      <Route path="/sign-up/student" component={SignUpPageStudent} />
-      <Route path="/sign-up/doctor" component={SignUpPageDoctor} />
+      <Route exact path="/" render={() => {
+        if (store.getState().authReducer.isLoggedIn && !store.getState().userReducer.active) {
+          return <Redirect to={`sign-up/${store.getState().authReducer.occupation}`} />
+        }
+
+        return <Home
+          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />;
+      }} />
+      <Route path="/user" render={() => {
+        if (store.getState().authReducer.isLoggedIn && store.getState().userReducer.active) {
+          return <UserPage />;
+        } else {
+          return <Redirect to='/' />
+        }
+      }} />
+      <Route path="/sign-up/student" render={() => {
+        if (store.getState().authReducer.isLoggedIn) {
+          return <SignUpPageStudent />;
+        } else {
+          return <Redirect to='/' />
+        }
+      }} />
+      <Route path="/sign-up/doctor" render={() => {
+        if (store.getState().authReducer.isLoggedIn) {
+          return <SignUpPageDoctor />;
+        } else {
+          return <Redirect to='/' />
+        }
+      }} />
     </ConnectedRouter>
   </Provider>
 ),
