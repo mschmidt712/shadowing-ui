@@ -45,23 +45,27 @@ export default (state = initialState, action) => {
         address: action.payload.address,
         specialty: action.payload.specialty,
         approved: action.payload.approved,
-        badgePhoto: action.payload.badgePhoto,
+        maxRequests: action.payload.maxRequests,
         scheduling: action.payload.scheduling,
         shiftLength: action.payload.shiftLength,
         additionalComments: action.payload.additionalComments,
+        badgePhoto: action.payload.badgePhoto,
         active: true
       });
     case userAction.UPDATE_DOCTOR:
+      console.log(action.payload);
+
       return Object.assign({}, state, {
         name: action.payload.name,
         degree: action.payload.degree,
         address: action.payload.address,
         specialty: action.payload.specialty,
         approved: action.payload.approved,
-        badgePhoto: action.payload.badgePhoto,
+        maxRequests: action.payload.maxRequests,
         scheduling: action.payload.scheduling,
         shiftLength: action.payload.shiftLength,
         additionalComments: action.payload.additionalComments,
+        badgePhoto: action.payload.badgePhoto,
         active: true
       });
     case userAction.GET_DOCTOR_SUCCESS:
@@ -71,10 +75,11 @@ export default (state = initialState, action) => {
         address: action.payload.address,
         specialty: action.payload.specialty,
         approved: action.payload.approved,
-        badgePhoto: action.payload.badgePhoto,
+        maxRequests: action.payload.maxRequests,
         scheduling: action.payload.scheduling,
         shiftLength: action.payload.shiftLength,
         additionalComments: action.payload.additionalComments,
+        badgePhoto: action.payload.badgePhoto,
         active: true
       });
     case userAction.GET_DOCTOR_FAILURE:

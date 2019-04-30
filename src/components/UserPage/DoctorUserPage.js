@@ -6,8 +6,6 @@ import UserPageMapComponent from './UserPageMapComponent';
 import './UserPage.css';
 
 export default function DoctorUserPage(props) {
-  console.log(props.addressLatLong);
-
   if (!props.scheduling) {
     return <div></div>;
   }

@@ -11,50 +11,70 @@ class SignUpPageDoctor extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      firstName: '',
-      lastName: '',
-      degree: '',
-      streetAddress: '',
-      city: '',
-      state: '',
-      zipCode: undefined,
-      specialty: '',
-      maxShiftsPerWeek: undefined,
-      availability: {
-        sunday: {
-          checked: false,
-          times: []
-        },
-        monday: {
-          checked: false,
-          times: []
-        },
-        tuesday: {
-          checked: false,
-          times: []
-        },
-        wednesday: {
-          checked: false,
-          times: []
-        },
-        thursday: {
-          checked: false,
-          times: []
-        },
-        friday: {
-          checked: false,
-          times: []
-        },
-        saturday: {
-          checked: false,
-          times: []
-        }
+    const [firstName, lastName] = props.name.split(' ');
+
+    let availability = {
+      sunday: {
+        checked: false,
+        times: []
       },
-      shiftLengthMin: undefined,
-      shiftLengthMax: undefined,
-      additionalComments: '',
-      photoUpload: '',
+      monday: {
+        checked: false,
+        times: []
+      },
+      tuesday: {
+        checked: false,
+        times: []
+      },
+      wednesday: {
+        checked: false,
+        times: []
+      },
+      thursday: {
+        checked: false,
+        times: []
+      },
+      friday: {
+        checked: false,
+        times: []
+      },
+      saturday: {
+        checked: false,
+        times: []
+      }
+    };
+    if (props.scheduling) {
+      availability = Object.keys(props.scheduling).reduce((obj, day) => {
+        if (!props.scheduling[day]) {
+          obj[day] = {
+            checked: false,
+            times: []
+          };
+        } else {
+          obj[day] = {
+            checked: true,
+            times: props.scheduling[day]
+          }
+        }
+        return obj;
+      }, {})
+    }
+
+    this.state = {
+      firstName: firstName || '',
+      lastName: lastName || '',
+      degree: props.degree || '',
+      streetAddress: props.address.streetAddress || '',
+      city: props.address.city || '',
+      state: props.address.state || '',
+      zipCode: props.address.zipCode || undefined,
+      specialty: props.specialty || '',
+      maxRequests: props.maxRequests || undefined,
+      availability,
+      shiftLengthMin: props.shiftLength ? props.shiftLength[0] : undefined,
+      shiftLengthMax: props.shiftLength ? props.shiftLength[1] : undefined,
+      additionalComments: props.additionalComments || '',
+      photoUpload: props.badgePhoto || '',
       step: 1,
       stepOneTouched: 'clean',
       stepTwoTouched: 'clean',
@@ -156,7 +176,7 @@ class SignUpPageDoctor extends Component {
       degree: this.state.degree,
       address,
       specialty: this.state.specialty,
-      maxShiftsPerWeek: this.state.maxShiftsPerWeek,
+      maxRequests: this.state.maxRequests,
       scheduling,
       shiftLength,
       additionalComments: this.state.additionalComments || 'None',
@@ -190,7 +210,7 @@ class SignUpPageDoctor extends Component {
           setTouched={this.setTouched}
         />}
         {this.state.step === 2 && <Step2
-          maxShiftsPerWeek={this.state.maxShiftsPerWeek}
+          maxRequests={this.state.maxRequests}
           availability={this.state.availability}
           shiftLengthMin={this.state.shiftLengthMin}
           shiftLengthMax={this.state.shiftLengthMax}

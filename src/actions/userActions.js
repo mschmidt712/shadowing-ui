@@ -90,7 +90,7 @@ export const getStudent = (id) => {
 export const createDoctor = (data, credentials) => {
   return (dispatch) => {
     const url = `${baseUrl}/doctor`;
-    let photoUpload;
+    let badgePhoto;
 
     var s3 = new AWS.S3({
       region: 'us-east-1',
@@ -107,9 +107,9 @@ export const createDoctor = (data, credentials) => {
         return resolve(data.Location);
       });
     }).then(photoUpload => {
-      photoUpload = photoUpload;
+      badgePhoto = photoUpload;
       const bodyData = Object.assign({}, data, {
-        badgePhoto: photoUpload
+        badgePhoto
       });
 
       return fetch(url, {
@@ -126,7 +126,7 @@ export const createDoctor = (data, credentials) => {
           type: userAction.CREATE_DOCTOR,
           payload: {
             ...data,
-            badgePhoto: photoUpload
+            badgePhoto
           }
         });
         dispatch(push('/'));
@@ -140,6 +140,7 @@ export const createDoctor = (data, credentials) => {
 export const updateDoctor = (data, credentials) => {
   return (dispatch) => {
     const url = `${baseUrl}/doctor`;
+    let badgePhoto;
 
     var s3 = new AWS.S3({
       region: 'us-east-1',
@@ -156,8 +157,9 @@ export const updateDoctor = (data, credentials) => {
         return resolve(data.Location);
       });
     }).then(photoUpload => {
+      badgePhoto = photoUpload;
       const bodyData = Object.assign({}, data, {
-        badgePhoto: photoUpload
+        badgePhoto
       });
 
       return fetch(url, {
@@ -172,7 +174,10 @@ export const updateDoctor = (data, credentials) => {
       .then(() => {
         dispatch({
           type: userAction.UPDATE_DOCTOR,
-          payload: data
+          payload: {
+            ...data,
+            badgePhoto
+          }
         });
         dispatch(push('/'));
         return;

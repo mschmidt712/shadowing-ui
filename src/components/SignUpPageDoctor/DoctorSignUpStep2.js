@@ -17,7 +17,7 @@ export default function Step2(props) {
       }
     });
 
-    if (!props.maxShiftsPerWeek) {
+    if (!props.maxRequests) {
       alert('Maximum number of shifts per week is required!');
       return;
     } else if (!availabilityChecked) {
@@ -56,7 +56,7 @@ export default function Step2(props) {
       <div className="form-element">
         <label>What is the maximum shift per week you could respond to?</label>
         <div className="form-input">
-          <input type="number" name="maxShiftsPerWeek" value={props.maxShiftsPerWeek} onChange={props.onInputChange} placeholder="2" className={props.touched} required />
+          <input type="number" name="maxRequests" value={props.maxRequests} onChange={props.onInputChange} placeholder="2" className={props.touched} required />
         </div>
       </div>
       <div className="form-element">
