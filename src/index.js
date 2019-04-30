@@ -23,7 +23,7 @@ ReactDOM.render((
         containerElement={<div style={{ height: `400px` }} />}
         mapElement={<div style={{ height: `100%` }} />}
       />} />
-      <Route path="/user" render={() => <UserPage />} />
+      <Route path="/user" component={UserPage} />
       <Route path="/sign-up/student" component={SignUpPageStudent} />
       <Route path="/sign-up/doctor" component={SignUpPageDoctor} />
     </ConnectedRouter>

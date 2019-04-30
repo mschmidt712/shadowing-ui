@@ -46,6 +46,11 @@ button[disabled]{
   color: #666666;
 }
 
+.no-decoration {
+  text-decoration: none;
+  color: black;
+}
+
 /* Modal Styling */
 .modal {
   position: fixed; /* Stay in place */

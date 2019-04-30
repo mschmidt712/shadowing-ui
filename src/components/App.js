@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './App.css';
 import AppHeader from './Header/Header';
@@ -156,7 +156,6 @@ const mapDispatchToProps = dispatch => ({
   handleConfirmationClose: () => dispatch(authActions.handleConfirmationClose()),
   // Error Actions
   handleError: () => dispatch(authActions.handleError())
-})
+});
 
-render(<App />, document.getElementById('container'));
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default connect(mapStateToProps, mapDispatchToProps)(App);

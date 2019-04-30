@@ -50,7 +50,9 @@ function Header(props) {
     </header>);
   } else {
     header = (<header className="app-header-condensed">
-      <h1 className="app-title" >Find Shadowing</h1>
+      <Link to="/" className="no-decoration">
+        <h1 className="app-title" >Find Shadowing</h1>
+      </Link>
       {!props.isLoggedIn && userNotLoggedIn}
       {props.isLoggedIn && userLoggedIn}
     </header>);
