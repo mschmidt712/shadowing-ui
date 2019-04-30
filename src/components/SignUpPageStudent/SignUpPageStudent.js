@@ -8,11 +8,11 @@ class SignUpPageStudent extends Component {
   constructor(props) {
     super(props)
 
-    console.log(props);
+    const [firstName, lastName] = props.name.split(' ');
 
     this.state = {
-      firstName: props.firstName || '',
-      lastName: props.lastName || '',
+      firstName: firstName || '',
+      lastName: lastName || '',
       email: props.email || '',
       streetAddress: props.address.streetAddress || '',
       city: props.address.city || '',
@@ -30,7 +30,7 @@ class SignUpPageStudent extends Component {
     this.createStudent = this.createStudent.bind(this);
   }
 
-  componentDidUpdate(previousProps, previousState) {
+  componentDidUpdate(previousProps) {
     if (previousProps !== this.props) {
       const [firstName, lastName] = this.props.name.split(' ');
 
