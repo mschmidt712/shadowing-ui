@@ -21,7 +21,7 @@ class Google extends Component {
             Continue with Google
           </button>
         )}
-        autoLoad={true}
+        autoLoad={false}
         onSuccess={this.responseGoogle}
         onFailure={this.responseGoogle}
         cookiePolicy={'single_host_origin'}

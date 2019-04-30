@@ -1,0 +1,45 @@
+.user-header {
+  text-align: center;
+  margin: auto;
+  padding: 1em 0;
+}
+
+.user-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+}
+
+.user-data {
+  text-align: center;
+  font-size: 0.8em;
+  padding-bottom: 1em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.user-map {
+  width: 100%;
+}
+
+@media screen and (min-width: 480px) {
+  .user-body {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .user-data {
+    text-align: left;
+    padding-bottom: 0;
+  }
+
+  .user-map {
+    width: 50%;
+  }
+}
