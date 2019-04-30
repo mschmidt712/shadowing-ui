@@ -90,6 +90,7 @@ export const getStudent = (id) => {
 export const createDoctor = (data, credentials) => {
   return (dispatch) => {
     const url = `${baseUrl}/doctor`;
+    let photoUpload;
 
     var s3 = new AWS.S3({
       region: 'us-east-1',
@@ -106,6 +107,7 @@ export const createDoctor = (data, credentials) => {
         return resolve(data.Location);
       });
     }).then(photoUpload => {
+      photoUpload = photoUpload;
       const bodyData = Object.assign({}, data, {
         badgePhoto: photoUpload
       });
@@ -122,7 +124,10 @@ export const createDoctor = (data, credentials) => {
       .then(() => {
         dispatch({
           type: userAction.CREATE_DOCTOR,
-          payload: data
+          payload: {
+            ...data,
+            badgePhoto: photoUpload
+          }
         });
         dispatch(push('/'));
         return;

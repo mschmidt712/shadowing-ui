@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Geocode from "react-geocode";
 
 import * as userActions from '../../actions/userActions';
 import './UserPage.css';
 import StudentUserPage from './StudentUserPage';
-import { IoTJobsDataPlane } from 'aws-sdk';
+import DoctorUserPage from './DoctorUserPage';
+
 
 class UserPage extends Component {
   constructor(props) {
@@ -16,15 +16,18 @@ class UserPage extends Component {
       hipaaCert: undefined,
       addressLatLong: undefined
     }
+
+    this.geocodeAddress = this.geocodeAddress.bind(this);
   }
 
   componentDidMount() {
     this.geocodeAddress();
   }
 
-  geocodeAddress = () => {
+  geocodeAddress() {
     Geocode.setApiKey("AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q");
     const address = `${this.props.address.streetAddress} ${this.props.address.city}, ${this.props.address.state} ${this.props.address.zipCode}`;
+
     Geocode.fromAddress(address).then(
       response => {
         const { lat, lng } = response.results[0].geometry.location;
@@ -45,14 +48,11 @@ class UserPage extends Component {
     return (
       <div>
         {this.props.occupation === 'student' && <StudentUserPage
-          name={this.props.name}
-          email={this.props.email}
-          phoneNumber={this.props.phoneNumber}
-          address={this.props.address}
-          hipaaCert={this.props.hipaaCert}
+          {...this.props}
           addressLatLong={this.state.addressLatLong} />}
-        {this.props.occupation === 'doctor' &&
-          <div>Doctor</div>}
+        {this.props.occupation === 'doctor' && <DoctorUserPage
+          {...this.props}
+          addressLatLong={this.state.addressLatLong} />}
       </div>
     )
   }

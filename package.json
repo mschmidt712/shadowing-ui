@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "amazon-cognito-identity-js": "^3.0.11",
+    "aws-sdk": "^2.437.0",
     "connected-react-router": "^6.4.0",
+    "moment": "^2.24.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-facebook-login": "^4.1.1",
@@ -33,8 +35,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "aws-sdk": "^2.437.0"
-  }
+  ]
 }

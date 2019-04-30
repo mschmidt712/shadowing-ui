@@ -1,7 +1,13 @@
 .user-header {
   text-align: center;
   margin: auto;
-  padding: 1em 0;
+  padding: 1em 0 0.5em;
+}
+
+.user-subheader {
+  text-align: center;
+  margin: auto;
+  padding-bottom: 2em;
 }
 
 .user-body {
@@ -23,20 +29,69 @@
   align-items: stretch;
 }
 
+.pending {
+  color: #9b870c;
+  font-style: italic;
+  font-weight:500;
+}
+
+.active {
+  color: #006400;
+  font-weight:500;
+}
+
+.scheduling-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5em;
+}
+
+.scheduling-item > h4 {
+  padding-right: 1em;
+  margin: 0;
+}
+
+.badge-photo {
+  width: 200px;
+  margin: auto;
+}
+
 .user-map {
   width: 100%;
 }
 
 @media screen and (min-width: 480px) {
   .user-body {
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: flex-start;
     justify-content: space-between;
   }
 
-  .user-data {
-    text-align: left;
-    padding-bottom: 0;
+  .data-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .data-item > h3 {
+    padding-right: 1em;
+  }
+
+  .data-item.column {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .scheduling-item {
+    justify-content: left;
+  }
+
+  .badge-photo {
+    width: 200px;
+    margin: initial;
   }
 
   .user-map {
