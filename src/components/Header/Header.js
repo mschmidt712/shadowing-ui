@@ -7,17 +7,12 @@ import './Header.css';
 function Header(props) {
   const userNotLoggedIn = (<button className="primary login" onClick={props.handleLoginClick}>Login</button>);
   const userLoggedIn = (<div className="login">
-    <button className="icon">
-      <i class="fas fa-envelope"></i>
-    </button>
-    <Link to={`/user?id=${props.id}`}>
-      {!props.picture &&
-        <button className="icon">
-          <i className="fas fa-user-circle"></i>
-        </button>}
-      {props.picture && <button className="icon">
-        <img src={props.picture} alt="User" className="round" />
-      </button>}
+    <Link to={`/requests?id=${props.id}`} className="icon">
+      <i className="fas fa-envelope"></i>
+    </Link>
+    <Link to={`/user?id=${props.id}`} className="icon">
+      {!props.picture && <i className="fas fa-user-circle"></i>}
+      {props.picture && <img src={props.picture} alt="User" className="round" />}
     </Link>
     {props.loginMethod === "cognito" &&
       <button className="primary" onClick={props.logoutUser}>Logout</button>}

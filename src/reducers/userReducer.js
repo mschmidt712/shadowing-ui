@@ -16,6 +16,7 @@ export default (state = initialState, action) => {
         address: action.payload.address,
         phoneNumber: action.payload.phoneNumber,
         hipaaCert: action.payload.hipaaCert,
+        requests: action.payload.requests,
         active: true
       });
     case userAction.UPDATE_STUDENT:
@@ -24,6 +25,7 @@ export default (state = initialState, action) => {
         address: action.payload.address,
         phoneNumber: action.payload.phoneNumber,
         hipaaCert: action.payload.hipaaCert,
+        requests: action.payload.requests,
         active: true
       });
     case userAction.GET_STUDENT_SUCCESS:
@@ -32,6 +34,7 @@ export default (state = initialState, action) => {
         address: action.payload.address,
         phoneNumber: action.payload.phoneNumber,
         hipaaCert: action.payload.hipaaCert,
+        requests: action.payload.requests,
         active: true
       });
     case userAction.GET_STUDENT_FAILURE:
@@ -50,11 +53,10 @@ export default (state = initialState, action) => {
         shiftLength: action.payload.shiftLength,
         additionalComments: action.payload.additionalComments,
         badgePhoto: action.payload.badgePhoto,
+        requests: action.payload.requests,
         active: true
       });
     case userAction.UPDATE_DOCTOR:
-      console.log(action.payload);
-
       return Object.assign({}, state, {
         name: action.payload.name,
         degree: action.payload.degree,
@@ -66,6 +68,7 @@ export default (state = initialState, action) => {
         shiftLength: action.payload.shiftLength,
         additionalComments: action.payload.additionalComments,
         badgePhoto: action.payload.badgePhoto,
+        requests: action.payload.requests,
         active: true
       });
     case userAction.GET_DOCTOR_SUCCESS:
@@ -80,6 +83,7 @@ export default (state = initialState, action) => {
         shiftLength: action.payload.shiftLength,
         additionalComments: action.payload.additionalComments,
         badgePhoto: action.payload.badgePhoto,
+        requests: action.payload.requests,
         active: true
       });
     case userAction.GET_DOCTOR_FAILURE:

@@ -193,7 +193,7 @@ class SignUpPageDoctor extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
         {this.state.step === 1 && <Step1
           firstName={this.state.firstName}
           lastName={this.state.lastName}

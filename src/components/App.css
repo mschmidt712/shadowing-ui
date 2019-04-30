@@ -5,6 +5,17 @@
   margin: 0;
 }
 
+.main {
+  padding: 0 1em;
+}
+
+@media screen and (min-width: 800px) {
+  .main {
+    width: 80%;
+    margin: auto;
+  }
+}
+
 /* Button Styling */
 button, input.button {
   height: 3em;
@@ -32,7 +43,7 @@ button.link {
   color: #6558f5;
 }
 
-button.icon {
+button.icon, a.icon {
   font-size: 2em;
   background: none;
   color: #6558f5;

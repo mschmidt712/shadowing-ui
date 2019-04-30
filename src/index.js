@@ -10,6 +10,7 @@ import Home from './components/Home/Home';
 import UserPage from './components/UserPage/UserPage';
 import SignUpPageStudent from './components/SignUpPageStudent/SignUpPageStudent';
 import SignUpPageDoctor from './components/SignUpPageDoctor/SignUpPageDoctor';
+import RequestsPage from './components/Requests/RequestsPage';
 import * as serviceWorker from './serviceWorker';
 import store, { history } from './store';
 
@@ -46,6 +47,13 @@ ReactDOM.render((
       <Route path="/sign-up/doctor" render={() => {
         if (store.getState().authReducer.isLoggedIn) {
           return <SignUpPageDoctor />;
+        } else {
+          return <Redirect to='/' />
+        }
+      }} />
+      <Route path="/requests" render={() => {
+        if (store.getState().authReducer.isLoggedIn && store.getState().userReducer.active) {
+          return <RequestsPage />;
         } else {
           return <Redirect to='/' />
         }

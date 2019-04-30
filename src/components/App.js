@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import './App.css';
 import AppHeader from './Header/Header';

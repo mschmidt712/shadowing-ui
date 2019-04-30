@@ -126,7 +126,7 @@ class SignUpPageStudent extends Component {
 
   render() {
     return (
-      <div className="form">
+      <div className="form main">
         <h4 className="app-subtitle">
           Thanks for your interest in Shadowing.com!
             <br />

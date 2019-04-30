@@ -46,7 +46,7 @@ class UserPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
         {this.props.occupation === 'student' && <StudentUserPage
           {...this.props}
           addressLatLong={this.state.addressLatLong} />}
