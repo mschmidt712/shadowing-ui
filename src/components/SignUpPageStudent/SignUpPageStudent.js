@@ -225,11 +225,11 @@ class SignUpPageStudent extends Component {
           <ReactTooltip />
           <div className="form-input">
             <div className="radio-form">
-              <input type="radio" name="hipaaCert" value={true} id="yes" onChange={this.onInputChange} className={this.state.touched} checked={this.convertStringToBoolean(this.state.hipaaCert)} required />
+              <input type="radio" name="hipaaCert" value='true' id="yes" onChange={this.onInputChange} className={this.state.touched} checked={this.convertStringToBoolean(this.state.hipaaCert)} required />
               <label htmlFor="yes">Yes</label>
             </div>
             <div className="radio-form">
-              <input type="radio" name="hipaaCert" value={false} id="no" onChange={this.onInputChange} className={this.state.touched} checked={!this.state.hipaaCert} required />
+              <input type="radio" name="hipaaCert" value='false' id="no" onChange={this.onInputChange} className={this.state.touched} checked={!this.convertStringToBoolean(this.state.hipaaCert)} required />
               <label htmlFor="no">No</label>
             </div>
           </div>
