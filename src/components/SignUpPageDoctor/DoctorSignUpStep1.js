@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip';
+import { medicalSpecialties } from './medicalSpecialtiesConstant';
 
 export default function Step1(props) {
   function validateForm() {
@@ -18,6 +19,10 @@ export default function Step1(props) {
 
     return props.nextStep();
   }
+
+  const specialties = medicalSpecialties.map(specialty => (
+    <option value={specialty}>{specialty}</option>
+  ));
 
   return (
     <form className="form">
@@ -121,7 +126,11 @@ export default function Step1(props) {
       <div className="form-element">
         <label>Specialty</label>
         <div className="form-input">
-          <input type="text" name="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty" className={props.touched} required />
+          <select type="text" name="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty" className={props.touched} required >
+            <option value=""></option>
+            {specialties}
+          </select>
+          {/* <input type="text" name="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty" className={props.touched} required /> */}
         </div>
       </div>
       <input onClick={validateForm} type="button" className="button primary" value="Next" />
