@@ -57,7 +57,7 @@ export default function DoctorUserPage(props) {
             <h3 className="app-subtitle">Preferred Shift Length:</h3>
             {props.shiftLength[0]} to {props.shiftLength[1]} hrs
           </div>
-          <div className="data-item">
+          <div className="data-item column">
             <h3 className="app-subtitle">Additional Comments:</h3>
             {props.additionalComments}
           </div>

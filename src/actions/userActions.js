@@ -22,7 +22,7 @@ export const createStudent = (data) => {
           type: userAction.CREATE_STUDENT,
           payload: data.student
         });
-        dispatch(push('/'));
+        dispatch(push(`/user?${data.student.id}`));
         return;
       })
       .catch(err => console.error(err));
@@ -129,7 +129,7 @@ export const createDoctor = (data, credentials) => {
             badgePhoto
           }
         });
-        dispatch(push('/'));
+        dispatch(push(`/user?${data.id}`));
         return;
       })
       .catch(err => console.error(err));
