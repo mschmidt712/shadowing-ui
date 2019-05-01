@@ -1,5 +1,29 @@
 .request {
-  padding: 0 1em;
+  padding: 0 1em 1em;
   border: 1px solid #dfe7ed;
   border-radius: 5px;
+}
+
+.request > span {
+  padding: 3px 0;
+}
+
+.request-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.request-contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.request-date {
+  font-style: italic;
+}
+
+.request-data-header {
+  margin: 1em 0 0.5em;
 }

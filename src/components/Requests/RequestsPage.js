@@ -1,44 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import './RequestsPage.css';
 import * as requestActions from '../../actions/requestActions';
+import StudentRequest from './StudentRequest';
+import DoctorRequest from './DoctorRequest';
 
 class RequestsPage extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-
-    }
-  }
-
   componentDidMount() {
     if (this.props.requests) {
       if (this.props.occupation === 'student') {
         this.props.getStudentRequests(this.props.id);
       }
+      if (this.props.occupation === 'doctor') {
+        this.props.getDoctorRequests(this.props.id);
+      }
     }
   }
 
   render() {
-    let requests = <div></div>;
-    if (this.props.requests) {
-      requests = this.props.requests.map((request, index) => {
-        const availability = Object.keys(request.scheduling).filter(day => {
-          return request.scheduling[day];
-        }).map((day, index) => {
-          const [start, end] = request.scheduling[day];
-          return <div key={index}>{capitalizeWord(day)}: {convertTime(start)} to {convertTime(end)}</div>
-        });
-        return <div key={index} className="request">
-          <h3>Dr. {request.doctor.name}, {request.doctor.degree}</h3>
-          <h4>{request.doctor.specialty}</h4>
-          <p>Requested {moment(request.createdDate).format('MM/DD/YYYY')}</p>
-          <h5>Availability: {availability}</h5>
-        </div>
-      });
+    let requests = <div>No requests for shadowing found!</div>;
+    if (this.props.requests && this.props.requests.length) {
+      if (this.props.occupation === 'student') {
+        requests = this.props.requests.map((request, index) => (
+          <StudentRequest request={request} index={index} />
+        ));
+      } else if (this.props.occupation === 'doctor') {
+        requests = this.props.requests.map((request, index) => (
+          <DoctorRequest request={request} index={index} />
+        ));
+      }
     }
 
     return (
@@ -50,14 +41,6 @@ class RequestsPage extends Component {
   }
 }
 
-function capitalizeWord(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function convertTime(time) {
-  return moment(time, 'HH:mm:ss').format('h:mm A');
-}
-
 const mapStateToProps = state => ({
   ...state.authReducer,
   ...state.requestReducer
@@ -65,6 +48,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getStudentRequests: (id, query) => dispatch(requestActions.getStudentRequests(id, query)),
+  getDoctorRequests: (id, query) => dispatch(requestActions.getDoctorRequests(id, query))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestsPage);
