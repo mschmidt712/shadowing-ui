@@ -51,7 +51,6 @@ class SignUpPageStudent extends Component {
   onInputChange(event) {
     const newState = {};
     newState[event.target.name] = event.target.value;
-
     this.setState(newState);
   }
 
@@ -71,12 +70,11 @@ class SignUpPageStudent extends Component {
   }
 
   convertStringToBoolean(bool) {
-    if (bool === 'true') {
+    if (bool === 'true' || bool === true) {
       return true;
-    } else if (bool === 'false') {
+    } else {
       return false;
     }
-    return;
   }
 
   validateForm() {
@@ -133,7 +131,7 @@ class SignUpPageStudent extends Component {
           Set up your profile to begin requesting shadowing with doctors in your area.
           </h4>
         <div className="form-element">
-          <label>Email</label>
+          <label>Email:</label>
           <span className="form-input">{this.props.email}</span>
         </div>
         <div className="form-element">
@@ -227,7 +225,7 @@ class SignUpPageStudent extends Component {
           <ReactTooltip />
           <div className="form-input">
             <div className="radio-form">
-              <input type="radio" name="hipaaCert" value={true} id="yes" onChange={this.onInputChange} className={this.state.touched} checked={this.state.hipaaCert} required />
+              <input type="radio" name="hipaaCert" value={true} id="yes" onChange={this.onInputChange} className={this.state.touched} checked={this.convertStringToBoolean(this.state.hipaaCert)} required />
               <label htmlFor="yes">Yes</label>
             </div>
             <div className="radio-form">
