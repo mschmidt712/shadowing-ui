@@ -90,6 +90,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         active: false
       });
+    case userAction.CLEAR_USER:
+      return initialState;
     default:
       return state;
   }

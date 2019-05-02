@@ -218,3 +218,11 @@ export const getDoctor = (id) => {
       });
   }
 }
+
+export const clearUser = () => {
+  return (dispatch) => {
+    dispatch({
+      type: userAction.CLEAR_USER
+    })
+  }
+}

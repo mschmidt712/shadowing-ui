@@ -3,6 +3,7 @@ import { push } from 'connected-react-router';
 import AWS from 'aws-sdk';
 
 import * as authAction from './authTypes';
+import * as userAction from './userTypes';
 import awsData from '../aws-config.json';
 
 import { getStudent, getDoctor } from '../actions/userActions';
@@ -105,6 +106,9 @@ export const logoutUser = () => {
 
     dispatch({
       type: authAction.LOGOUT_USER
+    });
+    dispatch({
+      type: userAction.CLEAR_USER
     });
     dispatch(push('/'));
   }
@@ -441,6 +445,9 @@ export const facebookLogoutUser = () => {
     dispatch({
       type: authAction.FACEBOOK_LOGOUT_USER
     });
+    dispatch({
+      type: userAction.CLEAR_USER
+    });
     dispatch(push('/'));
   }
 }
@@ -490,6 +497,9 @@ export const googleLogoutUser = () => {
   return dispatch => {
     dispatch({
       type: authAction.GOOGLE_LOGOUT_USER
+    });
+    dispatch({
+      type: userAction.CLEAR_USER
     });
     dispatch(push('/'));
   }
