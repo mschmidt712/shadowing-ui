@@ -1,7 +1,8 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
+
 import Facebook from '../Facebook/Facebook';
 import Google from '../Google/Google';
-
 import './Login.css';
 
 function Login(props) {
@@ -16,7 +17,14 @@ function Login(props) {
         <div className="form">
           <label>Email</label>
           <input type="email" name="email" value={props.email} onChange={props.onEmailChange} />
-          <label>Password</label>
+          <label>
+            Password
+            <i
+              data-tip="Password must be at least 6 characters and contain upper and lower case letters."
+              className="fas fa-info-circle icon">
+            </i>
+            <ReactTooltip />
+          </label>
           <input type="password" name="password" value={props.password} onChange={props.onPasswordChange} />
           <button className="primary" onClick={() => props.loginUser(props.email, props.password)}>Login</button>
           <button className="link" onClick={() => props.handleForgotPasswordClick(props.email)}>Forgot Password?</button>

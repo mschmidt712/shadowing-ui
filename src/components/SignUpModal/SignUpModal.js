@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 
 function SignUp(props) {
   let doctorChecked = false;
@@ -28,10 +29,24 @@ function SignUp(props) {
           <h1>Sign Up Here</h1>
           <div className="form">
             <label>Email</label>
-            <input type="email" name="email" value={props.email} onChange={props.onInputChange} />
-            <label>Password</label>
+            <input type="email" name="email" placeholder="Email" value={props.email} onChange={props.onInputChange} />
+            <label>
+              Password
+              <i
+                data-tip="Password must be at least 6 characters and contain upper and lower case letters."
+                className="fas fa-info-circle icon">
+              </i>
+              <ReactTooltip />
+            </label>
             <input type="password" name="password" value={props.password} onChange={props.onInputChange} />
-            <label>Confirm Password</label>
+            <label>
+              Confirm Password
+              <i
+                data-tip="Password must be at least 6 characters and contain upper and lower case letters."
+                className="fas fa-info-circle icon">
+              </i>
+              <ReactTooltip />
+            </label>
             <input type="password" name="confirmPassword" value={props.confirmPassword} onChange={props.onInputChange} />
             <div className="form">
               <label>What kind of account would you like to create?</label>
