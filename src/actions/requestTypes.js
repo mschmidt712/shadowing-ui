@@ -1,1 +1,2 @@
 export const GET_REQUESTS = 'GET_REQUESTS';
+export const DELETE_REQUEST = 'DELETE_REQUEST';

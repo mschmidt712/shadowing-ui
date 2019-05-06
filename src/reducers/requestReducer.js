@@ -11,6 +11,13 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         requests: action.payload
       });
+    case requestAction.DELETE_REQUEST:
+      const newRequests = state.requests.filter(req => {
+        return req.uuid !== action.payload.requestId;
+      });
+      return Object.assign({}, state, {
+        requests: newRequests
+      });
     default:
       return state;
   }

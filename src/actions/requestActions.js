@@ -114,3 +114,24 @@ export const getDoctorRequests = (id, query) => {
       })
   }
 }
+
+export const deleteRequest = (requestId) => {
+  return (dispatch) => {
+    let url = `${baseUrl}/request/${requestId}`
+
+    return fetch(url, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }).then(() => {
+      return dispatch({
+        type: requestAction.DELETE_REQUEST,
+        payload: { requestId }
+      });
+    }).catch(err => {
+      console.error(err);
+    })
+  }
+}

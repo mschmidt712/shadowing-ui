@@ -1,14 +1,14 @@
 import React from 'react';
 import moment from 'moment';
 
-export default function StudentRequest({ request, reqIndex }) {
+export default function StudentRequest({ request, deleteRequest }) {
   const availability = Object.keys(request.scheduling).filter(day => {
     return request.scheduling[day];
-  }).map((day, availIndex) => {
+  }).map(day => {
     const [start, end] = request.scheduling[day];
-    return <div key={availIndex}>{capitalizeWord(day)}: {convertTime(start)} to {convertTime(end)}</div>
+    return <div key={day}>{capitalizeWord(day)}: {convertTime(start)} to {convertTime(end)}</div>
   });
-  return (<div key={reqIndex} className="request">
+  return (<div className="request">
     <div className="request-header">
       <div className="request-contact-info">
         <h3 className="request-data-header">Dr. {request.doctor.name}, {request.doctor.degree}</h3>
@@ -20,6 +20,7 @@ export default function StudentRequest({ request, reqIndex }) {
       <h5 className="request-data-header">Availability: </h5>
       {availability}
     </div>
+    <button className="secondary delete-request-btn" onClick={() => { deleteRequest(request.uuid) }}>Delete Request</button>
   </div>);
 }
 

@@ -2,6 +2,7 @@
   padding: 0 1em 1em;
   border: 1px solid #dfe7ed;
   border-radius: 5px;
+  position: relative;
 }
 
 .request > span {
@@ -27,3 +28,16 @@
 .request-data-header {
   margin: 1em 0 0.5em;
 }
+
+.delete-request-btn {
+  margin: 1em 0 0 0;
+}
+
+@media screen and (min-width: 480px) {
+  .delete-request-btn {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+  }
+}
+

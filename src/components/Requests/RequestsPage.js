@@ -23,7 +23,7 @@ class RequestsPage extends Component {
     if (this.props.requests && this.props.requests.length) {
       if (this.props.occupation === 'student') {
         requests = this.props.requests.map((request, index) => (
-          <StudentRequest request={request} index={index} />
+          <StudentRequest key={request.uuid} request={request} deleteRequest={this.props.deleteRequest} />
         ));
       } else if (this.props.occupation === 'doctor') {
         requests = this.props.requests.map((request, index) => (
@@ -48,7 +48,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getStudentRequests: (id, query) => dispatch(requestActions.getStudentRequests(id, query)),
-  getDoctorRequests: (id, query) => dispatch(requestActions.getDoctorRequests(id, query))
+  getDoctorRequests: (id, query) => dispatch(requestActions.getDoctorRequests(id, query)),
+  deleteRequest: (requestId) => dispatch(requestActions.deleteRequest(requestId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestsPage);
