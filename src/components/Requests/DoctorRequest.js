@@ -34,10 +34,7 @@ export default function DoctorRequest({ request, doctorName, deleteRequest, disp
         <span>{request.student.email}</span>
         <span>{request.student.phoneNumber}</span>
       </div>
-      <div className="data-item">
-        <p className="request-date">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
-        <span className="close" onClick={toggleDeleteRequestModal}>&times;</span>
-      </div>
+      <p className="request-date">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
     </div>
     <div>
       <div className="data-item column">
