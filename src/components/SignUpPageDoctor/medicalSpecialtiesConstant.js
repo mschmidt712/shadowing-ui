@@ -76,7 +76,6 @@ export const medicalSpecialties = [
   'Pediatric Radiology',
   'Pediatric Surgery',
   'Pediatrics',
-  'Pharmacy',
   'Physiatrist',
   'Physical Medicine & Rehabilitation',
   'Plastic Surgery',

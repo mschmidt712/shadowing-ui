@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import './SignUpPageDoctor.css';
 
 export default function Step2(props) {
@@ -54,7 +55,12 @@ export default function Step2(props) {
         We will limit your availability and requests based on your preferences.
       </h4>
       <div className="form-element">
-        <label>What is the maximum shift per week you could respond to?</label>
+        <label>What is the maximum shadowing requests per week you could respond to?</label>
+        <i
+          data-tip="A good default for this is 2 requests per week but feel free to select any number you are comfortable with."
+          className="fas fa-info-circle icon">
+        </i>
+        <ReactTooltip />
         <div className="form-input">
           <input type="number" name="maxRequests" value={props.maxRequests} onChange={props.onInputChange} placeholder="2" className={props.touched} required />
         </div>
