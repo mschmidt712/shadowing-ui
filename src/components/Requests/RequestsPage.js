@@ -7,6 +7,16 @@ import StudentRequest from './StudentRequest';
 import DoctorRequest from './DoctorRequest';
 
 class RequestsPage extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      displayDeleteRequestModal: false
+    }
+
+    this.toggleDeleteRequestModal = this.toggleDeleteRequestModal.bind(this);
+  }
+
   componentDidMount() {
     if (this.props.requests) {
       if (this.props.occupation === 'student') {
@@ -18,16 +28,29 @@ class RequestsPage extends Component {
     }
   }
 
+  toggleDeleteRequestModal() {
+    this.setState({
+      displayDeleteRequestModal: !this.state.displayDeleteRequestModal
+    });
+  }
+
   render() {
     let requests = <div>No requests for shadowing found!</div>;
     if (this.props.requests && this.props.requests.length) {
       if (this.props.occupation === 'student') {
-        requests = this.props.requests.map((request, index) => (
+        requests = this.props.requests.map((request) => (
           <StudentRequest key={request.uuid} request={request} deleteRequest={this.props.deleteRequest} />
         ));
       } else if (this.props.occupation === 'doctor') {
-        requests = this.props.requests.map((request, index) => (
-          <DoctorRequest key={request.uuid} request={request} doctorName={`Dr. ${this.props.name}, ${this.props.degree}`} />
+        requests = this.props.requests.map((request) => (
+          <DoctorRequest
+            key={request.uuid}
+            request={request}
+            doctorName={`Dr. ${this.props.name}, ${this.props.degree}`}
+            deleteRequest={this.props.deleteRequest}
+            displayDeleteRequestModal={this.state.displayDeleteRequestModal}
+            toggleDeleteRequestModal={this.toggleDeleteRequestModal}
+          />
         ));
       }
     }

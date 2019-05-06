@@ -1,7 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 
-export default function DoctorRequest({ request, doctorName }) {
+import DeleteRequestModal from './DeleteRequestModal';
+
+export default function DoctorRequest({ request, doctorName, deleteRequest, displayDeleteRequestModal, toggleDeleteRequestModal }) {
   let availabilityText = [];
   const availability = Object.keys(request.scheduling).filter(day => {
     return request.scheduling[day];
@@ -32,7 +34,10 @@ export default function DoctorRequest({ request, doctorName }) {
         <span>{request.student.email}</span>
         <span>{request.student.phoneNumber}</span>
       </div>
-      <p className="request-date">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
+      <div className="data-item">
+        <p className="request-date">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
+        <span className="close" onClick={toggleDeleteRequestModal}>&times;</span>
+      </div>
     </div>
     <div>
       <div className="data-item column">
@@ -44,9 +49,11 @@ export default function DoctorRequest({ request, doctorName }) {
         {availability}
       </div>
       <div className="data-item request-response-btn">
-        <a href={`mailto:${request.student.email}?subject=Shadowing Request Accepted&body=${acceptRequestBody}`} className="button no-decoration accept-request-btn">Accept Request</a>
-        <a href={`mailto:${request.student.email}?subject=Shadowing Request Denied&body=${denyRequestBody}`} className="button no-decoration deny-request-btn">Deny Request</a>
+        <a href={`mailto:${request.student.email}?subject=Shadowing Request Accepted&body=${acceptRequestBody}`} className="button no-decoration accept-request-btn" onClick={toggleDeleteRequestModal}>Accept Request</a>
+        <a href={`mailto:${request.student.email}?subject=Shadowing Request Denied&body=${denyRequestBody}`} className="button no-decoration deny-request-btn" onClick={toggleDeleteRequestModal}>Deny Request</a>
       </div>
+      {displayDeleteRequestModal &&
+        <DeleteRequestModal deleteRequest={deleteRequest} toggleDeleteRequestModal={toggleDeleteRequestModal} request={request} />}
     </div>
   </div>);
 }
