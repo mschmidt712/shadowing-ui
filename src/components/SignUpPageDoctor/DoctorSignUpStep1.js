@@ -53,6 +53,7 @@ export default function Step1(props) {
             <option value=""></option>
             <option value="MD">MD</option>
             <option value="DO">DO</option>
+            <option value="MBBS">MBBS</option>
           </select>
         </div>
       </div>
