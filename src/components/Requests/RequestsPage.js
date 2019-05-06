@@ -27,7 +27,7 @@ class RequestsPage extends Component {
         ));
       } else if (this.props.occupation === 'doctor') {
         requests = this.props.requests.map((request, index) => (
-          <DoctorRequest request={request} index={index} />
+          <DoctorRequest key={request.uuid} request={request} doctorName={`Dr. ${this.props.name}, ${this.props.degree}`} />
         ));
       }
     }
@@ -43,6 +43,7 @@ class RequestsPage extends Component {
 
 const mapStateToProps = state => ({
   ...state.authReducer,
+  ...state.userReducer,
   ...state.requestReducer
 });
 

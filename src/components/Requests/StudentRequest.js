@@ -20,7 +20,7 @@ export default function StudentRequest({ request, deleteRequest }) {
       <h5 className="request-data-header">Availability: </h5>
       {availability}
     </div>
-    <button className="secondary delete-request-btn" onClick={() => { deleteRequest(request.uuid) }}>Delete Request</button>
+    <button className="secondary request-response-btn" onClick={() => { deleteRequest(request.uuid) }}>Delete Request</button>
   </div>);
 }
 

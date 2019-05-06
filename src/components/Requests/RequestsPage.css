@@ -29,15 +29,23 @@
   margin: 1em 0 0.5em;
 }
 
-.delete-request-btn {
-  margin: 1em 0 0 0;
+.request-response-btn {
+  margin: 2em 0;
 }
 
 @media screen and (min-width: 480px) {
-  .delete-request-btn {
+  .request-response-btn {
     position: absolute;
     bottom: 1em;
     right: 1em;
+    margin: 0;
   }
 }
 
+.accept-request-btn {
+  background-color: #d9ead3;
+}
+
+.deny-request-btn {
+  background-color: #FFCCCC;
+}
