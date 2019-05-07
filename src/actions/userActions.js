@@ -219,6 +219,47 @@ export const getDoctor = (id) => {
   }
 }
 
+
+export const getDoctors = (query) => {
+  return (dispatch) => {
+    let url = `${baseUrl}/doctors`;
+    if (query) {
+      const queryString = Object.keys(query).map(val => {
+        return `${val}=${query[val]}`;
+      }, []).join('&');
+      url = `${url}?${queryString}`;
+    }
+    console.log('URL: ', url);
+
+    return fetch(url, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then(response => {
+        if (response.status === 404) {
+          dispatch({
+            type: userAction.GET_DOCTORS_FAILURE
+          });
+          return;
+        }
+
+        return response.json()
+      }).then(response => {
+        console.log('Response: ', response);
+        return dispatch({
+          type: userAction.GET_DOCTORS,
+          payload: JSON.parse(response.body)
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+}
+
 export const clearUser = () => {
   return (dispatch) => {
     dispatch({

@@ -37,8 +37,14 @@ function Header(props) {
 
       <div className="form">
         <label>Enter Your Zip Code</label>
-        <input type="number" maxLength='5' placeholder="80226"></input>
-        <button className="primary">Search</button>
+        <input type="number" maxLength="5" placeholder="80226" name="zipCode" value={props.zipCode} onChange={props.onInputChange}></input>
+        <button className="primary" onClick={() => {
+          props.getDoctors({
+            zipCode: props.zipCode,
+            distance: 20,
+            approved: true
+          })
+        }}>Search</button>
       </div>
 
       <button className="link" onClick={() => { props.handleSignUpClick(); props.setOccupation("doctor"); }}>Sign Up As A Physician</button>

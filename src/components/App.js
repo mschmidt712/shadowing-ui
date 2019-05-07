@@ -10,6 +10,7 @@ import SignUpConfirmation from './SignUpConfirmationModal/SignUpConfirmationModa
 import ForgotPassword from './ForgotPassword/ForgotPassword';
 
 import * as authActions from '../actions/authActions';
+import * as userActions from '../actions/userActions';
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,8 @@ class App extends Component {
       password: '',
       confirmPassword: '',
       occupation: '',
-      verification: ''
+      verification: '',
+      zipCode: undefined
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -71,6 +73,9 @@ class App extends Component {
           logoutUser={this.props.logoutUser}
           facebookLogoutUser={this.props.facebookLogoutUser}
           googleLogoutUser={this.props.googleLogoutUser}
+          zipCode={this.state.zipCode}
+          onInputChange={this.onInputChange}
+          getDoctors={this.props.getDoctors}
         />
         {this.props.displayLogin &&
           <Login
@@ -153,7 +158,9 @@ const mapDispatchToProps = dispatch => ({
   handleVerificationClose: () => dispatch(authActions.handleVerificationClose()),
   handleConfirmationClose: () => dispatch(authActions.handleConfirmationClose()),
   // Error Actions
-  handleError: () => dispatch(authActions.handleError())
+  handleError: () => dispatch(authActions.handleError()),
+  // User Action
+  getDoctors: (query) => dispatch(userActions.getDoctors(query))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
