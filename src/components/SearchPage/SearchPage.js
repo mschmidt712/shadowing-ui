@@ -96,7 +96,7 @@ class SearchPage extends Component {
     });
 
     return (
-      <div className="search-page main">
+      <div className="search-page">
         <div className="search-filters-column">Filters</div>
         <div className="search-data-column">
           <div>
