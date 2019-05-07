@@ -95,6 +95,10 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         doctors: action.payload
       });
+    case userAction.GET_DOCTORS_FAILURE:
+      return Object.assign({}, state, {
+        doctors: []
+      });
     case userAction.CLEAR_USER:
       return initialState;
     default:

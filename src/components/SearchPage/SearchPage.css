@@ -19,3 +19,8 @@
 .search-results {
   margin-top: 1em;
 }
+
+.no-results {
+  font-style: italic;
+  text-align: center;
+}

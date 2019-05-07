@@ -246,13 +246,13 @@ export const getDoctors = (query) => {
           return;
         }
 
-        return response.json()
-      }).then(response => {
-        dispatch({
-          type: userAction.GET_DOCTORS,
-          payload: JSON.parse(response.body)
+        return response.json().then(response => {
+          dispatch({
+            type: userAction.GET_DOCTORS,
+            payload: JSON.parse(response.body)
+          });
+          dispatch(push(`/search?${queryString}`));
         });
-        dispatch(push(`/search?${queryString}`));
       })
       .catch(err => {
         console.error(err);

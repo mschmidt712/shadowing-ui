@@ -48,6 +48,9 @@ class SearchPage extends Component {
         this.geocodeDoctorAddresses(this.props.doctors);
       });
     }
+    if (this.state.zipCode && !this.props.doctors.length && this.props !== oldProps) {
+      this.geocodeAddress(this.state.zipCode);
+    }
   }
 
   geocodeAddress(zipCode) {
@@ -109,7 +112,7 @@ class SearchPage extends Component {
               doctors={this.state.doctors} />
           </div>
           <div className="search-results">
-            {doctors}
+            {doctors.length ? doctors : <h3 className="no-results">No doctors found matching your search criteria. Please try your search again.</h3>}
           </div>
         </div>
       </div>
