@@ -223,13 +223,13 @@ export const getDoctor = (id) => {
 export const getDoctors = (query) => {
   return (dispatch) => {
     let url = `${baseUrl}/doctors`;
+    let queryString;
     if (query) {
-      const queryString = Object.keys(query).map(val => {
+      queryString = Object.keys(query).map(val => {
         return `${val}=${query[val]}`;
       }, []).join('&');
       url = `${url}?${queryString}`;
     }
-    console.log('URL: ', url);
 
     return fetch(url, {
       method: "GET",
@@ -248,11 +248,11 @@ export const getDoctors = (query) => {
 
         return response.json()
       }).then(response => {
-        console.log('Response: ', response);
-        return dispatch({
+        dispatch({
           type: userAction.GET_DOCTORS,
           payload: JSON.parse(response.body)
         });
+        dispatch(push(`/search?${queryString}`));
       })
       .catch(err => {
         console.error(err);

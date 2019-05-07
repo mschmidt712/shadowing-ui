@@ -11,6 +11,7 @@ import UserPage from './components/UserPage/UserPage';
 import SignUpPageStudent from './components/SignUpPageStudent/SignUpPageStudent';
 import SignUpPageDoctor from './components/SignUpPageDoctor/SignUpPageDoctor';
 import RequestsPage from './components/Requests/RequestsPage';
+import SearchPage from './components/SearchPage/SearchPage';
 import * as serviceWorker from './serviceWorker';
 import store, { history } from './store';
 
@@ -58,6 +59,7 @@ ReactDOM.render((
           return <Redirect to='/' />
         }
       }} />
+      <Route path="/search" component={SearchPage} />
     </ConnectedRouter>
   </Provider>
 ),

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Geocode from "react-geocode";
+import Geocode from 'react-geocode';
 
 import * as userActions from '../../actions/userActions';
 import './UserPage.css';

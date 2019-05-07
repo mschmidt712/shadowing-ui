@@ -3,6 +3,7 @@
   border: 1px solid #dfe7ed;
   border-radius: 5px;
   position: relative;
+  margin-bottom: 1em;
 }
 
 .request > span {

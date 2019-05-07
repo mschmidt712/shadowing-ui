@@ -6,6 +6,8 @@
     "amazon-cognito-identity-js": "^3.0.11",
     "aws-sdk": "^2.437.0",
     "connected-react-router": "^6.4.0",
+    "google-distance-matrix": "^1.1.1",
+    "google-maps-react": "^2.0.2",
     "moment": "^2.24.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",

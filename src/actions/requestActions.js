@@ -1,4 +1,3 @@
-import { push } from 'connected-react-router';
 import * as requestAction from './requestTypes';
 
 const baseUrl = 'https://5hc101yjlj.execute-api.us-east-1.amazonaws.com/Test';

@@ -6,6 +6,7 @@ const initialState = {
   address: '',
   phoneNumber: undefined,
   hipaaCert: undefined,
+  doctors: []
 };
 
 export default (state = initialState, action) => {
@@ -89,6 +90,10 @@ export default (state = initialState, action) => {
     case userAction.GET_DOCTOR_FAILURE:
       return Object.assign({}, state, {
         active: false
+      });
+    case userAction.GET_DOCTORS:
+      return Object.assign({}, state, {
+        doctors: action.payload
       });
     case userAction.CLEAR_USER:
       return initialState;
