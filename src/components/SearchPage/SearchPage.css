@@ -5,10 +5,23 @@
 }
 
 .search-filters-column {
-  flex: 20%;
+  flex: 50%;
   background-color: rgba(101,88,245, 0.2);
   border-right: 2px solid rgb(101,88,245);
   text-align: center;
+  padding: 1em;
+}
+
+.search-filters-column-hidden {
+  background-color: rgba(101,88,245, 0.2);
+  border-right: 2px solid rgb(101,88,245);
+  border-left: none;
+}
+
+@media screen and (min-width: 800px) {
+  .search-filters-column {
+    flex: 20%;
+  }
 }
 
 .search-data-column {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Geocode from 'react-geocode';
 
 import SearchMapComponent from './SearchMapComponent';
+import SearchFilters from './SearchFilters';
 import SearchDoctorComponent from './SearchDoctorComponent';
 import './SearchPage.css';
 
@@ -15,11 +16,13 @@ class SearchPage extends Component {
     this.state = {
       zipCode: undefined,
       doctors: [],
-      addressLatLng: undefined
+      addressLatLng: undefined,
+      filtersEnabled: true
     }
 
     this.geocodeAddress = this.geocodeAddress.bind(this);
     this.geocodeDoctorAddresses = this.geocodeDoctorAddresses.bind(this);
+    this.toggleFilters = this.toggleFilters.bind(this);
   }
 
   componentDidMount() {
@@ -93,6 +96,12 @@ class SearchPage extends Component {
     });
   }
 
+  toggleFilters() {
+    this.setState({
+      filtersEnabled: !this.state.filtersEnabled
+    });
+  }
+
   render() {
     const doctors = this.state.doctors.map((doctor, index) => {
       return <SearchDoctorComponent key={index} doctor={doctor} isLoggedIn={this.props.isLoggedIn} />
@@ -100,7 +109,18 @@ class SearchPage extends Component {
 
     return (
       <div className="search-page">
-        <div className="search-filters-column">Filters</div>
+        {this.state.filtersEnabled && <div className="search-filters-column">
+          <SearchFilters
+            toggleFilters={this.toggleFilters}
+          />
+        </div>}
+        {!this.state.filtersEnabled && <div className="search-filters-column-hidden">
+          <p>
+            <button className="icon small" onClick={this.toggleFilters} title="Show Filters">
+              <i className="fas fa-angle-double-right"></i>
+            </button>
+          </p>
+        </div>}
         <div className="search-data-column">
           <div>
             <SearchMapComponent
