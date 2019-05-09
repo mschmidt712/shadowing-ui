@@ -80,6 +80,10 @@
     flex-wrap: wrap;
   }
 
+  .nested {
+    padding: 0 1em 1em;
+  }
+
   .data-item > h3 {
     padding-right: 1em;
   }

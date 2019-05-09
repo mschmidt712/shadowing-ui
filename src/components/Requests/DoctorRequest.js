@@ -28,13 +28,13 @@ export default function DoctorRequest({ request, doctorName, deleteRequest, disp
   %0A ${doctorName}`;
 
   return (<div className="request">
-    <div className="request-header">
-      <div className="request-contact-info">
+    <div className="component-header">
+      <div className="component-header-details">
         <h3 className="request-data-header">{request.student.name}</h3>
         <span>{request.student.email}</span>
         <span>{request.student.phoneNumber}</span>
       </div>
-      <p className="request-date">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
+      <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
     </div>
     <div>
       <div className="data-item column">

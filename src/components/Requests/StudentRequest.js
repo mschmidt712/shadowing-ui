@@ -9,12 +9,12 @@ export default function StudentRequest({ request, deleteRequest }) {
     return <div key={day}>{capitalizeWord(day)}: {convertTime(start)} to {convertTime(end)}</div>
   });
   return (<div className="request">
-    <div className="request-header">
-      <div className="request-contact-info">
+    <div className="component-header">
+      <div className="component-header-details">
         <h3 className="request-data-header">Dr. {request.doctor.name}, {request.doctor.degree}</h3>
         <span>{request.doctor.specialty}</span>
       </div>
-      <p className="request-date">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
+      <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
     </div>
     <div className="data-item column">
       <h5 className="request-data-header">Availability: </h5>

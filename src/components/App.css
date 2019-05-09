@@ -51,6 +51,10 @@ button.icon, a.icon {
   height: inherit;
 }
 
+button.small, a.small {
+  font-size: 1em;
+}
+
 button:disabled,
 button[disabled]{
   background-color: #cccccc;

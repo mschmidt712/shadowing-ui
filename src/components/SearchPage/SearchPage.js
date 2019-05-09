@@ -95,7 +95,7 @@ class SearchPage extends Component {
 
   render() {
     const doctors = this.state.doctors.map((doctor, index) => {
-      return <SearchDoctorComponent key={index} doctor={doctor} userAddress={this.state.addressLatLng} />
+      return <SearchDoctorComponent key={index} doctor={doctor} isLoggedIn={this.props.isLoggedIn} />
     });
 
     return (
