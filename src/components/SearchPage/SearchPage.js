@@ -54,6 +54,7 @@ class SearchPage extends Component {
     })
 
     this.props.getDoctors(Object.assign({}, searchObj, {
+      distance,
       availability,
       approved: true
     }))
