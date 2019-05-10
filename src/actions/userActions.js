@@ -225,9 +225,17 @@ export const getDoctors = (query) => {
     let url = `${baseUrl}/doctors`;
     let queryString;
     if (query) {
-      queryString = Object.keys(query).map(val => {
-        return `${val}=${query[val]}`;
-      }, []).join('&');
+      queryString = Object.keys(query)
+        .map(val => {
+          let queryVal;
+          if (typeof query[val] === 'object') {
+            queryVal = encodeURI(encodeURIComponent(JSON.stringify(query[val])));
+          } else {
+            queryVal = query[val]
+          }
+          return `${val}=${queryVal}`;
+        }, [])
+        .join('&');
       url = `${url}?${queryString}`;
     }
 
@@ -243,6 +251,7 @@ export const getDoctors = (query) => {
           dispatch({
             type: userAction.GET_DOCTORS_FAILURE
           });
+          dispatch(push(`/search?${queryString}`));
           return;
         }
 

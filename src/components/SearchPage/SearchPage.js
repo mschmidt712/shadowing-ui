@@ -15,14 +15,21 @@ class SearchPage extends Component {
 
     this.state = {
       zipCode: undefined,
+      distance: 20,
+      specialty: undefined,
+      availability: {},
+      approved: true,
       doctors: [],
       addressLatLng: undefined,
       filtersEnabled: true
     }
 
+    this.getDoctors = this.getDoctors.bind(this);
     this.geocodeAddress = this.geocodeAddress.bind(this);
     this.geocodeDoctorAddresses = this.geocodeDoctorAddresses.bind(this);
     this.toggleFilters = this.toggleFilters.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onAvailabilityChange = this.onAvailabilityChange.bind(this);
   }
 
   componentDidMount() {
@@ -35,25 +42,68 @@ class SearchPage extends Component {
       });
     }, {});
 
+    const distance = searchObj.distance || 20;
+    const specialty = searchObj.specialty || '';
+    let availability = searchObj.availability ? JSON.parse(decodeURIComponent(decodeURI(searchObj.availability))) : {};
+
     this.setState({
-      zipCode: searchObj['zipCode']
-    });
+      zipCode: searchObj.zipCode,
+      distance,
+      specialty,
+      availability
+    })
 
     this.props.getDoctors(Object.assign({}, searchObj, {
-      distance: 20,
+      availability,
       approved: true
-    }));
+    }))
   }
 
-  componentDidUpdate(oldProps, oldState) {
-    if (this.state.zipCode && this.props.doctors.length && this.props !== oldProps) {
-      this.geocodeAddress(this.state.zipCode).then(() => {
-        this.geocodeDoctorAddresses(this.props.doctors);
-      });
+  componentDidUpdate(oldProps) {
+    if (this.props !== oldProps) {
+      if (!this.props.doctors.length) {
+        this.setState({
+          doctors: []
+        })
+      }
+      if (this.state.zipCode && this.props.doctors.length) {
+        this.geocodeAddress(this.state.zipCode).then(() => {
+          this.geocodeDoctorAddresses(this.props.doctors);
+        });
+      }
+      if (this.state.zipCode && !this.props.doctors.length) {
+        this.geocodeAddress(this.state.zipCode);
+      }
     }
-    if (this.state.zipCode && !this.props.doctors.length && this.props !== oldProps) {
-      this.geocodeAddress(this.state.zipCode);
+  }
+
+  getDoctors() {
+    const filters = ['zipCode', 'distance', 'specialty', 'availability', 'approved'];
+
+    const filterObj = filters.filter(val => {
+      if (this.state[val]) {
+        return true;
+      } else {
+        return false;
+      }
+    }).reduce((obj, val) => {
+      obj[val] = this.state[val];
+      return obj;
+    }, {});
+
+    filterObj.availability = this.filterAvailabilityObj(filterObj.availability);
+
+    this.props.getDoctors(filterObj);
+  }
+
+  filterAvailabilityObj(availabilityObj) {
+    if (Object.keys(availabilityObj).length > 0) {
+      return Object.keys(availabilityObj).filter(day => availabilityObj[day]).reduce((obj, day) =>
+        Object.assign({}, obj, {
+          [day]: availabilityObj[day]
+        }), {});
     }
+    return {};
   }
 
   geocodeAddress(zipCode) {
@@ -102,6 +152,22 @@ class SearchPage extends Component {
     });
   }
 
+  onInputChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  onAvailabilityChange(e) {
+    const day = e.target.name;
+    const newAvailability = Object.assign({}, this.state.availability);
+    newAvailability[day] = e.target.checked;
+
+    this.setState({
+      availability: newAvailability
+    });
+  }
+
   render() {
     const doctors = this.state.doctors.map((doctor, index) => {
       return <SearchDoctorComponent key={index} doctor={doctor} isLoggedIn={this.props.isLoggedIn} />
@@ -111,7 +177,14 @@ class SearchPage extends Component {
       <div className="search-page">
         {this.state.filtersEnabled && <div className="search-filters-column">
           <SearchFilters
+            zipCode={this.state.zipCode}
+            distance={this.state.distance}
+            specialty={this.state.specialty}
+            availability={this.state.availability}
             toggleFilters={this.toggleFilters}
+            onInputChange={this.onInputChange}
+            onAvailabilityChange={this.onAvailabilityChange}
+            getDoctors={this.getDoctors}
           />
         </div>}
         {!this.state.filtersEnabled && <div className="search-filters-column-hidden">
