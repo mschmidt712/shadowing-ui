@@ -84,7 +84,7 @@
     padding: 0 1em 1em;
   }
 
-  .data-item > h3 {
+  .data-item > h3,   .data-item > h5  {
     padding-right: 1em;
   }
 

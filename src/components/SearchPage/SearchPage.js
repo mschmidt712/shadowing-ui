@@ -5,6 +5,7 @@ import Geocode from 'react-geocode';
 import SearchMapComponent from './SearchMapComponent';
 import SearchFilters from './SearchFilters';
 import SearchDoctorComponent from './SearchDoctorComponent';
+import RequestModal from '../RequestModal/RequestModal';
 import './SearchPage.css';
 
 import * as userActions from '../../actions/userActions';
@@ -21,7 +22,9 @@ class SearchPage extends Component {
       approved: true,
       doctors: [],
       addressLatLng: undefined,
-      filtersEnabled: true
+      filtersEnabled: true,
+      doctor: undefined,
+      displayRequestModal: false
     }
 
     this.getDoctors = this.getDoctors.bind(this);
@@ -30,6 +33,8 @@ class SearchPage extends Component {
     this.toggleFilters = this.toggleFilters.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onAvailabilityChange = this.onAvailabilityChange.bind(this);
+    this.requestShadowing = this.requestShadowing.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -169,9 +174,26 @@ class SearchPage extends Component {
     });
   }
 
+  requestShadowing(doctor) {
+    this.setState({
+      doctor,
+      displayRequestModal: true
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      displayRequestModal: false
+    });
+  }
+
   render() {
     const doctors = this.state.doctors.map((doctor, index) => {
-      return <SearchDoctorComponent key={index} doctor={doctor} isLoggedIn={this.props.isLoggedIn} />
+      return <SearchDoctorComponent
+        key={doctor.id}
+        doctor={doctor}
+        isLoggedIn={this.props.isLoggedIn}
+        requestShadowing={this.requestShadowing} />
     });
 
     return (
@@ -208,6 +230,13 @@ class SearchPage extends Component {
           <div className="search-results">
             {doctors.length ? doctors : <h3 className="no-results">No doctors found matching your search criteria. Please try your search again.</h3>}
           </div>
+          {this.state.displayRequestModal && <RequestModal
+            doctor={this.state.doctor}
+            name={this.props.name}
+            email={this.props.email}
+            phoneNumber={this.props.phoneNumber}
+            closeModal={this.closeModal}
+          />}
         </div>
       </div>
     )

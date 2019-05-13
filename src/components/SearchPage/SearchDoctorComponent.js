@@ -54,10 +54,10 @@ export default class SearchDoctorComponent extends Component {
           <p className="component-header-right">
             {distanceMiles} Miles
             {!this.state.expanded && <button className="icon small" onClick={this.toggleExpanded}>
-              <i class="fas fa-angle-double-down"></i>
+              <i className="fas fa-angle-double-down"></i>
             </button>}
             {this.state.expanded && <button className="icon small" onClick={this.toggleExpanded}>
-              <i class="fas fa-angle-double-up"></i>
+              <i className="fas fa-angle-double-up"></i>
             </button>}
           </p>
         </div>
@@ -80,7 +80,7 @@ export default class SearchDoctorComponent extends Component {
             <h5 className="request-data-header">Additional Details: </h5>
             <span>{this.props.doctor.additionalComments}</span>
           </div>
-          <button className="primary request-response-btn">Request</button>
+          <button className="primary request-response-btn" onClick={() => { this.props.requestShadowing(this.props.doctor) }}>Request</button>
         </div>}
       </div>
     } else {

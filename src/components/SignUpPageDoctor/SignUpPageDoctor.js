@@ -181,7 +181,6 @@ class SignUpPageDoctor extends Component {
       shiftLength,
       additionalComments: this.state.additionalComments || 'None',
       badgePhoto: this.state.photoUpload,
-      approved: false
     }
 
     if (this.props.active) {
