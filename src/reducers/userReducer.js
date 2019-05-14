@@ -6,7 +6,8 @@ const initialState = {
   address: '',
   phoneNumber: undefined,
   hipaaCert: undefined,
-  doctors: []
+  doctors: [],
+  userErr: undefined
 };
 
 export default (state = initialState, action) => {
@@ -101,6 +102,14 @@ export default (state = initialState, action) => {
       });
     case userAction.CLEAR_USER:
       return initialState;
+    case userAction.USER_ERROR:
+      return Object.assign({}, state, {
+        userErr: action.payload.err
+      });
+    case userAction.HANDLE_ERROR:
+      return Object.assign({}, state, {
+        userErr: undefined
+      });
     default:
       return state;
   }

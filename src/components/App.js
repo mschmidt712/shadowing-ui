@@ -10,6 +10,7 @@ import SignUpConfirmation from './SignUpConfirmationModal/SignUpConfirmationModa
 import ForgotPassword from './ForgotPassword/ForgotPassword';
 
 import * as authActions from '../actions/authActions';
+import * as userActions from '../actions/userActions';
 import * as requestActions from '../actions/requestActions';
 
 class App extends Component {
@@ -41,6 +42,9 @@ class App extends Component {
     } else if (this.props.err) {
       alert(this.props.err.message);
       this.props.handleError();
+    } else if (this.props.userErr) {
+      alert(this.props.userErr.error);
+      this.props.handleUserError();
     } else if (this.props.requestErr) {
       alert(this.props.requestErr.error);
       this.props.handleRequestError();
@@ -165,6 +169,7 @@ const mapDispatchToProps = dispatch => ({
   handleConfirmationClose: () => dispatch(authActions.handleConfirmationClose()),
   // Error Actions
   handleError: () => dispatch(authActions.handleError()),
+  handleUserError: () => dispatch(userActions.handleError()),
   handleRequestError: () => dispatch(requestActions.handleError())
 });
 

@@ -11,3 +11,6 @@ export const GET_DOCTORS = 'GET_DOCTORS';
 export const GET_DOCTORS_FAILURE = 'GET_DOCTORS_FAILURE';
 
 export const CLEAR_USER = 'CLEAR_USER';
+
+export const USER_ERROR = 'USER_ERROR';
+export const HANDLE_ERROR = 'HANDLE_ERROR';

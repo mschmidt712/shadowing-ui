@@ -25,7 +25,13 @@ export const createStudent = (data) => {
         dispatch(push(`/user?${data.student.id}`));
         return;
       })
-      .catch(err => console.error(err));
+      .catch(err =>
+        dispatch({
+          type: userAction.USER_ERROR,
+          payload: {
+            err
+          }
+        }));
   }
 }
 
@@ -50,7 +56,13 @@ export const updateStudent = (data) => {
         dispatch(push(`/user?${data.student.id}`));
         return;
       })
-      .catch(err => console.error(err));
+      .catch(err =>
+        dispatch({
+          type: userAction.USER_ERROR,
+          payload: {
+            err
+          }
+        }));
   }
 }
 
@@ -82,7 +94,12 @@ export const getStudent = (id) => {
         })
       })
       .catch(err => {
-        console.error(err);
+        dispatch({
+          type: userAction.USER_ERROR,
+          payload: {
+            err
+          }
+        });
       });
   }
 }
@@ -132,7 +149,13 @@ export const createDoctor = (data, credentials) => {
         dispatch(push(`/user?${data.id}`));
         return;
       })
-      .catch(err => console.error(err));
+      .catch(err =>
+        dispatch({
+          type: userAction.USER_ERROR,
+          payload: {
+            err
+          }
+        }));
   }
 }
 
@@ -182,7 +205,13 @@ export const updateDoctor = (data, credentials) => {
         dispatch(push(`/user?${data.id}`));
         return;
       })
-      .catch(err => console.error(err));
+      .catch(err =>
+        dispatch({
+          type: userAction.USER_ERROR,
+          payload: {
+            err
+          }
+        }));
   }
 }
 
@@ -214,7 +243,12 @@ export const getDoctor = (id) => {
         })
       })
       .catch(err => {
-        console.error(err);
+        dispatch({
+          type: userAction.USER_ERROR,
+          payload: {
+            err
+          }
+        });
       });
   }
 }
@@ -264,7 +298,12 @@ export const getDoctors = (query) => {
         });
       })
       .catch(err => {
-        console.error(err);
+        dispatch({
+          type: userAction.USER_ERROR,
+          payload: {
+            err
+          }
+        });
       });
   }
 }
@@ -275,4 +314,13 @@ export const clearUser = () => {
       type: userAction.CLEAR_USER
     })
   }
+}
+
+//************************* Error Actions *************************//
+export const handleError = () => {
+  return dispatch => (
+    dispatch({
+      type: userAction.HANDLE_ERROR
+    })
+  );
 }
