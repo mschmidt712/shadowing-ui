@@ -244,7 +244,7 @@ class SearchPage extends Component {
             closeRequestModal={this.closeRequestModal}
             toggleConfirmationModal={this.toggleConfirmationModal}
           />}
-          {this.state.displayConfirmationModal && <RequestConfirmationModal
+          {this.state.displayConfirmationModal && !this.props.loading && <RequestConfirmationModal
             doctor={this.state.doctor}
             toggleConfirmationModal={this.toggleConfirmationModal}
           />}
@@ -257,7 +257,8 @@ class SearchPage extends Component {
 
 const mapStateToProps = state => ({
   ...state.authReducer,
-  ...state.userReducer
+  ...state.userReducer,
+  ...state.loadingReducer
 });
 
 const mapDispatchToProps = dispatch => ({

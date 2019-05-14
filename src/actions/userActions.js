@@ -2,10 +2,14 @@ import { push } from 'connected-react-router';
 import AWS from 'aws-sdk';
 import * as userAction from './userTypes';
 
+import { loadingStart, loadingStop } from './loadingActions';
+
 const baseUrl = 'https://5hc101yjlj.execute-api.us-east-1.amazonaws.com/Test';
 
 export const createStudent = (data) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const url = `${baseUrl}/student`;
 
     return fetch(url, {
@@ -23,20 +27,26 @@ export const createStudent = (data) => {
           payload: data.student
         });
         dispatch(push(`/user?${data.student.id}`));
+        dispatch(loadingStop());
         return;
       })
-      .catch(err =>
+      .catch(err => {
         dispatch({
           type: userAction.USER_ERROR,
           payload: {
             err
           }
-        }));
+        });
+        dispatch(loadingStop());
+        return;
+      });
   }
 }
 
 export const updateStudent = (data) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const url = `${baseUrl}/student`;
 
     return fetch(url, {
@@ -54,20 +64,26 @@ export const updateStudent = (data) => {
           payload: data.student
         });
         dispatch(push(`/user?${data.student.id}`));
+        dispatch(loadingStop());
         return;
       })
-      .catch(err =>
+      .catch(err => {
         dispatch({
           type: userAction.USER_ERROR,
           payload: {
             err
           }
-        }));
+        });
+        dispatch(loadingStop());
+        return;
+      });
   }
 }
 
 export const getStudent = (id) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const url = `${baseUrl}/student/${id}`;
 
     return fetch(url, {
@@ -83,14 +99,17 @@ export const getStudent = (id) => {
             type: userAction.GET_STUDENT_FAILURE
           });
           dispatch(push('/sign-up/student'));
+          dispatch(loadingStop());
           return;
         }
 
         return response.json().then(response => {
-          return dispatch({
+          dispatch({
             type: userAction.GET_STUDENT_SUCCESS,
             payload: JSON.parse(response.body)
           });
+          dispatch(loadingStop());
+          return;
         })
       })
       .catch(err => {
@@ -100,12 +119,16 @@ export const getStudent = (id) => {
             err
           }
         });
+        dispatch(loadingStop());
+        return;
       });
   }
 }
 
 export const createDoctor = (data, credentials) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const url = `${baseUrl}/doctor`;
     let badgePhoto;
 
@@ -147,21 +170,26 @@ export const createDoctor = (data, credentials) => {
           }
         });
         dispatch(push(`/user?${data.id}`));
+        dispatch(loadingStop());
         return;
       })
-      .catch(err =>
+      .catch(err => {
         dispatch({
           type: userAction.USER_ERROR,
           payload: {
             err
           }
-        }));
+        });
+        dispatch(loadingStop());
+        return;
+      });
   }
 }
 
-
 export const updateDoctor = (data, credentials) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const url = `${baseUrl}/doctor`;
     let badgePhoto;
 
@@ -203,20 +231,26 @@ export const updateDoctor = (data, credentials) => {
           }
         });
         dispatch(push(`/user?${data.id}`));
+        dispatch(loadingStop());
         return;
       })
-      .catch(err =>
+      .catch(err => {
         dispatch({
           type: userAction.USER_ERROR,
           payload: {
             err
           }
-        }));
+        });
+        dispatch(loadingStop());
+        return;
+      });
   }
 }
 
 export const getDoctor = (id) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const url = `${baseUrl}/doctor/${id}`;
 
     return fetch(url, {
@@ -232,14 +266,17 @@ export const getDoctor = (id) => {
             type: userAction.GET_DOCTOR_FAILURE
           });
           dispatch(push('/sign-up/doctor'));
+          dispatch(loadingStop());
           return;
         }
 
         return response.json().then(response => {
-          return dispatch({
+          dispatch({
             type: userAction.GET_DOCTOR_SUCCESS,
             payload: JSON.parse(response.body)
           });
+          dispatch(loadingStop());
+          return;
         })
       })
       .catch(err => {
@@ -249,6 +286,8 @@ export const getDoctor = (id) => {
             err
           }
         });
+        dispatch(loadingStop());
+        return;
       });
   }
 }
@@ -256,6 +295,8 @@ export const getDoctor = (id) => {
 
 export const getDoctors = (query) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     let url = `${baseUrl}/doctors`;
     let queryString;
     if (query) {
@@ -286,6 +327,7 @@ export const getDoctors = (query) => {
             type: userAction.GET_DOCTORS_FAILURE
           });
           dispatch(push(`/search?${queryString}`));
+          dispatch(loadingStop());
           return;
         }
 
@@ -295,6 +337,8 @@ export const getDoctors = (query) => {
             payload: JSON.parse(response.body)
           });
           dispatch(push(`/search?${queryString}`));
+          dispatch(loadingStop());
+          return;
         });
       })
       .catch(err => {
@@ -304,6 +348,8 @@ export const getDoctors = (query) => {
             err
           }
         });
+        dispatch(loadingStop());
+        return;
       });
   }
 }
