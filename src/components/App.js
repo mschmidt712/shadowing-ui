@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Loader from 'react-loader-spinner';
 
 import './App.css';
 import AppHeader from './Header/Header';
@@ -67,6 +68,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        {this.props.loading && <div className="spinner-container">
+          <Loader
+            type="Circles"
+            color="#6558f5"
+            height="100"
+            width="100"
+          />
+        </div>}
         <AppHeader
           location={this.props.location}
           id={this.props.id}
@@ -141,7 +150,8 @@ class App extends Component {
 const mapStateToProps = state => ({
   ...state.authReducer,
   ...state.userReducer,
-  ...state.requestReducer
+  ...state.requestReducer,
+  ...state.loadingReducer
 });
 
 const mapDispatchToProps = dispatch => ({

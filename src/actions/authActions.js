@@ -7,6 +7,7 @@ import * as userAction from './userTypes';
 import awsData from '../aws-config.json';
 
 import { getStudent, getDoctor } from '../actions/userActions';
+import { loadingStart, loadingStop } from '../actions/loadingActions';
 
 const poolData = {
   UserPoolId: awsData['pool-id'],
@@ -16,6 +17,8 @@ const poolData = {
 //************************* Authentication Actions *************************//
 export const loginUser = (email, password) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const authenticationDetails = new AuthenticationDetails({
       Username: email,
       Password: password,
@@ -42,7 +45,7 @@ export const loginUser = (email, password) => {
               dispatch(getDoctor(attributes.sub));
             }
 
-            return dispatch({
+            dispatch({
               type: authAction.LOGIN_USER,
               payload: {
                 credentials,
@@ -51,6 +54,8 @@ export const loginUser = (email, password) => {
                 id: attributes.sub
               }
             });
+            dispatch(loadingStop());
+            return;
           });
       },
       onFailure: (err) => {
@@ -60,6 +65,8 @@ export const loginUser = (email, password) => {
             err
           }
         });
+        dispatch(loadingStop());
+        return;
       }
     });
   }
@@ -100,6 +107,8 @@ function getUserCredentials(session) {
 
 export const logoutUser = () => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const userPool = new CognitoUserPool(poolData);
     const cognitoUser = userPool.getCurrentUser();
     cognitoUser.signOut();
@@ -111,11 +120,13 @@ export const logoutUser = () => {
       type: userAction.CLEAR_USER
     });
     dispatch(push('/'));
+    dispatch(loadingStop());
   }
 }
 
 export const checkAuthStatus = () => {
   return (dispatch) => {
+    dispatch(loadingStart());
     var userPool = new CognitoUserPool(poolData);
     var cognitoUser = userPool.getCurrentUser();
     let session;
@@ -151,7 +162,7 @@ export const checkAuthStatus = () => {
           dispatch(getDoctor(attributes.sub));
         }
 
-        return dispatch({
+        dispatch({
           type: authAction.CHECK_AUTH_STATUS,
           payload: {
             isLoggedIn: true,
@@ -161,6 +172,8 @@ export const checkAuthStatus = () => {
             credentials
           }
         });
+        dispatch(loadingStop());
+        return;
       }).catch(err => {
         dispatch({
           type: authAction.AUTH_ERROR,
@@ -168,20 +181,25 @@ export const checkAuthStatus = () => {
             err
           }
         });
+        dispatch(loadingStop());
+        return;
       });
     } else {
-      return dispatch({
+      dispatch({
         type: authAction.CHECK_AUTH_STATUS,
         payload: {
           isLoggedIn: false
         }
       });
+      dispatch(loadingStop());
+      return;
     }
   }
 }
 
 export const registerUser = (email, password, occupation) => {
   return (dispatch) => {
+    dispatch(loadingStart());
     const userPool = new CognitoUserPool(poolData);
 
     let attributeList = [];
@@ -207,9 +225,11 @@ export const registerUser = (email, password, occupation) => {
       });
     }).then(user => {
       console.log(`New User Registered with Email: ${user.getUsername()}`);
-      return dispatch({
+      dispatch({
         type: authAction.REGISTER_USER
       });
+      dispatch(loadingStop());
+      return;
     }).catch(err => {
       dispatch({
         type: authAction.AUTH_ERROR,
@@ -217,12 +237,15 @@ export const registerUser = (email, password, occupation) => {
           err
         }
       });
+      dispatch(loadingStop());
     })
   }
 }
 
 export const verifyUser = (email, password, verification, occupation) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const userPool = new CognitoUserPool(poolData);
     const userData = {
       Username: email,
@@ -248,20 +271,26 @@ export const verifyUser = (email, password, verification, occupation) => {
           occupation
         }
       });
+      dispatch(loadingStop());
+      return;
     }
     ).catch(err => {
-      return dispatch({
+      dispatch({
         type: authAction.AUTH_ERROR,
         payload: {
           err
         }
       });
+      dispatch(loadingStop());
+      return;
     });
   }
 }
 
 export const updateEmailAttribute = (email) => {
   return dispatch => {
+    dispatch(loadingStart());
+
     const userPool = new CognitoUserPool(poolData);
     const cognitoUser = userPool.getCurrentUser();
 
@@ -285,8 +314,7 @@ export const updateEmailAttribute = (email) => {
           if (err) {
             return reject(err);
           }
-
-          return resolve()
+          return resolve();
         });
       });
     }).then(() => {
@@ -294,20 +322,25 @@ export const updateEmailAttribute = (email) => {
         type: authAction.UPDATE_EMAIL_ATTRIBUTE,
         payload: email
       });
+      dispatch(loadingStop());
       return;
     }).catch(err => {
-      return dispatch({
+      dispatch({
         type: authAction.AUTH_ERROR,
         payload: {
           err
         }
       });
+      dispatch(loadingStop());
+      return;
     });
   }
 }
 
 export const verifyNewEmail = (verification) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const userPool = new CognitoUserPool(poolData);
     const cognitoUser = userPool.getCurrentUser();
 
@@ -332,14 +365,18 @@ export const verifyNewEmail = (verification) => {
     }).then(() => {
       dispatch({
         type: authAction.VERIFICATION_CLOSE
-      })
+      });
+      dispatch(loadingStop());
+      return;
     }).catch(err => {
-      return dispatch({
+      dispatch({
         type: authAction.AUTH_ERROR,
         payload: {
           err
         }
       });
+      dispatch(loadingStop());
+      return;
     })
   }
 }
@@ -359,24 +396,28 @@ export const resendVerification = (email) => {
         }
         return resolve(result);
       });
-    }).then(result => {
-      console.log(`Account Verification: ${result}`);
-      return dispatch({
+    }).then(() => {
+      dispatch({
         type: authAction.RESEND_VERIFICATION
       });
+      dispatch(loadingStop());
+      return;
     }).catch(err => {
-      return dispatch({
+      dispatch({
         type: authAction.AUTH_ERROR,
         payload: {
           err
         }
       });
+      dispatch(loadingStop());
     });
   }
 }
 
 export const changePassword = (oldPassword, newPassword) => {
   return dispatch => {
+    dispatch(loadingStart());
+
     const userPool = new CognitoUserPool(poolData);
     const cognitoUser = userPool.getCurrentUser();
     return new Promise((resolve, reject) => {
@@ -396,23 +437,29 @@ export const changePassword = (oldPassword, newPassword) => {
           return resolve()
         });
       });
-    }).then(() => (
+    }).then(() => {
       dispatch({
         type: authAction.CHANGE_PASSWORD
-      })
-    )).catch(err => {
-      return dispatch({
+      });
+      dispatch(loadingStop());
+      return;
+    }).catch(err => {
+      dispatch({
         type: authAction.AUTH_ERROR,
         payload: {
           err
         }
       });
+      dispatch(loadingStop());
+      return;
     });
   };
 }
 
 export const forgotPassword = (email) => {
   return dispatch => {
+    dispatch(loadingStart());
+
     const userPool = new CognitoUserPool(poolData);
     const cognitoUser = new CognitoUser({
       Username: email,
@@ -421,20 +468,23 @@ export const forgotPassword = (email) => {
 
     cognitoUser.forgotPassword({
       onSuccess: function (data) {
-        // successfully initiated reset password request
         alert('Verification Code Sent!');
 
-        return dispatch({
+        dispatch({
           type: authAction.FORGOT_PASSWORD
         });
+        dispatch(loadingStop());
+        return;
       },
       onFailure: function (err) {
-        return dispatch({
+        dispatch({
           type: authAction.AUTH_ERROR,
           payload: {
             err
           }
         });
+        dispatch(loadingStop());
+        return;
       }
     });
   }
@@ -442,6 +492,8 @@ export const forgotPassword = (email) => {
 
 export const confirmPasswordReset = (email, verification, newPassword) => {
   return dispatch => {
+    dispatch(loadingStart());
+
     const userPool = new CognitoUserPool(poolData);
     const cognitoUser = new CognitoUser({
       Username: email,
@@ -452,17 +504,21 @@ export const confirmPasswordReset = (email, verification, newPassword) => {
       onSuccess() {
         alert('Password Successfully Reset!');
 
-        return dispatch({
+        dispatch({
           type: authAction.CONFIRM_PASSWORD
         });
+        dispatch(loadingStop());
+        return;
       },
       onFailure(err) {
-        return dispatch({
+        dispatch({
           type: authAction.AUTH_ERROR,
           payload: {
             err
           }
         });
+        dispatch(loadingStop());
+        return;
       }
     });
   }
@@ -470,21 +526,27 @@ export const confirmPasswordReset = (email, verification, newPassword) => {
 
 export const deleteUser = () => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     const userPool = new CognitoUserPool(poolData);
     const cognitoUser = userPool.getCurrentUser();
     cognitoUser.deleteUser(function (err, result) {
       if (err) {
-        return dispatch({
+        dispatch({
           type: authAction.AUTH_ERROR,
           payload: {
             err
           }
         });
+        dispatch(loadingStop());
+        return;
       }
 
       dispatch({
         type: authAction.DELETE_USER
       });
+      dispatch(loadingStop());
+      return;
     });
   }
 }
@@ -492,10 +554,12 @@ export const deleteUser = () => {
 //************************* Facebook Authentication Actions *************************//
 export const facebookLoginUser = (email, picture, token, id) => {
   return dispatch => {
+    dispatch(loadingStart());
+
     return getFacebookUserCredentials(token).then(credentials => {
       dispatch(getStudent(id));
 
-      return dispatch({
+      dispatch({
         type: authAction.FACEBOOK_LOGIN_USER,
         payload: {
           credentials,
@@ -504,13 +568,17 @@ export const facebookLoginUser = (email, picture, token, id) => {
           picture
         }
       });
+      dispatch(loadingStop());
+      return;
     }).catch(err => {
-      return dispatch({
+      dispatch({
         type: authAction.AUTH_ERROR,
         payload: {
           err
         }
       });
+      dispatch(loadingStop());
+      return;
     });
   }
 }
@@ -547,10 +615,12 @@ export const facebookLogoutUser = () => {
 //************************* Google Authentication Actions *************************//
 export const googleLoginUser = (email, picture, token, id) => {
   return dispatch => {
+    dispatch(loadingStart());
+
     return getGoogleUserCredentials(token).then(credentials => {
       dispatch(getStudent(id));
 
-      return dispatch({
+      dispatch({
         type: authAction.GOOGLE_LOGIN_USER,
         payload: {
           credentials,
@@ -559,13 +629,17 @@ export const googleLoginUser = (email, picture, token, id) => {
           id
         }
       });
+      dispatch(loadingStop());
+      return;
     }).catch(err => {
-      return dispatch({
+      dispatch({
         type: authAction.AUTH_ERROR,
         payload: {
           err
         }
       });
+      dispatch(loadingStop());
+      return;
     });
   }
 }
