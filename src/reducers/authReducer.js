@@ -74,6 +74,11 @@ export default (state = initialState, action) => {
         displayForgotPassword: false,
         displayLogin: true
       });
+    case authAction.UPDATE_EMAIL_ATTRIBUTE:
+      return Object.assign({}, state, {
+        email: action.payload,
+        displayVerification: true
+      });
     case authAction.FACEBOOK_LOGIN_USER:
       return Object.assign({}, state, {
         isLoggedIn: true,

@@ -17,11 +17,12 @@ function Verification(props) {
           <div className="form">
             <label>Verfication Code</label>
             <input type="number" name="verification" value={props.verification} onChange={props.onVerificationChange} />
-            <button className="primary" onClick={() => props.verifyUser(props.email, props.password, props.verification, props.occupation)}>Sign Up</button>
+            {!props.isLoggedIn && <button className="primary" onClick={() => props.verifyUser(props.email, props.password, props.verification, props.occupation)}>Sign Up</button>}
+            {props.isLoggedIn && <button className="primary" onClick={() => { props.verifyNewEmail(props.verification); }}>Verify Email</button>}
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

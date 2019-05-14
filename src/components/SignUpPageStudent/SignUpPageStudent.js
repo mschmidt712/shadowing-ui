@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 
+import ChangePasswordModal from '../SignUpPageShared/ChangePasswordModal';
 import * as authActions from '../../actions/authActions';
 import * as userActions from '../../actions/userActions';
-import ChangePasswordModal from '../SignUpPageShared/ChangePasswordModal';
 
 class SignUpPageStudent extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class SignUpPageStudent extends Component {
       phoneNumber: props.phoneNumber || undefined,
       hipaaCert: props.hipaaCert || false,
       touched: 'clean',
-      displayChangeEmailModal: false,
+      displayChangeEmail: false,
       displayChangePasswordModal: false,
       changePassword: {
         oldPassword: '',
@@ -39,7 +39,7 @@ class SignUpPageStudent extends Component {
     this.validateForm = this.validateForm.bind(this);
     this.createStudent = this.createStudent.bind(this);
 
-    this.toggleChangeEmailModal = this.toggleChangeEmailModal.bind(this);
+    this.toggleChangeEmail = this.toggleChangeEmail.bind(this);
     this.toggleChangePasswordModal = this.toggleChangePasswordModal.bind(this);
   }
 
@@ -144,9 +144,9 @@ class SignUpPageStudent extends Component {
     }
   }
 
-  toggleChangeEmailModal(status) {
+  toggleChangeEmail(status) {
     this.setState({
-      displayChangeEmailModal: status
+      displayChangeEmail: status
     });
   }
 
@@ -166,10 +166,23 @@ class SignUpPageStudent extends Component {
           </h4>
         <div className="form-element">
           <label>Email:</label>
-          <span className="form-input">{this.props.email}</span>
+          {!this.state.displayChangeEmail && <span className="form-input">{this.props.email}</span>}
+          {this.state.displayChangeEmail &&
+            <div>
+              <input type="text" name="email" value={this.state.email} onChange={this.onInputChange} className="form-input" />
+              <button className="icon small">
+                <i className="fa fa-check" onClick={() => {
+                  this.props.updateEmailAttribute(this.state.email);
+                  this.toggleChangeEmail(false);
+                }}></i>
+              </button>
+              <button className="icon small" onClick={() => { this.toggleChangeEmail(false) }}>
+                <i className="fa fa-times"></i>
+              </button>
+            </div>}
         </div>
         {this.props.loginMethod === 'cognito' && <div className="form-element">
-          <button className="primary">Change Email</button>
+          <button className="primary" onClick={() => { this.toggleChangeEmail(true) }}>Change Email</button>
           <button className="secondary" onClick={() => { this.toggleChangePasswordModal(true) }}>Change Password</button>
         </div>}
         <div className="form-element">
@@ -289,6 +302,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateEmailAttribute: (email) => dispatch(authActions.updateEmailAttribute(email)),
   changePassword: (oldPassword, newPassword) => dispatch(authActions.changePassword(oldPassword, newPassword)),
   createStudent: (data) => dispatch(userActions.createStudent(data)),
   updateStudent: (data) => dispatch(userActions.updateStudent(data)),

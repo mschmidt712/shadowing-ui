@@ -25,25 +25,38 @@ export default function Step1(props) {
   ));
 
   return (
-    <form className="form">
+    <div className="form">
       <h4 className="app-subtitle">
         Thanks for your interest in Shadowing.com!
         <br />
         We understand that your time is valuable and we do our best to made the process as easy as possible. Let's start by building your profile.
       </h4>
       <div className="form-element">
-        <label>Email</label>
+        <label>Email:</label>
         <i
           data-tip="This is only used for shadowing.com to contact you for potential matches. Students will not have access to this information"
           className="fas fa-info-circle icon">
         </i>
         <ReactTooltip />
-        <span className="form-input">{props.email}</span>
+        {!props.displayChangeEmail && <span className="form-input">{props.email}</span>}
+        {props.displayChangeEmail &&
+          <div>
+            <input type="text" name="email" value={props.email} onChange={props.onInputChange} className="form-input" />
+            <button className="icon small">
+              <i className="fa fa-check" onClick={() => {
+                props.updateEmailAttribute(props.email);
+                props.toggleChangeEmail(false);
+              }}></i>
+            </button>
+            <button className="icon small" onClick={() => { props.toggleChangeEmail(false) }}>
+              <i className="fa fa-times"></i>
+            </button>
+          </div>}
       </div>
-      <div className="form-element">
-        <button className="primary">Change Email</button>
-        <button className="secondary">Change Password</button>
-      </div>
+      {props.loginMethod === 'cognito' && <div className="form-element">
+        <button className="primary" onClick={() => { props.toggleChangeEmail(true) }}>Change Email</button>
+        <button className="secondary" onClick={() => { props.toggleChangePasswordModal(true) }}>Change Password</button>
+      </div>}
       <div className="form-element">
         <label>Name</label>
         <div className="form-input">
@@ -131,10 +144,9 @@ export default function Step1(props) {
             <option value=""></option>
             {specialties}
           </select>
-          {/* <input type="text" name="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty" className={props.touched} required /> */}
         </div>
       </div>
-      <input onClick={validateForm} type="button" className="button primary" value="Next" />
-    </form>
+      <button onClick={validateForm} type="button" className="primary">Next</button>
+    </div>
   )
 }

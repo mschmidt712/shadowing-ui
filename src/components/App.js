@@ -104,8 +104,10 @@ class App extends Component {
             verification={this.state.verification}
             occupation={this.state.occupation}
             unverifiedUser={this.props.unverifiedUser}
+            isLoggedIn={this.props.isLoggedIn}
             onVerificationChange={this.onInputChange}
             verifyUser={this.props.verifyUser}
+            verifyNewEmail={this.props.verifyNewEmail}
             handleVerificationClose={this.props.handleVerificationClose}
             resendVerification={this.props.resendVerification}
           />}
@@ -143,6 +145,7 @@ const mapDispatchToProps = dispatch => ({
   registerUser: (email, password, occupation) => dispatch(authActions.registerUser(email, password, occupation)),
   resendVerification: (email) => dispatch(authActions.resendVerification(email)),
   verifyUser: (email, password, verification, occupation) => dispatch(authActions.verifyUser(email, password, verification, occupation)),
+  verifyNewEmail: (verification) => dispatch(authActions.verifyNewEmail(verification)),
   forgotPassword: (email) => dispatch(authActions.forgotPassword(email)),
   confirmPasswordReset: (email, verification, password) => dispatch(authActions.confirmPasswordReset(email, verification, password)),
   // Display Actions

@@ -260,31 +260,87 @@ export const verifyUser = (email, password, verification, occupation) => {
   }
 }
 
-export const updateUserAttributes = () => {
+export const updateEmailAttribute = (email) => {
   return dispatch => {
     const userPool = new CognitoUserPool(poolData);
     const cognitoUser = userPool.getCurrentUser();
 
     const attributeList = [];
     const attribute = new CognitoUserAttribute({
-      Name: 'custom:active',
-      Value: true
+      Name: 'email',
+      Value: email
     });
     attributeList.push(attribute);
-    cognitoUser.updateAttributes(attributeList, function (err, result) {
-      if (err) {
-        return dispatch({
-          type: authAction.AUTH_ERROR,
-          payload: {
-            err
-          }
-        });
-      }
 
+    return new Promise((resolve, reject) => {
+      return cognitoUser.getSession((err) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve();
+      });
+    }).then(() => {
+      return new Promise((resolve, reject) => {
+        cognitoUser.updateAttributes(attributeList, function (err, result) {
+          if (err) {
+            return reject(err);
+          }
+
+          return resolve()
+        });
+      });
+    }).then(() => {
       dispatch({
-        type: authAction.UPDATE_USER_ATTRIBUTES
+        type: authAction.UPDATE_EMAIL_ATTRIBUTE,
+        payload: email
+      });
+      return;
+    }).catch(err => {
+      return dispatch({
+        type: authAction.AUTH_ERROR,
+        payload: {
+          err
+        }
       });
     });
+  }
+}
+
+export const verifyNewEmail = (verification) => {
+  return (dispatch) => {
+    const userPool = new CognitoUserPool(poolData);
+    const cognitoUser = userPool.getCurrentUser();
+
+    return new Promise((resolve, reject) => {
+      return cognitoUser.getSession(err => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve();
+      });
+    }).then(() => {
+      return new Promise((resolve, reject) => {
+        return cognitoUser.verifyAttribute('email', verification, {
+          onSuccess: (resp) => {
+            return resolve(resp);
+          },
+          onFailure: (err) => {
+            return reject(err);
+          }
+        })
+      });
+    }).then(() => {
+      dispatch({
+        type: authAction.VERIFICATION_CLOSE
+      })
+    }).catch(err => {
+      return dispatch({
+        type: authAction.AUTH_ERROR,
+        payload: {
+          err
+        }
+      });
+    })
   }
 }
 

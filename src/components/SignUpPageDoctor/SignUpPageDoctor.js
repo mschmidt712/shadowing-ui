@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import Step1 from './DoctorSignUpStep1';
 import Step2 from './DoctorSignUpStep2';
 import Step3 from './DoctorSignUpStep3';
+import ChangePasswordModal from '../SignUpPageShared/ChangePasswordModal';
 import './SignUpPageDoctor.css';
 import * as userActions from '../../actions/userActions';
+import * as authActions from '../../actions/authActions';
 
 class SignUpPageDoctor extends Component {
   constructor(props) {
@@ -64,6 +66,7 @@ class SignUpPageDoctor extends Component {
       firstName: firstName || '',
       lastName: lastName || '',
       degree: props.degree || '',
+      email: props.email || '',
       streetAddress: props.address.streetAddress || '',
       city: props.address.city || '',
       state: props.address.state || '',
@@ -78,10 +81,18 @@ class SignUpPageDoctor extends Component {
       step: 1,
       stepOneTouched: 'clean',
       stepTwoTouched: 'clean',
-      stepThreeTouched: 'clean'
+      stepThreeTouched: 'clean',
+      displayChangeEmail: false,
+      displayChangePasswordModal: false,
+      changePassword: {
+        oldPassword: '',
+        newPassword: '',
+        confirmNewPassword: ''
+      }
     }
 
     this.onInputChange = this.onInputChange.bind(this);
+    this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
     this.onPhotoInputChange = this.onPhotoInputChange.bind(this);
     this.setTouched = this.setTouched.bind(this);
     this.nextStep = this.nextStep.bind(this);
@@ -91,12 +102,24 @@ class SignUpPageDoctor extends Component {
     this.handleAvailabilityTimes = this.handleAvailabilityTimes.bind(this);
 
     this.createDoctor = this.createDoctor.bind(this);
+
+    this.toggleChangeEmail = this.toggleChangeEmail.bind(this);
+    this.toggleChangePasswordModal = this.toggleChangePasswordModal.bind(this);
   }
 
   onInputChange(event) {
     const newState = {};
     newState[event.target.name] = event.target.value;
     this.setState(newState);
+  }
+
+  onPasswordInputChange(event) {
+    const newState = Object.assign({}, this.state.changePassword, {
+      [event.target.name]: event.target.value
+    });
+    this.setState({
+      changePassword: newState
+    });
   }
 
   onPhotoInputChange(event) {
@@ -190,6 +213,18 @@ class SignUpPageDoctor extends Component {
     }
   }
 
+  toggleChangeEmail(status) {
+    this.setState({
+      displayChangeEmail: status
+    });
+  }
+
+  toggleChangePasswordModal(status) {
+    this.setState({
+      displayChangePasswordModal: status
+    });
+  }
+
   render() {
     return (
       <div className="main">
@@ -197,16 +232,21 @@ class SignUpPageDoctor extends Component {
           firstName={this.state.firstName}
           lastName={this.state.lastName}
           degree={this.state.degree}
-          email={this.props.email}
+          email={this.state.email}
           streetAddress={this.state.streetAddress}
           city={this.state.city}
           state={this.state.state}
           zipCode={this.state.zipCode}
           specialty={this.state.specialty}
+          loginMethod={this.props.loginMethod}
           onInputChange={this.onInputChange}
           nextStep={this.nextStep}
           touched={this.state.stepOneTouched}
           setTouched={this.setTouched}
+          toggleChangePasswordModal={this.toggleChangePasswordModal}
+          displayChangeEmail={this.state.displayChangeEmail}
+          toggleChangeEmail={this.toggleChangeEmail}
+          updateEmailAttribute={this.props.updateEmailAttribute}
         />}
         {this.state.step === 2 && <Step2
           maxRequests={this.state.maxRequests}
@@ -232,6 +272,14 @@ class SignUpPageDoctor extends Component {
           touched={this.state.stepThreeTouched}
           setTouched={this.setTouched}
         />}
+        {this.state.displayChangePasswordModal && <ChangePasswordModal
+          onInputChange={this.onPasswordInputChange}
+          toggleChangePasswordModal={this.toggleChangePasswordModal}
+          oldPassword={this.state.changePassword.oldPassword}
+          newPassword={this.state.changePassword.newPassword}
+          confirmNewPassword={this.state.changePassword.confirmNewPassword}
+          changePassword={this.props.changePassword}
+        />}
       </div>
     )
   }
@@ -243,6 +291,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateEmailAttribute: (email) => dispatch(authActions.updateEmailAttribute(email)),
+  changePassword: (oldPassword, newPassword) => dispatch(authActions.changePassword(oldPassword, newPassword)),
   createDoctor: (data, credentials) => dispatch(userActions.createDoctor(data, credentials)),
   updateDoctor: (data, credentials) => dispatch(userActions.updateDoctor(data, credentials))
 });
