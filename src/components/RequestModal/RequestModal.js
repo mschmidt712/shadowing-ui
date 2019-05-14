@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 
 import * as requestActions from '../../actions/requestActions';
-import { format } from 'util';
 
 class RequestModal extends Component {
   constructor(props) {
@@ -72,7 +70,7 @@ class RequestModal extends Component {
       scheduling: formattedAvailability
     }
 
-    console.log(requestData);
+    this.props.createRequest(requestData);
     this.props.closeModal();
   }
 
@@ -110,15 +108,11 @@ class RequestModal extends Component {
                 <h5 className="app-subtitle">Phone Number:</h5>
                 {this.props.phoneNumber}
               </div>
-              <div className="data-item column">
+              <div className="data-item">
                 <h5 className="app-subtitle">Scheduling:</h5>
                 {availability}
               </div>
-              <div className="data-item column">
-                <h5 className="app-subtitle">Comments:</h5>
-                <textarea type="email" name="email" placeholder="Email" value={this.props.email} onChange={this.props.onInputChange} />
-              </div>
-              <button className="primary" onClick={this.validateRequest}>Request Shadowing</button>
+              <button className="primary" onClick={this.validateRequest}>Request</button>
             </div>
           </div>
         </div>
@@ -133,6 +127,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  createRequest: (data) => dispatch(requestActions.createRequest(data))
 });
 
-export default connect(mapStateToProps, null)(RequestModal);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestModal);

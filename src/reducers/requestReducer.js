@@ -18,6 +18,10 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         requests: newRequests
       });
+    case requestAction.CREATE_REQUEST:
+      return Object.assign({}, state, {
+        requests: [...state.requests, action.payload]
+      });
     default:
       return state;
   }

@@ -134,3 +134,29 @@ export const deleteRequest = (requestId) => {
     })
   }
 }
+
+export const createRequest = (requestData) => {
+  return (dispatch) => {
+    let url = `${baseUrl}/request`
+
+    return fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ request: requestData })
+    }).then((resp) => {
+      if (resp.status !== 201) {
+        throw new Error(resp);
+      }
+
+      return dispatch({
+        type: requestAction.CREATE_REQUEST,
+        payload: requestData
+      });
+    }).catch(err => {
+      console.error(err);
+    })
+  }
+}
