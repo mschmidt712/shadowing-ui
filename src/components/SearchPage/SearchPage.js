@@ -26,7 +26,7 @@ class SearchPage extends Component {
       filtersEnabled: true,
       doctor: undefined,
       displayRequestModal: false,
-      displayConfirmationModal: true
+      displayConfirmationModal: false
     }
 
     this.getDoctors = this.getDoctors.bind(this);
