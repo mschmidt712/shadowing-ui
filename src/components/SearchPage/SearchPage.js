@@ -6,6 +6,7 @@ import SearchMapComponent from './SearchMapComponent';
 import SearchFilters from './SearchFilters';
 import SearchDoctorComponent from './SearchDoctorComponent';
 import RequestModal from '../RequestModal/RequestModal';
+import RequestConfirmationModal from '../RequestModal/RequestConfirmationModal';
 import './SearchPage.css';
 
 import * as userActions from '../../actions/userActions';
@@ -24,7 +25,8 @@ class SearchPage extends Component {
       addressLatLng: undefined,
       filtersEnabled: true,
       doctor: undefined,
-      displayRequestModal: false
+      displayRequestModal: false,
+      displayConfirmationModal: true
     }
 
     this.getDoctors = this.getDoctors.bind(this);
@@ -34,7 +36,8 @@ class SearchPage extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onAvailabilityChange = this.onAvailabilityChange.bind(this);
     this.requestShadowing = this.requestShadowing.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.closeRequestModal = this.closeRequestModal.bind(this);
+    this.toggleConfirmationModal = this.toggleConfirmationModal.bind(this);
   }
 
   componentDidMount() {
@@ -181,9 +184,15 @@ class SearchPage extends Component {
     });
   }
 
-  closeModal() {
+  closeRequestModal() {
     this.setState({
       displayRequestModal: false
+    });
+  }
+
+  toggleConfirmationModal(status) {
+    this.setState({
+      displayConfirmationModal: status
     });
   }
 
@@ -232,10 +241,12 @@ class SearchPage extends Component {
           </div>
           {this.state.displayRequestModal && <RequestModal
             doctor={this.state.doctor}
-            name={this.props.name}
-            email={this.props.email}
-            phoneNumber={this.props.phoneNumber}
-            closeModal={this.closeModal}
+            closeRequestModal={this.closeRequestModal}
+            toggleConfirmationModal={this.toggleConfirmationModal}
+          />}
+          {this.state.displayConfirmationModal && <RequestConfirmationModal
+            doctor={this.state.doctor}
+            toggleConfirmationModal={this.toggleConfirmationModal}
           />}
         </div>
       </div>

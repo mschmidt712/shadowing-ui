@@ -71,19 +71,20 @@ class RequestModal extends Component {
     }
 
     this.props.createRequest(requestData);
-    this.props.closeModal();
+    this.props.closeRequestModal();
+    this.props.toggleConfirmationModal(true);
   }
 
   render() {
     const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const availabilityDays = daysOfTheWeek.filter(day => {
+    const availableDays = daysOfTheWeek.filter(day => {
       return this.props.doctor.scheduling[day];
     });
-    const availability = availabilityDays.map((day, key) => {
+    const availability = availableDays.map((day, key) => {
       return <div className="form-input" key={key}>
         <div className="form-input availability">
-          <input type="checkbox" id={day} name={day} checked={this.state.availability[day]} onChange={this.onAvailabilityChange} className="checkbox" />
-          <label htmlFor={day}>{this.capitalizeWord(day)}</label>
+          <input type="checkbox" id={`request-${day}`} name={day} checked={this.state.availability[day]} onChange={this.onAvailabilityChange} className="checkbox" />
+          <label htmlFor={`request-${day}`}>{this.capitalizeWord(day)}</label>
         </div>
       </div>
     });
@@ -91,7 +92,7 @@ class RequestModal extends Component {
     return (
       <div className="modal">
         <div className="modal-content">
-          <span className="close" onClick={() => this.props.closeModal()}>&times;</span>
+          <span className="close" onClick={() => this.props.closeRequestModal()}>&times;</span>
           <div className="modal-text">
             <div className="form">
               <h1 className="app-title">Request Shadowing</h1>
