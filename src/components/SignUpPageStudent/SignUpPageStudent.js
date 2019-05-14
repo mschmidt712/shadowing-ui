@@ -134,10 +134,10 @@ class SignUpPageStudent extends Component {
           <label>Email:</label>
           <span className="form-input">{this.props.email}</span>
         </div>
-        <div className="form-element">
+        {this.props.loginMethod === 'cognito' && <div className="form-element">
           <button className="primary">Change Email</button>
           <button className="secondary">Change Password</button>
-        </div>
+        </div>}
         <div className="form-element">
           <label>Name</label>
           <div className="form-input">
