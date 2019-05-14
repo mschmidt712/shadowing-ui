@@ -319,6 +319,42 @@ export const resendVerification = (email) => {
   }
 }
 
+export const changePassword = (oldPassword, newPassword) => {
+  return dispatch => {
+    const userPool = new CognitoUserPool(poolData);
+    const cognitoUser = userPool.getCurrentUser();
+    return new Promise((resolve, reject) => {
+      cognitoUser.getSession((err, session) => {
+        if (err) {
+          return reject(err)
+        }
+
+        return resolve(session);
+      });
+    }).then(() => {
+      return new Promise((resolve, reject) => {
+        cognitoUser.changePassword(oldPassword, newPassword, function (err, result) {
+          if (err) {
+            return reject(err);
+          }
+          return resolve()
+        });
+      });
+    }).then(() => (
+      dispatch({
+        type: authAction.CHANGE_PASSWORD
+      })
+    )).catch(err => {
+      return dispatch({
+        type: authAction.AUTH_ERROR,
+        payload: {
+          err
+        }
+      });
+    });
+  };
+}
+
 export const forgotPassword = (email) => {
   return dispatch => {
     const userPool = new CognitoUserPool(poolData);

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 
+import * as authActions from '../../actions/authActions';
 import * as userActions from '../../actions/userActions';
+import ChangePasswordModal from '../SignUpPageShared/ChangePasswordModal';
 
 class SignUpPageStudent extends Component {
   constructor(props) {
@@ -20,14 +22,25 @@ class SignUpPageStudent extends Component {
       zipCode: props.address.zipCode || undefined,
       phoneNumber: props.phoneNumber || undefined,
       hipaaCert: props.hipaaCert || false,
-      touched: 'clean'
+      touched: 'clean',
+      displayChangeEmailModal: false,
+      displayChangePasswordModal: false,
+      changePassword: {
+        oldPassword: '',
+        newPassword: '',
+        confirmNewPassword: ''
+      }
     }
 
     this.onInputChange = this.onInputChange.bind(this);
+    this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
     this.setTouched = this.setTouched.bind(this);
 
     this.validateForm = this.validateForm.bind(this);
     this.createStudent = this.createStudent.bind(this);
+
+    this.toggleChangeEmailModal = this.toggleChangeEmailModal.bind(this);
+    this.toggleChangePasswordModal = this.toggleChangePasswordModal.bind(this);
   }
 
   componentDidUpdate(previousProps) {
@@ -49,9 +62,18 @@ class SignUpPageStudent extends Component {
   }
 
   onInputChange(event) {
-    const newState = {};
+    let newState = {};
     newState[event.target.name] = event.target.value;
     this.setState(newState);
+  }
+
+  onPasswordInputChange(event) {
+    const newState = Object.assign({}, this.state.changePassword, {
+      [event.target.name]: event.target.value
+    });
+    this.setState({
+      changePassword: newState
+    });
   }
 
   setTouched() {
@@ -122,6 +144,18 @@ class SignUpPageStudent extends Component {
     }
   }
 
+  toggleChangeEmailModal(status) {
+    this.setState({
+      displayChangeEmailModal: status
+    });
+  }
+
+  toggleChangePasswordModal(status) {
+    this.setState({
+      displayChangePasswordModal: status
+    });
+  }
+
   render() {
     return (
       <div className="form main">
@@ -136,7 +170,7 @@ class SignUpPageStudent extends Component {
         </div>
         {this.props.loginMethod === 'cognito' && <div className="form-element">
           <button className="primary">Change Email</button>
-          <button className="secondary">Change Password</button>
+          <button className="secondary" onClick={() => { this.toggleChangePasswordModal(true) }}>Change Password</button>
         </div>}
         <div className="form-element">
           <label>Name</label>
@@ -236,6 +270,14 @@ class SignUpPageStudent extends Component {
         </div>
         {!this.props.active && <input type="button" className="button primary" value="Complete Profile" onClick={this.validateForm} />}
         {this.props.active && <input type="submit" className="button primary" value="Save" onClick={this.validateForm} />}
+        {this.state.displayChangePasswordModal && <ChangePasswordModal
+          onInputChange={this.onPasswordInputChange}
+          toggleChangePasswordModal={this.toggleChangePasswordModal}
+          oldPassword={this.state.changePassword.oldPassword}
+          newPassword={this.state.changePassword.newPassword}
+          confirmNewPassword={this.state.changePassword.confirmNewPassword}
+          changePassword={this.props.changePassword}
+        />}
       </div>
     )
   }
@@ -247,6 +289,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  changePassword: (oldPassword, newPassword) => dispatch(authActions.changePassword(oldPassword, newPassword)),
   createStudent: (data) => dispatch(userActions.createStudent(data)),
   updateStudent: (data) => dispatch(userActions.updateStudent(data)),
   getStudent: (id) => dispatch(userActions.getStudent(id))
