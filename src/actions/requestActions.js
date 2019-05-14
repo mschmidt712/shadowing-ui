@@ -1,9 +1,13 @@
 import * as requestAction from './requestTypes';
 
+import { loadingStart, loadingStop } from './loadingActions';
+
 const baseUrl = 'https://5hc101yjlj.execute-api.us-east-1.amazonaws.com/Test';
 
 export const getStudentRequests = (id, query) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     let requests;
     let url = `${baseUrl}/requests?student=${id}`
     if (query) {
@@ -52,6 +56,8 @@ export const getStudentRequests = (id, query) => {
           type: requestAction.GET_REQUESTS,
           payload: results
         });
+        dispatch(loadingStop());
+        return;
       }).catch(err => {
         dispatch({
           type: requestAction.REQUEST_ERROR,
@@ -59,12 +65,16 @@ export const getStudentRequests = (id, query) => {
             err
           }
         });
+        dispatch(loadingStop());
+        return;
       })
   }
 }
 
 export const getDoctorRequests = (id, query) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     let requests;
     let url = `${baseUrl}/requests?doctor=${id}`
     if (query) {
@@ -113,6 +123,8 @@ export const getDoctorRequests = (id, query) => {
           type: requestAction.GET_REQUESTS,
           payload: results
         });
+        dispatch(loadingStop());
+        return;
       }).catch(err => {
         dispatch({
           type: requestAction.REQUEST_ERROR,
@@ -120,12 +132,16 @@ export const getDoctorRequests = (id, query) => {
             err
           }
         });
+        dispatch(loadingStop());
+        return;
       })
   }
 }
 
 export const deleteRequest = (requestId) => {
   return (dispatch) => {
+    dispatch(loadingStart());
+
     let url = `${baseUrl}/request/${requestId}`
 
     return fetch(url, {
@@ -135,10 +151,12 @@ export const deleteRequest = (requestId) => {
         "Content-Type": "application/json",
       }
     }).then(() => {
-      return dispatch({
+      dispatch({
         type: requestAction.DELETE_REQUEST,
         payload: { requestId }
       });
+      dispatch(loadingStop());
+      return;
     }).catch(err => {
       dispatch({
         type: requestAction.REQUEST_ERROR,
@@ -146,13 +164,17 @@ export const deleteRequest = (requestId) => {
           err
         }
       });
+      dispatch(loadingStop());
+      return;
     })
   }
 }
 
 export const createRequest = (requestData) => {
   return (dispatch) => {
-    let url = `${baseUrl}/request`
+    dispatch(loadingStart());
+
+    let url = `${baseUrl}/request`;
 
     return fetch(url, {
       method: "POST",
@@ -166,10 +188,12 @@ export const createRequest = (requestData) => {
         throw new Error(resp);
       }
 
-      return dispatch({
+      dispatch({
         type: requestAction.CREATE_REQUEST,
         payload: requestData
       });
+      dispatch(loadingStop());
+      return;
     }).catch(err => {
       dispatch({
         type: requestAction.REQUEST_ERROR,
@@ -177,6 +201,8 @@ export const createRequest = (requestData) => {
           err
         }
       });
+      dispatch(loadingStop());
+      return;
     })
   }
 }

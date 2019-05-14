@@ -6,8 +6,8 @@ import * as authAction from './authTypes';
 import * as userAction from './userTypes';
 import awsData from '../aws-config.json';
 
-import { getStudent, getDoctor } from '../actions/userActions';
-import { loadingStart, loadingStop } from '../actions/loadingActions';
+import { getStudent, getDoctor } from './userActions';
+import { loadingStart, loadingStop } from './loadingActions';
 
 const poolData = {
   UserPoolId: awsData['pool-id'],
