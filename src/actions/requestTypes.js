@@ -1,3 +1,5 @@
 export const GET_REQUESTS = 'GET_REQUESTS';
 export const DELETE_REQUEST = 'DELETE_REQUEST';
 export const CREATE_REQUEST = 'CREATE_REQUEST';
+export const REQUEST_ERROR = 'REQUEST_ERROR';
+export const HANDLE_ERROR = 'HANDLE_ERROR';

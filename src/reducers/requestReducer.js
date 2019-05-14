@@ -2,7 +2,8 @@ import * as requestAction from '../actions/requestTypes';
 
 const initialState = {
   requests: [],
-  request: {}
+  request: {},
+  requestErr: undefined
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +22,14 @@ export default (state = initialState, action) => {
     case requestAction.CREATE_REQUEST:
       return Object.assign({}, state, {
         requests: [...state.requests, action.payload]
+      });
+    case requestAction.REQUEST_ERROR:
+      return Object.assign({}, state, {
+        requestErr: action.payload.err
+      });
+    case requestAction.HANDLE_ERROR:
+      return Object.assign({}, state, {
+        requestErr: undefined
       });
     default:
       return state;

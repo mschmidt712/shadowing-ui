@@ -53,7 +53,12 @@ export const getStudentRequests = (id, query) => {
           payload: results
         });
       }).catch(err => {
-        console.error(err);
+        dispatch({
+          type: requestAction.REQUEST_ERROR,
+          payload: {
+            err
+          }
+        });
       })
   }
 }
@@ -109,7 +114,12 @@ export const getDoctorRequests = (id, query) => {
           payload: results
         });
       }).catch(err => {
-        console.error(err);
+        dispatch({
+          type: requestAction.REQUEST_ERROR,
+          payload: {
+            err
+          }
+        });
       })
   }
 }
@@ -130,7 +140,12 @@ export const deleteRequest = (requestId) => {
         payload: { requestId }
       });
     }).catch(err => {
-      console.error(err);
+      dispatch({
+        type: requestAction.REQUEST_ERROR,
+        payload: {
+          err
+        }
+      });
     })
   }
 }
@@ -156,7 +171,21 @@ export const createRequest = (requestData) => {
         payload: requestData
       });
     }).catch(err => {
-      console.error(err);
+      dispatch({
+        type: requestAction.REQUEST_ERROR,
+        payload: {
+          err
+        }
+      });
     })
   }
+}
+
+//************************* Error Actions *************************//
+export const handleError = () => {
+  return dispatch => (
+    dispatch({
+      type: requestAction.HANDLE_ERROR
+    })
+  );
 }

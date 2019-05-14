@@ -10,6 +10,7 @@ import SignUpConfirmation from './SignUpConfirmationModal/SignUpConfirmationModa
 import ForgotPassword from './ForgotPassword/ForgotPassword';
 
 import * as authActions from '../actions/authActions';
+import * as requestActions from '../actions/requestActions';
 
 class App extends Component {
   constructor(props) {
@@ -40,6 +41,9 @@ class App extends Component {
     } else if (this.props.err) {
       alert(this.props.err.message);
       this.props.handleError();
+    } else if (this.props.requestErr) {
+      alert(this.props.requestErr.error);
+      this.props.handleRequestError();
     }
   }
 
@@ -132,7 +136,8 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   ...state.authReducer,
-  ...state.userReducer
+  ...state.userReducer,
+  ...state.requestReducer
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -159,7 +164,8 @@ const mapDispatchToProps = dispatch => ({
   handleVerificationClose: () => dispatch(authActions.handleVerificationClose()),
   handleConfirmationClose: () => dispatch(authActions.handleConfirmationClose()),
   // Error Actions
-  handleError: () => dispatch(authActions.handleError())
+  handleError: () => dispatch(authActions.handleError()),
+  handleRequestError: () => dispatch(requestActions.handleError())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
