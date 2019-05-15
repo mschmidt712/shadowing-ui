@@ -9,7 +9,11 @@ export default function DeleteRequestModal(props) {
           <h3>Would you like to delete this request?</h3>
           <p>Now that you have responded to the request from {props.request.student.name}, would you like to delete the request from your inbox?</p>
           <div className="data-item">
-            <button className="primary" onClick={() => { props.deleteRequest(props.request.uuid) }}>Yes, Delete Request</button>
+            <button className="primary" onClick={() => {
+              props.deleteRequest(props.request.uuid);
+              props.toggleDeleteRequestModal();
+            }}
+            >Yes, Delete Request</button>
             <button className="primary" onClick={props.toggleDeleteRequestModal}>No, Keep Request</button>
           </div>
         </div>
