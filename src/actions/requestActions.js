@@ -184,22 +184,22 @@ export const createRequest = (requestData) => {
       },
       body: JSON.stringify({ request: requestData })
     }).then((resp) => {
-      if (resp.status !== 201) {
-        return resp.json();
+      if (!resp.ok) {
+        return resp.json().then(resp => {
+          dispatch({
+            type: requestAction.REQUEST_ERROR,
+            payload: {
+              err: resp.errorMessage
+            }
+          });
+          dispatch(loadingStop());
+          return;
+        });
       }
 
       dispatch({
         type: requestAction.CREATE_REQUEST,
         payload: requestData
-      });
-      dispatch(loadingStop());
-      return;
-    }).then(resp => {
-      dispatch({
-        type: requestAction.REQUEST_ERROR,
-        payload: {
-          err: resp.errorMessage
-        }
       });
       dispatch(loadingStop());
       return;
