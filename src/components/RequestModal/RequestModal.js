@@ -66,7 +66,6 @@ class RequestModal extends Component {
 
     const requestData = {
       student: this.props.id,
-      doctor: this.props.doctor.id,
       scheduling: formattedAvailability
     }
 
