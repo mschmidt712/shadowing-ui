@@ -3,7 +3,9 @@ import * as requestAction from '../actions/requestTypes';
 const initialState = {
   requests: [],
   request: {},
-  requestErr: undefined
+  requestErr: false,
+  requestErrStatus: undefined,
+  requestErrBody: undefined
 };
 
 export default (state = initialState, action) => {
@@ -24,12 +26,18 @@ export default (state = initialState, action) => {
         requests: [...state.requests, action.payload]
       });
     case requestAction.REQUEST_ERROR:
+      const err = JSON.parse(action.payload.err);
+
       return Object.assign({}, state, {
-        requestErr: action.payload.err
+        requestErr: true,
+        requestErrStatus: err.statusCode,
+        requestErrBody: err.body
       });
     case requestAction.HANDLE_ERROR:
       return Object.assign({}, state, {
-        requestErr: undefined
+        requestErr: false,
+        requestErrStatus: undefined,
+        requestErrBody: undefined
       });
     default:
       return state;

@@ -47,7 +47,7 @@ class App extends Component {
       alert(this.props.userErr.error);
       this.props.handleUserError();
     } else if (this.props.requestErr) {
-      alert(this.props.requestErr.error);
+      alert(`${this.props.requestErrStatus}: ${this.props.requestErrBody}`);
       this.props.handleRequestError();
     }
   }

@@ -185,7 +185,7 @@ export const createRequest = (requestData) => {
       body: JSON.stringify({ request: requestData })
     }).then((resp) => {
       if (resp.status !== 201) {
-        throw new Error(resp);
+        return resp.json();
       }
 
       dispatch({
@@ -194,16 +194,16 @@ export const createRequest = (requestData) => {
       });
       dispatch(loadingStop());
       return;
-    }).catch(err => {
+    }).then(resp => {
       dispatch({
         type: requestAction.REQUEST_ERROR,
         payload: {
-          err
+          err: resp.errorMessage
         }
       });
       dispatch(loadingStop());
       return;
-    })
+    });
   }
 }
 
