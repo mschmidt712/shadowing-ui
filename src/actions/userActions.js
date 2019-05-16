@@ -215,6 +215,8 @@ export const updateDoctor = (data, credentials) => {
   return (dispatch) => {
     dispatch(loadingStart());
 
+    console.log(data);
+
     const url = `${baseUrl}/doctor`;
     let badgePhoto;
 
@@ -227,14 +229,22 @@ export const updateDoctor = (data, credentials) => {
 
     let doctorRespStatus;
     return new Promise((resolve, reject) => {
-      return s3.upload(params, options, function (err, data) {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(data.Location);
-      });
+      if (data.badgePhoto) {
+        return s3.upload(params, options, function (err, data) {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(data.Location);
+        });
+      } else {
+        return resolve();
+      }
     }).then(photoUpload => {
-      badgePhoto = photoUpload;
+      if (photoUpload) {
+        badgePhoto = photoUpload;
+      } else {
+        badgePhoto = `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`
+      }
       const bodyData = Object.assign({}, data, {
         badgePhoto
       });
