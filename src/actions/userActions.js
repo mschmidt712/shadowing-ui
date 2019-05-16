@@ -12,6 +12,7 @@ export const createStudent = (data) => {
 
     const url = `${baseUrl}/student`;
 
+    let studentRespStatus;
     return fetch(url, {
       method: "POST",
       mode: "cors",
@@ -19,27 +20,31 @@ export const createStudent = (data) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then(response => response.json())
-      .then(() => {
-        dispatch({
-          type: userAction.CREATE_STUDENT,
-          payload: data.student
-        });
-        dispatch(push(`/user?${data.student.id}`));
-        dispatch(loadingStop());
-        return;
-      })
-      .catch(err => {
-        dispatch({
-          type: userAction.USER_ERROR,
-          payload: {
-            err
-          }
-        });
-        dispatch(loadingStop());
-        return;
+    }).then(response => {
+      studentRespStatus = response.ok;
+      return response.json();
+    }).then(resp => {
+      if (!studentRespStatus) {
+        throw new Error(resp.errorMessage)
+      }
+
+      dispatch({
+        type: userAction.CREATE_STUDENT,
+        payload: data.student
       });
+      dispatch(push(`/user?${data.student.id}`));
+      dispatch(loadingStop());
+      return;
+    }).catch(err => {
+      dispatch({
+        type: userAction.USER_ERROR,
+        payload: {
+          err
+        }
+      });
+      dispatch(loadingStop());
+      return;
+    });
   }
 }
 
@@ -49,6 +54,7 @@ export const updateStudent = (data) => {
 
     const url = `${baseUrl}/student`;
 
+    let studentRespStatus;
     return fetch(url, {
       method: "PUT",
       mode: "cors",
@@ -57,8 +63,14 @@ export const updateStudent = (data) => {
       },
       body: JSON.stringify(data),
     })
-      .then(response => response.json())
-      .then(() => {
+      .then(response => {
+        studentRespStatus = response.ok;
+        return response.json();
+      }).then(resp => {
+        if (!studentRespStatus) {
+          throw new Error(resp.errorMessage);
+        }
+
         dispatch({
           type: userAction.UPDATE_STUDENT,
           payload: data.student
@@ -86,6 +98,7 @@ export const getStudent = (id) => {
 
     const url = `${baseUrl}/student/${id}`;
 
+    let studentRespStatus;
     return fetch(url, {
       method: "GET",
       mode: "cors",
@@ -94,6 +107,8 @@ export const getStudent = (id) => {
       }
     })
       .then(response => {
+        studentRespStatus = response.ok;
+
         if (response.status === 404) {
           dispatch({
             type: userAction.GET_STUDENT_FAILURE
@@ -104,6 +119,10 @@ export const getStudent = (id) => {
         }
 
         return response.json().then(response => {
+          if (!studentRespStatus) {
+            throw new Error(response.errorMessage);
+          }
+
           dispatch({
             type: userAction.GET_STUDENT_SUCCESS,
             payload: JSON.parse(response.body)
@@ -139,6 +158,7 @@ export const createDoctor = (data, credentials) => {
     var params = { Bucket: 'physician-badge-image', Key: `${data.id}.jpg`, Body: data.badgePhoto };
     var options = { partSize: 10 * 1024 * 1024, queueSize: 1 };
 
+    let doctorRespStatus;
     return new Promise((resolve, reject) => {
       return s3.upload(params, options, function (err, data) {
         if (err) {
@@ -160,29 +180,34 @@ export const createDoctor = (data, credentials) => {
         },
         body: JSON.stringify({ doctor: bodyData }),
       })
-    }).then(response => response.json())
-      .then(() => {
-        dispatch({
-          type: userAction.CREATE_DOCTOR,
-          payload: {
-            ...data,
-            badgePhoto
-          }
-        });
-        dispatch(push(`/user?${data.id}`));
-        dispatch(loadingStop());
-        return;
-      })
-      .catch(err => {
-        dispatch({
-          type: userAction.USER_ERROR,
-          payload: {
-            err
-          }
-        });
-        dispatch(loadingStop());
-        return;
+    }).then(response => {
+      doctorRespStatus = response.ok;
+      return response.json();
+    }).then(resp => {
+      if (!doctorRespStatus) {
+        throw new Error(resp.errorMessage);
+      }
+
+      dispatch({
+        type: userAction.CREATE_DOCTOR,
+        payload: {
+          ...data,
+          badgePhoto
+        }
       });
+      dispatch(push(`/user?${data.id}`));
+      dispatch(loadingStop());
+      return;
+    }).catch(err => {
+      dispatch({
+        type: userAction.USER_ERROR,
+        payload: {
+          err
+        }
+      });
+      dispatch(loadingStop());
+      return;
+    });
   }
 }
 
@@ -200,6 +225,7 @@ export const updateDoctor = (data, credentials) => {
     var params = { Bucket: 'physician-badge-image', Key: `${data.id}.jpg`, Body: data.badgePhoto };
     var options = { partSize: 10 * 1024 * 1024, queueSize: 1 };
 
+    let doctorRespStatus;
     return new Promise((resolve, reject) => {
       return s3.upload(params, options, function (err, data) {
         if (err) {
@@ -221,29 +247,34 @@ export const updateDoctor = (data, credentials) => {
         },
         body: JSON.stringify({ doctor: bodyData }),
       })
-    }).then(response => response.json())
-      .then(() => {
-        dispatch({
-          type: userAction.UPDATE_DOCTOR,
-          payload: {
-            ...data,
-            badgePhoto
-          }
-        });
-        dispatch(push(`/user?${data.id}`));
-        dispatch(loadingStop());
-        return;
-      })
-      .catch(err => {
-        dispatch({
-          type: userAction.USER_ERROR,
-          payload: {
-            err
-          }
-        });
-        dispatch(loadingStop());
-        return;
+    }).then(response => {
+      doctorRespStatus = response.ok;
+      return response.json();
+    }).then(resp => {
+      if (!doctorRespStatus) {
+        throw new Error(resp.errorMessage);
+      }
+
+      dispatch({
+        type: userAction.UPDATE_DOCTOR,
+        payload: {
+          ...data,
+          badgePhoto
+        }
       });
+      dispatch(push(`/user?${data.id}`));
+      dispatch(loadingStop());
+      return;
+    }).catch(err => {
+      dispatch({
+        type: userAction.USER_ERROR,
+        payload: {
+          err
+        }
+      });
+      dispatch(loadingStop());
+      return;
+    });
   }
 }
 
@@ -253,42 +284,47 @@ export const getDoctor = (id) => {
 
     const url = `${baseUrl}/doctor/${id}`;
 
+    let doctorRespStatus;
     return fetch(url, {
       method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       }
-    })
-      .then(response => {
-        if (response.status === 404) {
-          dispatch({
-            type: userAction.GET_DOCTOR_FAILURE
-          });
-          dispatch(push('/sign-up/doctor'));
-          dispatch(loadingStop());
-          return;
+    }).then(response => {
+      doctorRespStatus = response.ok;
+
+      if (response.status === 404) {
+        dispatch({
+          type: userAction.GET_DOCTOR_FAILURE
+        });
+        dispatch(push('/sign-up/doctor'));
+        dispatch(loadingStop());
+        return;
+      }
+
+      return response.json().then(response => {
+        if (!doctorRespStatus) {
+          throw new Error(response.errorMessage);
         }
 
-        return response.json().then(response => {
-          dispatch({
-            type: userAction.GET_DOCTOR_SUCCESS,
-            payload: JSON.parse(response.body)
-          });
-          dispatch(loadingStop());
-          return;
-        })
-      })
-      .catch(err => {
         dispatch({
-          type: userAction.USER_ERROR,
-          payload: {
-            err
-          }
+          type: userAction.GET_DOCTOR_SUCCESS,
+          payload: JSON.parse(response.body)
         });
         dispatch(loadingStop());
         return;
+      })
+    }).catch(err => {
+      dispatch({
+        type: userAction.USER_ERROR,
+        payload: {
+          err
+        }
       });
+      dispatch(loadingStop());
+      return;
+    });
   }
 }
 
@@ -314,33 +350,39 @@ export const getDoctors = (query) => {
       url = `${url}?${queryString}`;
     }
 
+    let doctorRespStatus;
     return fetch(url, {
       method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       }
-    })
-      .then(response => {
-        if (response.status === 404) {
-          dispatch({
-            type: userAction.GET_DOCTORS_FAILURE
-          });
-          dispatch(push(`/search?${queryString}`));
-          dispatch(loadingStop());
-          return;
+    }).then(response => {
+      doctorRespStatus = response.ok;
+
+      if (response.status === 404) {
+        dispatch({
+          type: userAction.GET_DOCTORS_FAILURE
+        });
+        dispatch(push(`/search?${queryString}`));
+        dispatch(loadingStop());
+        return;
+      }
+
+      return response.json().then(response => {
+        if (!doctorRespStatus) {
+          throw new Error(response.errorMessage);
         }
 
-        return response.json().then(response => {
-          dispatch({
-            type: userAction.GET_DOCTORS,
-            payload: JSON.parse(response.body)
-          });
-          dispatch(push(`/search?${queryString}`));
-          dispatch(loadingStop());
-          return;
+        dispatch({
+          type: userAction.GET_DOCTORS,
+          payload: JSON.parse(response.body)
         });
-      })
+        dispatch(push(`/search?${queryString}`));
+        dispatch(loadingStop());
+        return;
+      });
+    })
       .catch(err => {
         dispatch({
           type: userAction.USER_ERROR,
