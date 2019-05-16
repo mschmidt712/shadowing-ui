@@ -103,8 +103,10 @@ export default (state = initialState, action) => {
     case userAction.CLEAR_USER:
       return initialState;
     case userAction.USER_ERROR:
+      console.log(action.payload.err);
+
       return Object.assign({}, state, {
-        userErr: action.payload.err
+        userErr: JSON.parse(action.payload.err)
       });
     case userAction.HANDLE_ERROR:
       return Object.assign({}, state, {

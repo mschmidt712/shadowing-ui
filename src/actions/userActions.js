@@ -39,7 +39,7 @@ export const createStudent = (data) => {
       dispatch({
         type: userAction.USER_ERROR,
         payload: {
-          err
+          err: err.message
         }
       });
       dispatch(loadingStop());
@@ -83,7 +83,7 @@ export const updateStudent = (data) => {
         dispatch({
           type: userAction.USER_ERROR,
           payload: {
-            err
+            err: err.message
           }
         });
         dispatch(loadingStop());
@@ -135,7 +135,7 @@ export const getStudent = (id) => {
         dispatch({
           type: userAction.USER_ERROR,
           payload: {
-            err
+            err: err.message
           }
         });
         dispatch(loadingStop());
@@ -202,7 +202,7 @@ export const createDoctor = (data, credentials) => {
       dispatch({
         type: userAction.USER_ERROR,
         payload: {
-          err
+          err: err.message
         }
       });
       dispatch(loadingStop());
@@ -269,7 +269,7 @@ export const updateDoctor = (data, credentials) => {
       dispatch({
         type: userAction.USER_ERROR,
         payload: {
-          err
+          err: err.message
         }
       });
       dispatch(loadingStop());
@@ -319,7 +319,7 @@ export const getDoctor = (id) => {
       dispatch({
         type: userAction.USER_ERROR,
         payload: {
-          err
+          err: err.message
         }
       });
       dispatch(loadingStop());
@@ -387,7 +387,7 @@ export const getDoctors = (query) => {
         dispatch({
           type: userAction.USER_ERROR,
           payload: {
-            err
+            err: err.message
           }
         });
         dispatch(loadingStop());

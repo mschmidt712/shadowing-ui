@@ -74,7 +74,7 @@ export const getStudentRequests = (id, query) => {
       dispatch({
         type: requestAction.REQUEST_ERROR,
         payload: {
-          err: err
+          err: err.message
         }
       });
       dispatch(loadingStop());
@@ -107,7 +107,7 @@ export const getDoctorRequests = (id, query) => {
       requestPromiseStatus = response.ok;
       return response.json()
     }).then(resp => {
-      if (requestPromiseStatus) {
+      if (!requestPromiseStatus) {
         throw new Error(resp.errorMessage);
       }
 
@@ -129,7 +129,7 @@ export const getDoctorRequests = (id, query) => {
             studentPromiseStatus = resp.ok;
             return resp.json();
           }).then(resp => {
-            if (studentPromiseStatus) {
+            if (!studentPromiseStatus) {
               return reject(resp.errorMessage);
             }
 
@@ -153,7 +153,7 @@ export const getDoctorRequests = (id, query) => {
       dispatch({
         type: requestAction.REQUEST_ERROR,
         payload: {
-          err: err
+          err: err.message
         }
       });
       dispatch(loadingStop());
