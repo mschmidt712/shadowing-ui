@@ -17,57 +17,69 @@ export const getStudentRequests = (id, query) => {
       url = `${url}&${queryString}`;
     }
 
+    let requestPromiseStatus;
     return fetch(url, {
       method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       }
-    }).then(response => response.json())
-      .then(resp => {
-        requests = JSON.parse(resp.body);
+    }).then(response => {
+      requestPromiseStatus = response.ok;
+      return response.json();
+    }).then(resp => {
+      if (!requestPromiseStatus) {
+        throw new Error(resp.errorMessage);
+      }
 
-        const promises = [];
-        requests.forEach(request => {
-          const doctor = request.doctor;
+      requests = JSON.parse(resp.body);
 
-          const doctorPromise = new Promise((resolve, reject) => {
-            return fetch(`${baseUrl}/doctor/${doctor}`, {
-              method: "GET",
-              mode: "cors",
-              headers: {
-                "Content-Type": "application/json",
-              }
-            }).then(resp => resp.json())
-              .then(resp => {
-                const doctor = JSON.parse(resp.body);
-                request['doctor'] = doctor;
-                resolve(request);
-              }).catch(err => {
-                reject(err);
-              });
+      const promises = [];
+      requests.forEach(request => {
+        const doctor = request.doctor;
+        let doctorPromiseStatus;
+
+        const doctorPromise = new Promise((resolve, reject) => {
+          return fetch(`${baseUrl}/doctor/${doctor}`, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }).then(resp => {
+            doctorPromiseStatus = resp.ok;
+            return resp.json();
+          }).then(resp => {
+            if (!doctorPromiseStatus) {
+              return reject(resp.errorMessage);
+            }
+
+            const doctor = JSON.parse(resp.body);
+            request['doctor'] = doctor;
+            resolve(request);
           });
+        });
 
-          promises.push(doctorPromise);
-        });
-        return Promise.all(promises);
-      }).then(results => {
-        dispatch({
-          type: requestAction.GET_REQUESTS,
-          payload: results
-        });
-        dispatch(loadingStop());
-        return;
-      }).catch(err => {
-        dispatch({
-          type: requestAction.REQUEST_ERROR,
-          payload: {
-            err
-          }
-        });
-        dispatch(loadingStop());
-        return;
-      })
+        promises.push(doctorPromise);
+      });
+      return Promise.all(promises);
+    }).then(results => {
+      dispatch({
+        type: requestAction.GET_REQUESTS,
+        payload: results
+      });
+      dispatch(loadingStop());
+      return;
+    }).catch(err => {
+      dispatch({
+        type: requestAction.REQUEST_ERROR,
+        payload: {
+          err: err
+        }
+      });
+      dispatch(loadingStop());
+      return;
+    })
   }
 }
 
@@ -84,57 +96,69 @@ export const getDoctorRequests = (id, query) => {
       url = `${url}&${queryString}`;
     }
 
+    let requestPromiseStatus;
     return fetch(url, {
       method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       }
-    }).then(response => response.json())
-      .then(resp => {
-        requests = JSON.parse(resp.body);
+    }).then(response => {
+      requestPromiseStatus = response.ok;
+      return response.json()
+    }).then(resp => {
+      if (requestPromiseStatus) {
+        throw new Error(resp.errorMessage);
+      }
 
-        const promises = [];
-        requests.forEach(request => {
-          const student = request.student;
+      requests = JSON.parse(resp.body);
 
-          const studentPromise = new Promise((resolve, reject) => {
-            return fetch(`${baseUrl}/student/${student}`, {
-              method: "GET",
-              mode: "cors",
-              headers: {
-                "Content-Type": "application/json",
-              }
-            }).then(resp => resp.json())
-              .then(resp => {
-                const student = JSON.parse(resp.body);
-                request['student'] = student;
-                resolve(request);
-              }).catch(err => {
-                reject(err);
-              });
+      const promises = [];
+      requests.forEach(request => {
+        const student = request.student;
+
+        let studentPromiseStatus;
+        const studentPromise = new Promise((resolve, reject) => {
+          return fetch(`${baseUrl}/student/${student}`, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }).then(resp => {
+            studentPromiseStatus = resp.ok;
+            return resp.json();
+          }).then(resp => {
+            if (studentPromiseStatus) {
+              return reject(resp.errorMessage);
+            }
+
+            const student = JSON.parse(resp.body);
+            request['student'] = student;
+            resolve(request);
           });
+        });
 
-          promises.push(studentPromise);
-        });
-        return Promise.all(promises);
-      }).then(results => {
-        dispatch({
-          type: requestAction.GET_REQUESTS,
-          payload: results
-        });
-        dispatch(loadingStop());
-        return;
-      }).catch(err => {
-        dispatch({
-          type: requestAction.REQUEST_ERROR,
-          payload: {
-            err
-          }
-        });
-        dispatch(loadingStop());
-        return;
-      })
+        promises.push(studentPromise);
+      });
+      return Promise.all(promises);
+    }).then(results => {
+      dispatch({
+        type: requestAction.GET_REQUESTS,
+        payload: results
+      });
+      dispatch(loadingStop());
+      return;
+    }).catch(err => {
+      dispatch({
+        type: requestAction.REQUEST_ERROR,
+        payload: {
+          err: err
+        }
+      });
+      dispatch(loadingStop());
+      return;
+    })
   }
 }
 
@@ -150,23 +174,27 @@ export const deleteRequest = (requestId) => {
       headers: {
         "Content-Type": "application/json",
       }
-    }).then(() => {
+    }).then(resp => {
+      if (!resp.ok) {
+        return resp.json().then(jsonResp => {
+          dispatch({
+            type: requestAction.REQUEST_ERROR,
+            payload: {
+              err: jsonResp.errorMessage
+            }
+          });
+          dispatch(loadingStop());
+          return;
+        });
+      }
+
       dispatch({
         type: requestAction.DELETE_REQUEST,
         payload: { requestId }
       });
       dispatch(loadingStop());
       return;
-    }).catch(err => {
-      dispatch({
-        type: requestAction.REQUEST_ERROR,
-        payload: {
-          err
-        }
-      });
-      dispatch(loadingStop());
-      return;
-    })
+    });
   }
 }
 
