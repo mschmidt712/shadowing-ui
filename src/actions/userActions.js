@@ -154,7 +154,7 @@ export const createDoctor = (data, credentials) => {
       region: 'us-east-1',
       credentials
     });
-    var params = { Bucket: 'physician-badge-image', Key: `${data.id}.jpg`, Body: data.badgePhoto };
+    var params = { Bucket: 'physician-badge-images', Key: `${data.id}.jpg`, Body: data.badgePhoto };
     var options = { partSize: 10 * 1024 * 1024, queueSize: 1 };
 
     let doctorRespStatus;
@@ -223,7 +223,7 @@ export const updateDoctor = (data, credentials) => {
       region: 'us-east-1',
       credentials
     });
-    var params = { Bucket: 'physician-badge-image', Key: `${data.id}.jpg`, Body: data.badgePhoto };
+    var params = { Bucket: 'physician-badge-images', Key: `${data.id}.jpg`, Body: data.badgePhoto };
     var options = { partSize: 10 * 1024 * 1024, queueSize: 1 };
 
     let doctorRespStatus;
