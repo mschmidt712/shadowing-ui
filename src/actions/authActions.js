@@ -29,16 +29,16 @@ export const loginUser = (email, password) => {
       Username: email,
       Pool: userPool
     });
+
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (authResult) => {
-        let attributes = {};
+        let credentials;
+        return getUserCredentials(authResult)
+          .then(creds => {
+            credentials = creds;
 
-        return retrieveUserAttributes(cognitoUser)
-          .then(result => {
-            attributes = result;
-
-            return getUserCredentials(authResult);
-          }).then(credentials => {
+            return retrieveUserAttributes(cognitoUser);
+          }).then(attributes => {
             if (attributes['custom:occupation'] === 'student') {
               dispatch(getStudent(attributes.sub));
             } else if (attributes['custom:occupation'] === 'doctor') {
@@ -95,12 +95,12 @@ function getUserCredentials(session) {
     IdentityPoolId: awsData['identity-pool-id'],
     Logins: {}
   };
-  params.Logins[`cognito-idp.${awsData['region']}.amazonaws.com/${awsData['pool-id']}`] = session.getIdToken().jwt
-  const credentials = new AWS.CognitoIdentityCredentials(params, { region: awsData['region'] });
+  params.Logins[`cognito-idp.${awsData['region']}.amazonaws.com/${awsData['pool-id']}`] = session.getIdToken().getJwtToken()
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials(params, { region: awsData['region'] });
   return new Promise((resolve, reject) => {
-    return credentials.refresh(err => {
+    return AWS.config.credentials.refresh(err => {
       if (err) { return reject(err) };
-      return resolve(credentials);
+      return resolve(AWS.config.credentials);
     });
   });
 }
