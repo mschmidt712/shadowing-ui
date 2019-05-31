@@ -1,8 +1,7 @@
 import * as requestAction from './requestTypes';
 
 import { loadingStart, loadingStop } from './loadingActions';
-
-const baseUrl = 'https://5hc101yjlj.execute-api.us-east-1.amazonaws.com/Test';
+import { baseUrl } from './fetchConstants';
 
 export const getStudentRequests = (id, query) => {
   return (dispatch) => {

@@ -1,0 +1,1 @@
+export const baseUrl = 'https://uaql4ffn74.execute-api.us-east-1.amazonaws.com/Test';
