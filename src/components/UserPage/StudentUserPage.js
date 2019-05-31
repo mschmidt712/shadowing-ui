@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import UserPageMapComponent from './UserPageMapComponent';
 import './UserPage.css';
+import config from '../../aws-config.json';
 
 export default function StudentUserPage(props) {
   let hipaaIcon;
@@ -18,7 +19,7 @@ export default function StudentUserPage(props) {
       <div className="user-body">
         <div className="user-map">
           <UserPageMapComponent
-            googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q"
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${config['google-api-key']}`}
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={<div style={{ height: `400px` }} />}
             mapElement={<div style={{ height: `100%` }} />}

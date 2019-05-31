@@ -6,7 +6,7 @@ import * as userActions from '../../actions/userActions';
 import './UserPage.css';
 import StudentUserPage from './StudentUserPage';
 import DoctorUserPage from './DoctorUserPage';
-
+import config from '../../aws-config.json';
 
 class UserPage extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class UserPage extends Component {
   }
 
   geocodeAddress() {
-    Geocode.setApiKey("AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q");
+    Geocode.setApiKey(config['google-api-key']);
     const address = `${this.props.address.streetAddress} ${this.props.address.city}, ${this.props.address.state} ${this.props.address.zipCode}`;
 
     Geocode.fromAddress(address).then(

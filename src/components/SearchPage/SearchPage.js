@@ -8,6 +8,7 @@ import SearchDoctorComponent from './SearchDoctorComponent';
 import RequestModal from '../RequestModal/RequestModal';
 import RequestConfirmationModal from '../RequestModal/RequestConfirmationModal';
 import './SearchPage.css';
+import config from '../../aws-config.json';
 
 import * as userActions from '../../actions/userActions';
 
@@ -116,7 +117,7 @@ class SearchPage extends Component {
   }
 
   geocodeAddress(zipCode) {
-    Geocode.setApiKey("AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q");
+    Geocode.setApiKey(config['google-api-key']);
     return Geocode.fromAddress(zipCode).then(
       response => {
         const addressLatLng = response.results[0].geometry.location;
@@ -128,7 +129,7 @@ class SearchPage extends Component {
   }
 
   geocodeDoctorAddresses(doctors) {
-    Geocode.setApiKey("AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q");
+    Geocode.setApiKey(config['google-api-key']);
     const updatedDoctorsPromises = doctors.map(doctor => {
       const address = `${doctor.address.streetAddress} ${doctor.address.city}, ${doctor.address.state} ${doctor.address.zipCode}`;
       return Geocode.fromAddress(address).then(
@@ -229,7 +230,7 @@ class SearchPage extends Component {
         <div className="search-data-column">
           <div>
             <SearchMapComponent
-              googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBV0ERwNWnf4cLICe7TozgRJG6jNM5aL9Q"
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${config['google-api-key']}`}
               loadingElement={<div style={{ height: `100%` }} />}
               containerElement={<div style={{ height: `300px` }} />}
               mapElement={<div style={{ height: `100%` }} />}
