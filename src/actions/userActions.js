@@ -213,9 +213,6 @@ export const createDoctor = (data, credentials) => {
 export const updateDoctor = (data, credentials) => {
   return (dispatch) => {
     dispatch(loadingStart());
-
-    console.log(data);
-
     const url = `${baseUrl}/doctor`;
     let badgePhoto;
 
