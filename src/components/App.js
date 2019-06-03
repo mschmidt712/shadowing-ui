@@ -4,6 +4,7 @@ import Loader from 'react-loader-spinner';
 
 import './App.css';
 import AppHeader from './Header/Header';
+import AppFooter from './Footer/Footer';
 import Login from './Login/Login';
 import SignUpModal from './SignUpModal/SignUpModal';
 import UserVerification from './UserVerification/UserVerification';
@@ -142,6 +143,7 @@ class App extends Component {
             confirmPasswordReset={this.props.confirmPasswordReset}
             handleForgotPasswordClose={this.props.handleForgotPasswordClose}
           />}
+        <AppFooter />
       </div>
     );
   }

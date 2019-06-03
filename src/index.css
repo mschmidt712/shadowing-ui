@@ -10,8 +10,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   min-height: 100%;
+  position: relative;
 }
 
 code {
@@ -20,6 +20,6 @@ code {
 }
 
 #container {
-  height: 100vh;
+  height: 100%;
   min-height: 100vh;
 }

@@ -5,7 +5,9 @@
   --background-white: #fff;
   --modal-background: #F8F8F8;
   --accent-color-orange: #F7A707;
-  --disabled: #666666;
+  --disabled-text: #666;
+  --disabled-background: #ccc;
+  --font-black: #000;
 }
 
 .App {
@@ -70,6 +72,7 @@ button.icon, a.icon {
   color: var(--accent-color-orange);
   margin: 0;
   height: inherit;
+  box-shadow: none;
 }
 
 button.small, a.small {
@@ -82,13 +85,13 @@ button.large, a.large {
 
 button:disabled,
 button[disabled]{
-  background-color: #cccccc;
-  color: var(--disabled);
+  background-color: var(--disabled-background);
+  color: var(--disabled-text);
 }
 
 .no-decoration {
   text-decoration: none;
-  color: black;
+  color: var(--font-black);
 }
 
 /* Modal Styling */

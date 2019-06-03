@@ -3,6 +3,7 @@
   background: linear-gradient(var(--gradient-blue-1), var(--gradient-blue-2)) left top no-repeat, url('./UnitedStatesMap.png') center no-repeat;
   background-size: cover;
   height: 100%;
+  min-height: 80vh;
   width: auto;
 }
 
