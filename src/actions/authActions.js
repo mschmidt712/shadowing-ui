@@ -111,16 +111,45 @@ export const logoutUser = () => {
 
     const userPool = new CognitoUserPool(poolData);
     const cognitoUser = userPool.getCurrentUser();
-    cognitoUser.signOut();
 
-    dispatch({
-      type: authAction.LOGOUT_USER
+    return new Promise((resolve, reject) => {
+      return cognitoUser.getSession((err, session) => {
+        if (err) {
+          return reject(err);
+        }
+
+        return resolve(session);
+      });
+    }).then(session => {
+      const params = {
+        IdentityPoolId: awsData['identity-pool-id'],
+        Logins: {}
+      };
+      params.Logins[`cognito-idp.${awsData['region']}.amazonaws.com/${awsData['pool-id']}`] = session.getIdToken().getJwtToken()
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials(params, { region: awsData['region'] });
+      AWS.config.credentials.clearCachedId();
+
+      cognitoUser.signOut();
+
+      dispatch({
+        type: authAction.LOGOUT_USER
+      });
+      dispatch({
+        type: userAction.CLEAR_USER
+      });
+      dispatch(push('/'));
+      dispatch(loadingStop());
+      return;
+    }).catch(err => {
+      dispatch({
+        type: authAction.AUTH_ERROR,
+        payload: {
+          err
+        }
+      });
+      dispatch(loadingStop());
+      return;
     });
-    dispatch({
-      type: userAction.CLEAR_USER
-    });
-    dispatch(push('/'));
-    dispatch(loadingStop());
   }
 }
 
