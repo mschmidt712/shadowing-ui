@@ -26,12 +26,7 @@ ReactDOM.render((
           return <Redirect to={`sign-up/${store.getState().authReducer.occupation}`} />
         }
 
-        return <Home
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${config['google-api-key']}`}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `400px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-        />;
+        return <Home />;
       }} />
       <Route path="/user" render={() => {
         if (store.getState().authReducer.isLoggedIn && store.getState().userReducer.active) {

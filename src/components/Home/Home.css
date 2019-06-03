@@ -1,0 +1,53 @@
+
+.background-image {
+  background: linear-gradient(var(--gradient-blue-1), var(--gradient-blue-2)) left top no-repeat, url('./UnitedStatesMap.png') center no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: auto;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+  margin: auto;
+  padding: 0 1em;
+  text-align: center;
+}
+
+.home > .app-title {
+  font-size: 3em;
+  font-weight: 600;
+  color: var(--background-white);
+  padding-top: 1em;
+  margin-top: 0;
+}
+
+
+.home > .app-subtitle {
+  font-weight: 600;
+  color: var(--background-white);
+  padding-top: 1em;
+  margin-top: 0;
+}
+
+.search {
+  margin: 1em 0 2em;
+  display: flex;
+}
+
+.search > input, .search > a {
+  margin: 0;
+  height: 40px;
+  padding: 0 1em;
+  border-radius: 0;
+  border: 0;
+}
+
+.search > a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}

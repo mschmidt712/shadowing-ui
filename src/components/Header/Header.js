@@ -29,34 +29,16 @@ function Header(props) {
       >
       </GoogleLogout>}
   </div>);
-  let header;
-  if (props.location && props.location.pathname === '/') {
-    header = (<header className="app-header">
-      <h1 className="app-title" >Find Shadowing</h1>
-      <h3 className="app-subtitle">A website built to help students find physicians to shadow in a number of specialities in their area. Enter your location below to get started</h3>
-
-      <div className="form">
-        <label>Enter Your Zip Code</label>
-        <input type="number" maxLength="5" placeholder="80226" name="zipCode" value={props.zipCode} onChange={props.onInputChange}></input>
-        <Link to={`/search?zipCode=${props.zipCode}`} className="button no-decoration primary">Search</Link>
-      </div>
-
-      <button className="link" onClick={() => { props.handleSignUpClick(); props.setOccupation("doctor"); }}>Sign Up As A Physician</button>
-      <button className="link about-us">
-        <Link to={'/about-us'}>About Us</Link>
-      </button>
-      {!props.isLoggedIn && userNotLoggedIn}
-      {props.isLoggedIn && userLoggedIn}
-    </header>);
-  } else {
-    header = (<header className="app-header-condensed">
+  const header = (<header className="app-header-condensed">
+    <div className="header-content">
       <Link to="/" className="no-decoration">
         <h1 className="app-title" >Find Shadowing</h1>
       </Link>
       {!props.isLoggedIn && userNotLoggedIn}
       {props.isLoggedIn && userLoggedIn}
-    </header>);
-  }
+    </div>
+  </header>);
+  // }
 
   return header;
 }

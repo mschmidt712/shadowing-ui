@@ -1,3 +1,13 @@
+:root {
+  --main-color-blue: #3CADE7;
+  --gradient-blue-1: rgba(60, 173, 231, 0.8);
+  --gradient-blue-2: rgba(60, 173, 231, 0.5);
+  --background-white: #fff;
+  --modal-background: #F8F8F8;
+  --accent-color-orange: #F7A707;
+  --disabled: #666666;
+}
+
 .App {
   text-align: center;
   font-family: 'Roboto', sans-serif;
@@ -19,34 +29,45 @@
 
 /* Button Styling */
 button, input.button, a.button {
-  border-radius: 5px;
+  border-radius: 20px;
   border: 0;
   margin: 0.5em;
-  padding: 1em;
+  padding: 1em 2em;
   cursor: pointer;
+  box-shadow: 0px 5px 5px rgba(247, 167, 71, 0.2);
+  font-weight: bold;
 }
 
 button.primary, input.primary, a.primary {
-  background: #6558f5;
-  color: #fff;
+  background: var(--accent-color-orange);
+  color: var(--background-white);
 }
 
 button.secondary, input.secondary, a.secondary {
-  background: #fff;
-  color: #6558f5;
-  border: 1px solid #6558f5;
+  background: var(--background-white);
+  color: var(--main-color-blue);
+  border: 1px solid var(--main-color-blue);
+}
+
+button.tertiary, input.tertiary, a.tertiary {
+  background: none;
+  color: var(--background-white);
+  border-radius: 0;
+  border-bottom: 1px solid var(--background-white);
+  box-shadow: none;
+  padding: 1em 0;
 }
 
 button.link {
   background: none;
   text-decoration: underline;
-  color: #6558f5;
+  color: var(--main-color-blue);
 }
 
 button.icon, a.icon {
   font-size: 2em;
   background: none;
-  color: #6558f5;
+  color: var(--accent-color-orange);
   margin: 0;
   height: inherit;
 }
@@ -55,10 +76,14 @@ button.small, a.small {
   font-size: 1em;
 }
 
+button.large, a.large {
+  font-size: 2em;
+}
+
 button:disabled,
 button[disabled]{
   background-color: #cccccc;
-  color: #666666;
+  color: var(--disabled);
 }
 
 .no-decoration {
@@ -80,7 +105,7 @@ button[disabled]{
 }
 
 .modal-content {
-  background-color: #dfe7ed;
+  background-color: var(--modal-background);
   margin: 5% auto; /* 15% from the top and centered */
   padding: 20px;
   width: 80%; /* Could be more or less, depending on screen size */
@@ -152,6 +177,7 @@ button[disabled]{
 
   input {
     width: 35%;
+    min-width: 200px;
   }
 }
 
@@ -161,8 +187,7 @@ button[disabled]{
 }
 
 input {
-  height: 2em;
-  border-radius: 5px;
+  height: 3em;
   border: 1px solid #dfe7ed;
   margin: 0.5em;
 }
