@@ -42,7 +42,9 @@ function Header(props) {
       </div>
 
       <button className="link" onClick={() => { props.handleSignUpClick(); props.setOccupation("doctor"); }}>Sign Up As A Physician</button>
-      <button className="link about-us">About Us</button>
+      <button className="link about-us">
+        <Link to={'/about-us'}>About Us</Link>
+      </button>
       {!props.isLoggedIn && userNotLoggedIn}
       {props.isLoggedIn && userLoggedIn}
     </header>);

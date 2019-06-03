@@ -12,6 +12,7 @@ import SignUpPageStudent from './components/SignUpPageStudent/SignUpPageStudent'
 import SignUpPageDoctor from './components/SignUpPageDoctor/SignUpPageDoctor';
 import RequestsPage from './components/Requests/RequestsPage';
 import SearchPage from './components/SearchPage/SearchPage';
+import AboutUsPage from './components/AboutUsPage/AboutUsPage';
 import * as serviceWorker from './serviceWorker';
 import store, { history } from './store';
 import config from './aws-config.json';
@@ -61,6 +62,7 @@ ReactDOM.render((
         }
       }} />
       <Route path="/search" component={SearchPage} />
+      <Route path="/about-us" component={AboutUsPage} />
     </ConnectedRouter>
   </Provider>
 ),
