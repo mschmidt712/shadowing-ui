@@ -34,7 +34,7 @@ class Home extends Component {
   render() {
     return (
       <div className="background-image">
-        <div className="home">
+        <div className="home main">
           <h1 className="app-title" >Find Shadowing</h1>
           <h3 className="app-subtitle">A website built to help students find physicians to shadow in a number of specialities in their area.</h3>
           <h3 className="app-subtitle">Enter your location below to get started</h3>

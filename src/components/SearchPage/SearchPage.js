@@ -207,7 +207,7 @@ class SearchPage extends Component {
     });
 
     return (
-      <div className="search-page">
+      <div className="search-page main">
         {this.state.filtersEnabled && <div className="search-filters-column">
           <SearchFilters
             zipCode={this.state.zipCode}
@@ -222,7 +222,7 @@ class SearchPage extends Component {
         </div>}
         {!this.state.filtersEnabled && <div className="search-filters-column-hidden">
           <p>
-            <button className="icon small" onClick={this.toggleFilters} title="Show Filters">
+            <button className="icon  icon-secondary small" onClick={this.toggleFilters} title="Show Filters">
               <i className="fas fa-angle-double-right"></i>
             </button>
           </p>

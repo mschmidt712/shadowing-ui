@@ -22,7 +22,7 @@ export default function SearchFilters(props) {
           <h3>Filters</h3>
         </div>
         <p className="component-header-right">
-          <button className="icon small" onClick={props.toggleFilters}>
+          <button className="icon icon-secondary small" onClick={props.toggleFilters}>
             <i className="fas fa-angle-double-left"></i>
           </button>
         </p>

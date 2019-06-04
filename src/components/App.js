@@ -72,7 +72,7 @@ class App extends Component {
         {this.props.loading && <div className="spinner-container">
           <Loader
             type="Circles"
-            color="#6558f5"
+            color="#F7A707"
             height="100"
             width="100"
           />
