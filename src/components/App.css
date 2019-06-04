@@ -1,7 +1,7 @@
 :root {
   --main-color-blue: #3CADE7;
-  --gradient-blue-1: rgba(60, 173, 231, 0.8);
-  --gradient-blue-2: rgba(60, 173, 231, 0.5);
+  --gradient-blue-1: rgba(60, 173, 231, 0.9);
+  --gradient-blue-2: rgba(60, 173, 231, 0.6);
   --background-white: #fff;
   --modal-background: #F8F8F8;
   --accent-color-orange: #F7A707;
@@ -64,6 +64,7 @@ button.link {
   background: none;
   text-decoration: underline;
   color: var(--main-color-blue);
+  box-shadow: none;
 }
 
 button.icon, a.icon {
