@@ -10,7 +10,7 @@ export default function Step2(props) {
   function validateForm() {
     props.setTouched('stepTwo');
 
-    const availabilityDays = Object.keys(props.availability);
+    const availabilityDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     let availabilityChecked = false;
     availabilityDays.forEach(day => {
       if (props.availability[day].checked) {
@@ -32,7 +32,7 @@ export default function Step2(props) {
     return props.nextStep();
   }
 
-  const availabilityDays = Object.keys(props.availability);
+  const availabilityDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];;
   const availability = availabilityDays.map((day, key) => {
     return <div className="form-input" key={key}>
       <div className="form-input availability">
@@ -62,7 +62,7 @@ export default function Step2(props) {
         </i>
         <ReactTooltip />
         <div className="form-input">
-          <input type="number" name="maxRequests" value={props.maxRequests} onChange={props.onInputChange} placeholder="2" className={props.touched} required />
+          <input type="number" name="maxRequests" value={props.maxRequests} onChange={props.onInputChange} placeholder="2" min="0" max="20" className={`small ${props.touched}`} required />
         </div>
       </div>
       <div className="form-element">
@@ -72,8 +72,8 @@ export default function Step2(props) {
       <div className="form-element">
         <label>Preferred Shift Length (hrs)</label>
         <div className="form-input">
-          <input type="number" name="shiftLengthMin" value={props.shiftLengthMin} onChange={props.onInputChange} placeholder="Minimum" className={props.touched} required />
-          <input type="number" name="shiftLengthMax" value={props.shiftLengthMax} onChange={props.onInputChange} placeholder="Maximum" className={props.touched} required />
+          <input type="number" name="shiftLengthMin" value={props.shiftLengthMin} onChange={props.onInputChange} placeholder="Minimum" min="1" max="12" className={`small ${props.touched}`} required />
+          <input type="number" name="shiftLengthMax" value={props.shiftLengthMax} onChange={props.onInputChange} placeholder="Maximum" min="1" max="12" className={`small ${props.touched}`} required />
         </div>
       </div>
       <div className="form-element">

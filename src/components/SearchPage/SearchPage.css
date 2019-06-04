@@ -24,12 +24,6 @@
   }
 }
 
-@media screen and (min-height: 650px) {
-  .search-filters-column {
-    margin-bottom: 100px;
-  }
-}
-
 .search-data-column {
   flex: 80%;
   padding: 1em;

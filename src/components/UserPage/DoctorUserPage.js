@@ -12,7 +12,8 @@ export default function DoctorUserPage(props) {
   }
 
   const accountStatus = props.accountStatus ? 'approved' : 'pending';
-  const availability = Object.keys(props.scheduling).filter(day => {
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+  const availability = days.filter(day => {
     if (!props.scheduling[day]) {
       return false;
     }
@@ -37,36 +38,34 @@ export default function DoctorUserPage(props) {
             mapElement={<div style={{ height: `100%` }} />}
             addressLatLong={props.addressLatLong} />
         </div>
-        <div className="user-data">
-          <div className="data-item">
-            <h3 className="app-subtitle">Account Status:</h3>
-            <p className={accountStatus}>{accountStatus}</p>
+        <div>
+          <div className="user-data">
+            <div className="data-item">
+              <h3 className="app-subtitle">Account Status:</h3>
+              <p className={accountStatus}>{accountStatus}</p>
+            </div>
+            <div className="data-item">
+              < h3 className="app-subtitle">Email:</h3>
+              {props.email}
+            </div>
+            <div className="data-item">
+              <h3 className="app-subtitle">Address:</h3>
+              {`${props.address.streetAddress}, ${props.address.city}, ${props.address.state} ${props.address.zipCode}`}
+            </div>
+            <div className="data-item column">
+              <h3 className="app-subtitle">Availability:</h3>
+              {availability}
+            </div>
+            <div className="data-item">
+              <h3 className="app-subtitle">Preferred Shift Length:</h3>
+              {props.shiftLength[0]} to {props.shiftLength[1]} hrs
           </div>
-          <div className="data-item">
-            < h3 className="app-subtitle">Email:</h3>
-            {props.email}
+            <div className="data-item column">
+              <h3 className="app-subtitle">Additional Comments:</h3>
+              {props.additionalComments}
+            </div>
           </div>
-          <div className="data-item">
-            <h3 className="app-subtitle">Address:</h3>
-            {`${props.address.streetAddress}, ${props.address.city}, ${props.address.state} ${props.address.zipCode}`}
-          </div>
-          <div className="data-item column">
-            <h3 className="app-subtitle">Availability:</h3>
-            {availability}
-          </div>
-          <div className="data-item">
-            <h3 className="app-subtitle">Preferred Shift Length:</h3>
-            {props.shiftLength[0]} to {props.shiftLength[1]} hrs
-          </div>
-          <div className="data-item column">
-            <h3 className="app-subtitle">Additional Comments:</h3>
-            {props.additionalComments}
-          </div>
-          <div className="data-item column">
-            <h3 className="app-subtitle">Badge Photo:</h3>
-            <img src={props.badgePhoto} alt="user badge" className="badge-photo"></img>
-          </div>
-          <Link to="/sign-up/doctor">
+          <Link to="/sign-up/doctor" className="center-button">
             <button className="secondary">Edit Profile</button>
           </Link>
         </div>
