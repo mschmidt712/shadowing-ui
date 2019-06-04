@@ -12,9 +12,16 @@
   margin: auto;
   padding: 0 1em;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--disabled-background);
+}
+
+@media screen and (min-width: 480px) {
+  .footer-content {
+    flex-direction: row;
+  }
 }
 
 .copywrite {
@@ -28,10 +35,17 @@
 
 .menu {
   display: flex;
+  padding: 1em 0;
 }
 
 .menu > a {
-  padding: 1em;
+  padding: 0 1em;
   text-decoration: none;
   color: var(--font-black)
+}
+
+@media screen and (min-width: 480px) {
+  .menu {
+    padding: 0;
+  }
 }
