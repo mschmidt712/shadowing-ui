@@ -34,11 +34,17 @@ export default function Step2(props) {
 
   const availabilityDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];;
   const availability = availabilityDays.map((day, key) => {
+    const checked = props.availability[day].checked;
+    let classes = 'checkbox-container';
+    if (checked) {
+      classes = 'availability checkbox-container';
+    }
     return <div className="form-input" key={key}>
-      <div className="form-input availability">
-        <input type="checkbox" id={day} name={day} checked={props.availability[day].checked} onChange={props.handleAvailabilityDays} className="checkbox" />
+      <div className={classes}>
+        <input type="checkbox" id={day} name={day} checked={checked} onChange={props.handleAvailabilityDays} />
+        <span className="checkbox"></span>
         <label htmlFor={day}>{capitalizeWord(day)}</label>
-        {props.availability[day].checked && <div className="form-input">
+        {checked && <div className="availability">
           <input type="time" name={`${day}_start`} value={props.availability[day].times[0]} onChange={props.handleAvailabilityTimes} placeholder="Start" className="time-picker" />
           to
           <input type="time" name={`${day}_end`} value={props.availability[day].times[1]} onChange={props.handleAvailabilityTimes} placeholder="End" className="time-picker" />
@@ -65,7 +71,7 @@ export default function Step2(props) {
           <input type="number" name="maxRequests" value={props.maxRequests} onChange={props.onInputChange} placeholder="2" min="0" max="20" className={`small ${props.touched}`} required />
         </div>
       </div>
-      <div className="form-element">
+      <div className="form-element column">
         <label>Availability</label>
         {availability}
       </div>
@@ -76,7 +82,7 @@ export default function Step2(props) {
           <input type="number" name="shiftLengthMax" value={props.shiftLengthMax} onChange={props.onInputChange} placeholder="Maximum" min="1" max="12" className={`small ${props.touched}`} required />
         </div>
       </div>
-      <div className="form-element">
+      <div className="form-element column">
         <label>Additional Comments</label>
         <div className="form-input">
           <textarea type="text" name="additionalComments" value={props.additionalComments} onChange={props.onInputChange} placeholder="Things such as parking options, dress code, food restrictions, etc." />

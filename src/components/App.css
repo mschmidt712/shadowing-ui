@@ -178,7 +178,9 @@ button[disabled]{
 .form-element {
   min-width: 80%;
   padding: 1em;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-input {
@@ -198,16 +200,19 @@ input {
   .form-element {
     width: 80%;
     flex-direction: row;
+    justify-content: center;
   }
 
-  .form-element > label {
-    width: 10%;
-    min-width: 100px;
+  .form-element label {
+    font-weight: 600;
   }
 
-  .form-input {
-    display: initial;
-    align-items: flex-start;
+  .form-element.column {
+    flex-direction: column;
+  }
+
+  .form-element.column .form-input {
+    width: 100%;
   }
 
   input {
@@ -221,12 +226,8 @@ input {
   }
 }
 
-.form-element > label {
-  width: 10%;
-  min-width:100px;
-}
-
 input {
+  font-family: 'Roboto', sans-serif;
   height: 3em;
   border: 1px solid var(--box-shadow-gray);
   margin: 0.5em;
@@ -244,10 +245,12 @@ input[disabled]{
 }
 
 input[type="file"] {
+  height: initial;
   border: none;
 }
 
 select {
+  font-family: 'Roboto', sans-serif;
   height: 2em;
   border: 1px solid var(--box-shadow-gray);
   border-radius: 0;
@@ -266,7 +269,9 @@ textarea {
   height: 4em;
   border: 1px solid var(--box-shadow-gray);
   margin: 0.5em;
+  padding: 1em;
   width: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
 textarea.dirty:invalid {

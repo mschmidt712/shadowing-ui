@@ -2,7 +2,16 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   padding: 0;
+}
+
+.availability.checkbox-container input[type="checkbox"] {
+  top: 20px;
+}
+
+.availability.checkbox-container span {
+  top: 20px;
 }
 
 .time-picker {

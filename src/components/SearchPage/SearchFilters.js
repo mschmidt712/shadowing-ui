@@ -22,7 +22,7 @@ export default function SearchFilters(props) {
 
   const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const availability = daysOfTheWeek.map(day => {
-    return <div className="form-input availability checkbox-container" key={day}>
+    return <div className="form-input checkbox-container" key={day}>
       <input type="checkbox" id={day} name={day} checked={props.availability ? props.availability[day] : false} onChange={props.onAvailabilityChange} />
       <span className="checkbox"></span>
       <label htmlFor={day}>{capitalizeWord(day)}</label>

@@ -61,7 +61,7 @@
 }
 
 .select {
-  height: 2em;
+  width: 200px;
   border-radius: 0;
   border: 1px solid var(--box-shadow-gray);
   display: flex;
@@ -69,6 +69,10 @@
   align-items: center;
   margin: 0.5em;
   position: relative;
+}
+
+.select.small {
+  width: 70px;
 }
 
 .select select {
@@ -80,6 +84,7 @@
   -moz-appearance: none;
   appearance: none;
   height: 3em;
+  width: 100%;
 }
 
 .select > i {
@@ -95,7 +100,7 @@
   padding: 0 0 1em calc(10px + 1em);
 }
 
-.checkbox-container input {
+.checkbox-container input[type="checkbox"] {
   position: absolute;
   left: 0;
   top: 4px;
