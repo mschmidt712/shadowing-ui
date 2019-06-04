@@ -1,21 +1,21 @@
 .search-page {
   display: flex;
-  padding: 0;
-  min-width: 100%;
+  margin-top: 2em;
 }
 
 .search-filters-column {
   flex: 50%;
-  background-color: var(--gradient-blue-2);
-  border-right: 2px solid var(--main-color-blue);
+  border: 1px solid var(--box-shadow-gray);
   text-align: center;
   padding: 1em;
+  box-shadow:  0px 1px 3px var(--box-shadow-gray),
+  -3px 1px 5px var(--box-shadow-gray), 3px 1px 5px var(--box-shadow-gray);
 }
 
 .search-filters-column-hidden {
-  background-color: var(--gradient-blue-2);
-  border-right: 2px solid var(--main-color-blue);
-  border-left: none;
+  border: 1px solid var(--box-shadow-gray);
+  box-shadow:  0px 1px 3px var(--box-shadow-gray),
+  -3px 1px 5px var(--box-shadow-gray), 3px 1px 5px var(--box-shadow-gray);
 }
 
 @media screen and (min-width: 800px) {
@@ -26,14 +26,101 @@
 
 .search-data-column {
   flex: 80%;
-  padding: 1em;
+  padding: 0 1em;
 }
 
 .search-results {
   margin-top: 1em;
+  padding: 1em;
+  border: 1px solid var(--box-shadow-gray);
+  box-shadow:  0px 1px 3px var(--box-shadow-gray),
+  -3px 1px 5px var(--box-shadow-gray), 3px 1px 5px var(--box-shadow-gray);
 }
 
 .no-results {
   font-style: italic;
   text-align: center;
+}
+
+.slider {
+  width: 80%;
+  margin: 1em auto 2em;
+}
+
+.input-range__track--active {
+  background-color: var(--main-color-blue);
+}
+
+.input-range__slider {
+  background-color: var(--background-white);
+  border: 3px solid var(--main-color-blue);
+}
+
+.input-range__label-container {
+  color: var(--font-black);
+}
+
+.select {
+  height: 2em;
+  border-radius: 0;
+  border: 1px solid var(--box-shadow-gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5em;
+  position: relative;
+}
+
+.select select {
+  background: transparent;
+  border: none;
+  padding: 0 1em;
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 3em;
+}
+
+.select > i {
+  width: 20px;
+  position: absolute;
+  right: 5px;
+  pointer-events: none;
+  color: var(--disabled-background);
+}
+
+.checkbox-container {
+  position: relative;
+  padding: 0 0 1em calc(10px + 1em);
+}
+
+.checkbox-container input {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  height: 10px;
+  width: 10px;
+  opacity: 0;
+  z-index: 1;
+  margin: 0;
+}
+
+.checkbox {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  height: 10px;
+  width: 10px;
+  background-color: var(--background-white);
+  border: 1px solid var(--disabled-background);
+  cursor: pointer;
+}
+
+.checkbox-container input:checked ~ .checkbox {
+  background-color: var(--main-color-blue);
+}
+
+.checkbox-container input:checked ~ label {
+  color: var(--main-color-blue);
 }

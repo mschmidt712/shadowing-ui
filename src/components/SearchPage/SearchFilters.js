@@ -1,16 +1,30 @@
-import React from 'react'
+import React from 'react';
+import InputRange from 'react-input-range';
+import 'react-input-range/lib/css/index.css';
 
 import { medicalSpecialties } from '../SignUpPageDoctor/medicalSpecialtiesConstant';
 
 export default function SearchFilters(props) {
+  function handleDistanceSlider(distance) {
+    const e = {
+      target: {
+        name: 'distance',
+        value: distance
+      }
+    }
+
+    return props.onInputChange(e);
+  }
+
   const specialties = medicalSpecialties.map((val, index) => {
     return <option value={val} key={index}>{val}</option>
   });
 
   const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const availability = daysOfTheWeek.map(day => {
-    return <div className="form-input availability" key={day}>
-      <input type="checkbox" id={day} name={day} checked={props.availability ? props.availability[day] : false} onChange={props.onAvailabilityChange} className="checkbox" />
+    return <div className="form-input availability checkbox-container" key={day}>
+      <input type="checkbox" id={day} name={day} checked={props.availability ? props.availability[day] : false} onChange={props.onAvailabilityChange} />
+      <span className="checkbox"></span>
       <label htmlFor={day}>{capitalizeWord(day)}</label>
     </div>
   });
@@ -29,22 +43,30 @@ export default function SearchFilters(props) {
       </div>
       <div className="data-item column">
         <label htmlFor="distance"><h5>Zip Code:</h5></label>
-        <input name="zipCode" value={props.zipCode} placeholder="Zip Code" type="number" onChange={props.onInputChange} />
+        <input name="zipCode" value={props.zipCode} placeholder="Enter Zip Code" onChange={props.onInputChange} />
       </div>
       <div className="data-item column">
         <label htmlFor="distance"><h5>Mile Radius:</h5></label>
-        <span>
-          0
-            <input name="distance" id="distance" value={props.distance} type="range" min="5" max="100" step="5" onChange={props.onInputChange} />
-          100
-          </span>
+        <div className="slider">
+          <InputRange
+            formatLabel={value => `${value}`}
+            step={5}
+            maxValue={100}
+            minValue={0}
+            value={props.distance}
+            onChange={distance => { handleDistanceSlider(distance) }}
+          />
+        </div>
       </div>
       <div className="data-item column">
         <label htmlFor="specialty"><h5>Specialty:</h5></label>
-        <select type="text" name="specialty" id="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty">
-          <option value=""></option>
-          {specialties}
-        </select>
+        <div className="select">
+          <select type="text" name="specialty" id="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty">
+            <option value="">All Specialties</option>
+            {specialties}
+          </select>
+          <i class="fas fa-angle-down"></i>
+        </div>
       </div>
       <div className="data-item column">
         <h5>Availability:</h5>
