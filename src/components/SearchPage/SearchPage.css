@@ -155,3 +155,49 @@
 .checkbox-container input:checked ~ .radiobox {
   background-color: var(--main-color-blue);
 }
+
+.dropdown-container {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown i {
+  font-size: 1.5em;
+  color: var(--main-color-blue);
+}
+
+.spaced {
+  justify-content: space-evenly;
+}
+
+.left-icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.left-icon-container > i {
+  font-size: 1.5em;
+  color: var(--disabled-background);
+}
+
+.availability-table {
+  font-size: 0.75em;
+  text-align: center;
+  border-spacing: 0;
+}
+
+.availability-table th {
+  background-color: var(--main-color-blue);
+  color: var(--background-white);
+  padding: 10px;
+}
+
+.availability-table td {
+  background-color: var(--box-shadow-gray);
+  padding: 10px;
+}
+
+.availability-table, .availability-table th, .availability-table td {
+  border: 1px solid var(--background-white);
+  border-collapse: collapse;
+}

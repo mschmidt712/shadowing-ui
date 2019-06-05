@@ -31,53 +31,70 @@ export default class SearchDoctorComponent extends Component {
 
     let doctorComponent;
     if (this.props.isLoggedIn) {
-      const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-      const availability = daysOfWeek.map(day => {
+      const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+      const headerRow = daysOfWeek.map(day => {
+        return <th key={day}>{this.capitalizeWord(day)}</th>
+      });
+      const availabilityRow = daysOfWeek.map(day => {
         if (!this.props.doctor.scheduling[day]) {
-          return <div className="data-item column nested" key={day}>
-            <h5>{this.capitalizeWord(day)}</h5>
-            <span>Unavailable</span>
-          </div>
+          return <td key={day}>Unavailable</td>;
         }
-        return <div className="data-item column nested" key={day}>
-          <h5>{this.capitalizeWord(day)}</h5>
-          <span>{this.convertTime(this.props.doctor.scheduling[day][0])} to {this.convertTime(this.props.doctor.scheduling[day][1])}</span>
-        </div>
+        return <td key={day}>{this.convertTime(this.props.doctor.scheduling[day][0])} to {this.convertTime(this.props.doctor.scheduling[day][1])}</td>
       });
 
       doctorComponent = <div className="request box-shadow">
         <div className="component-header">
           <div className="component-header-details">
-            <h3>Dr. {this.props.doctor.name}, {this.props.doctor.degree}</h3>
-            <span>{this.props.doctor.specialty}</span>
+            <i className="fa fa-user-md"></i>
+            <div>
+              <h3>Dr. {this.props.doctor.name}, {this.props.doctor.degree}</h3>
+              <h5 className="app-subtitle">{this.props.doctor.specialty}</h5>
+            </div>
           </div>
-          <p className="component-header-right">
-            {distanceMiles} Miles
-            {!this.state.expanded && <button className="icon small" onClick={this.toggleExpanded}>
-              <i className="fas fa-angle-double-down"></i>
-            </button>}
-            {this.state.expanded && <button className="icon small" onClick={this.toggleExpanded}>
-              <i className="fas fa-angle-double-up"></i>
-            </button>}
-          </p>
+          <div className="dropdown-container">
+            <div className="component-header-right">
+              <i class="fas fa-map-marked-alt"></i>
+              <span>{distanceMiles} Miles</span>
+            </div>
+            <div className="dropdown">
+              {!this.state.expanded && <button className="icon small" onClick={this.toggleExpanded}>
+                <i className="fas fa-angle-double-down"></i>
+              </button>}
+              {this.state.expanded && <button className="icon small" onClick={this.toggleExpanded}>
+                <i className="fas fa-angle-double-up"></i>
+              </button>}
+            </div>
+          </div>
         </div>
         {this.state.expanded && <div>
-          <div className="data-item">
-            {availability}
+          <h3 className="with-horizontal-line"></h3>
+          <div className="data-item spaced">
+            <div className="left-icon-container">
+              <i class="far fa-clock"></i>
+              <div className="data-item column nested">
+                <h5 className="request-data-header">Shift Length: </h5>
+                <span>{this.props.doctor.shiftLength[0]} hours to {this.props.doctor.shiftLength[1]} hours</span>
+              </div>
+            </div>
+            <div className="left-icon-container">
+              <i class="fas fa-map-marker-alt"></i>
+              <div className="data-item column nested">
+                <h5 className="request-data-header">Address: </h5>
+                <span>{this.props.doctor.address.streetAddress}</span>
+                <span>{this.props.doctor.address.city}, {this.props.doctor.address.state} {this.props.doctor.address.zipCode}</span>
+              </div>
+            </div>
           </div>
-          <div className="data-item">
-            <div className="data-item column nested">
-              <h5 className="request-data-header">Shift Length: </h5>
-              <span>{this.props.doctor.shiftLength[0]} hours to {this.props.doctor.shiftLength[1]} hours</span>
-            </div>
-            <div className="data-item column nested">
-              <h5 className="request-data-header">Address: </h5>
-              <span>{this.props.doctor.address.streetAddress}</span>
-              <span>{this.props.doctor.address.city}, {this.props.doctor.address.state} {this.props.doctor.address.zipCode}</span>
-            </div>
+          <h3 className="with-horizontal-line"></h3>
+          <div className="nested">
+            <h5>Availability</h5>
+            <table className="availability-table">
+              <tr>{headerRow}</tr>
+              <tr>{availabilityRow}</tr>
+            </table>
           </div>
           <div className="data-item column nested">
-            <h5 className="request-data-header">Additional Details: </h5>
+            <h4 className="request-data-header">Additional Details: </h4>
             <span>{this.props.doctor.additionalComments}</span>
           </div>
           <button className="primary request-response-btn" onClick={() => { this.props.requestShadowing(this.props.doctor) }}>Request</button>
