@@ -79,7 +79,7 @@ export default function Step1(props) {
         <div>
           <label>Address</label>
           <i
-            data-tip="This is only used for shadowing.com to sort distance  for potential matches. Students will not have access to this information."
+            data-tip="This is used by findshadowing.com to match student by location. Please see the privacy policy for more information."
             className="fas fa-info-circle icon">
           </i>
         </div>

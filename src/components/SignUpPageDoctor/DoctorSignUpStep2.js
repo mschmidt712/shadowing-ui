@@ -85,7 +85,7 @@ export default function Step2(props) {
       <div className="form-element column">
         <label>Additional Comments</label>
         <div className="form-input">
-          <textarea type="text" name="additionalComments" value={props.additionalComments} onChange={props.onInputChange} placeholder="Things such as parking options, dress code, food restrictions, etc." />
+          <textarea type="text" name="additionalComments" value={props.additionalComments} onChange={props.onInputChange} placeholder="Any specifics that shadowing students should know such as parking options, dress code, food restrictions, etc." />
         </div>
       </div>
       <div className="form-element">

@@ -196,7 +196,7 @@ class SignUpPageStudent extends Component {
           <div>
             <label>Address</label>
             <i
-              data-tip="This is only used for shadowing.com to sort distance  for potential matches. Physicians will not have access to this information."
+              data-tip="This is only used for findshadowing.com to find doctors closest to your location. This information will not be released or disclosed."
               className="fas fa-info-circle icon">
             </i>
             <ReactTooltip />
@@ -273,7 +273,7 @@ class SignUpPageStudent extends Component {
           <div>
             <label>Are You HIPAA Certified?</label>
             <i
-              data-tip="HIPAA (Health Insurance Portability and Accountability Act) helps keep patient's medical information confidential. HIPAA certification is an important first step to a healthcare career. It can be completed quickly and easily online via websites like xxx."
+              data-tip="HIPAA (Health Insurance Portability and Accountability Act) helps keep patient's medical information confidential. HIPAA certification is an important first step to a healthcare career. It can be completed quickly and easily online via websites like https://www.cybrary.it/course/hipaa-training/."
               className="fas fa-info-circle icon">
             </i>
             <ReactTooltip />

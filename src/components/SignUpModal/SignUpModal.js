@@ -51,16 +51,16 @@ function SignUp(props) {
             <div className="form">
               <p>What kind of account would you like to create?</p>
               <div className="radio-form checkbox-container">
-                {/* <input type="radio" name="occupation" value="doctor" id="doctor" onChange={props.onInputChange} checked={doctorChecked} /> */}
-                <input type="radio" name="occupation" value="doctor" id="doctor" onChange={props.onInputChange} checked />
+                <input type="radio" name="occupation" value="doctor" id="doctor" onChange={props.onInputChange} checked={doctorChecked} />
+                {/* <input type="radio" name="occupation" value="doctor" id="doctor" onChange={props.onInputChange} checked /> */}
                 <span className="radiobox"></span>
                 <label htmlFor="doctor">Doctor</label>
               </div>
-              {/* <div className="radio-form checkbox-container">
+              <div className="radio-form checkbox-container">
                 <input type="radio" name="occupation" value="student" id="student" onChange={props.onInputChange} checked={!doctorChecked} />
                 <span className="radiobox"></span>
                 <label htmlFor="student">Student</label>
-              </div> */}
+              </div>
             </div>
             <button className="primary" onClick={() => validateForm(props.email, props.password, props.confirmPassword, props.occupation)}>Sign Up</button>
           </div>
