@@ -13,6 +13,7 @@ import SignUpPageDoctor from './components/SignUpPageDoctor/SignUpPageDoctor';
 import RequestsPage from './components/Requests/RequestsPage';
 import SearchPage from './components/SearchPage/SearchPage';
 import AboutUsPage from './components/AboutUsPage/AboutUsPage';
+import FaqPage from './components/FaqPage/FaqPage';
 import * as serviceWorker from './serviceWorker';
 import store, { history } from './store';
 
@@ -57,6 +58,7 @@ ReactDOM.render((
       }} />
       <Route path="/search" component={SearchPage} />
       <Route path="/about-us" component={AboutUsPage} />
+      <Route path="/faq" component={FaqPage} />
     </ConnectedRouter>
   </Provider>
 ),
