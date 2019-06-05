@@ -67,7 +67,7 @@ export default class SearchDoctorComponent extends Component {
           </div>
         </div>
         {this.state.expanded && <div>
-          <h3 className="with-horizontal-line"></h3>
+          <h6 className="with-horizontal-line"></h6>
           <div className="data-item spaced">
             <div className="left-icon-container">
               <i class="far fa-clock"></i>
@@ -85,7 +85,7 @@ export default class SearchDoctorComponent extends Component {
               </div>
             </div>
           </div>
-          <h3 className="with-horizontal-line"></h3>
+          <h6 className="with-horizontal-line"></h6>
           <div className="nested">
             <h5>Availability</h5>
             <table className="availability-table">

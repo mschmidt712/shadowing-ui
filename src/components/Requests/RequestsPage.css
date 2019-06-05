@@ -52,15 +52,15 @@
 
 .request-response-btn {
   display: block;
-  margin: 2em auto;
+  margin: auto;
 }
 
 .accept-request-btn {
-  background-color: #d9ead3;
+  color: var(--background-white);
 }
 
 .deny-request-btn {
-  background-color: #FFCCCC;
+  color: var(--main-color-blue);
 }
 
 @media screen and (min-width: 480px) {

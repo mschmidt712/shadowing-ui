@@ -27,27 +27,35 @@ export default function DoctorRequest({ request, doctorName, deleteRequest, disp
   %0A%0A Thanks,
   %0A ${doctorName}`;
 
-  return (<div className="request">
+  return (<div className="request box-shadow">
     <div className="component-header">
       <div className="component-header-details">
-        <h3 className="request-data-header">{request.student.name}</h3>
-        <span>{request.student.email}</span>
-        <span>{request.student.phoneNumber}</span>
+        <i className="fa fa-user-graduate"></i>
+        <div>
+          <h3 className="request-data-header">{request.student.name}</h3>
+          <h5 className="app-subtitle">{request.student.email}</h5>
+          <h5 className="app-subtitle">{request.student.phoneNumber}</h5>
+        </div>
       </div>
       <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
     </div>
+    <h6 className="with-horizontal-line"></h6>
     <div>
-      <div className="data-item column">
+      <div className="data-item column nested">
         <h5 className="request-data-header">HIPAA Certified: </h5>
         {hipaaCert}
       </div>
-      <div className="data-item column">
+      <div className="data-item column nested">
         <h5 className="request-data-header">Availability:</h5>
         {availability}
       </div>
       <div className="data-item request-response-btn">
-        <a href={`mailto:${request.student.email}?subject=Shadowing Request Accepted&body=${acceptRequestBody}`} className="button no-decoration accept-request-btn" onClick={toggleDeleteRequestModal}>Accept Request</a>
-        <a href={`mailto:${request.student.email}?subject=Shadowing Request Denied&body=${denyRequestBody}`} className="button no-decoration deny-request-btn" onClick={toggleDeleteRequestModal}>Deny Request</a>
+        <button className="button primary">
+          <a href={`mailto:${request.student.email}?subject=Shadowing Request Accepted&body=${acceptRequestBody}`} className="no-decoration accept-request-btn" onClick={toggleDeleteRequestModal}>Accept Request</a>
+        </button>
+        <button className="button secondary">
+          <a href={`mailto:${request.student.email}?subject=Shadowing Request Denied&body=${denyRequestBody}`} className="no-decoration deny-request-btn" onClick={toggleDeleteRequestModal}>Deny Request</a>
+        </button>
       </div>
       {displayDeleteRequestModal &&
         <DeleteRequestModal deleteRequest={deleteRequest} toggleDeleteRequestModal={toggleDeleteRequestModal} request={request} />}
