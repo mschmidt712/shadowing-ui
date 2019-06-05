@@ -22,7 +22,7 @@ class App extends Component {
       email: '',
       password: '',
       confirmPassword: '',
-      occupation: '',
+      occupation: 'doctor',
       verification: '',
       zipCode: undefined
     };
