@@ -8,15 +8,19 @@ export default function StudentRequest({ request, deleteRequest }) {
     const [start, end] = request.scheduling[day];
     return <div key={day}>{capitalizeWord(day)}: {convertTime(start)} to {convertTime(end)}</div>
   });
-  return (<div className="request">
+  return (<div className="request box-shadow">
     <div className="component-header">
       <div className="component-header-details">
-        <h3 className="request-data-header">Dr. {request.doctor.name}, {request.doctor.degree}</h3>
-        <span>{request.doctor.specialty}</span>
+        <i className="fa fa-user-md"></i>
+        <div>
+          <h3 className="request-data-header">Dr. {request.doctor.name}, {request.doctor.degree}</h3>
+          <h5 className="app-subtitle">{request.doctor.specialty}</h5>
+        </div>
       </div>
       <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
     </div>
-    <div className="data-item column">
+    <h6 className="with-horizontal-line"></h6>
+    <div className="data-item column nested">
       <h5 className="request-data-header">Availability: </h5>
       {availability}
     </div>
