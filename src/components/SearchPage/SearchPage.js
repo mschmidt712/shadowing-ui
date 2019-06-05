@@ -208,7 +208,7 @@ class SearchPage extends Component {
 
     return (
       <div className="search-page main">
-        {this.state.filtersEnabled && <div className="search-filters-column">
+        {this.state.filtersEnabled && <div className="search-filters-column box-shadow">
           <SearchFilters
             zipCode={this.state.zipCode}
             distance={this.state.distance}
@@ -220,9 +220,9 @@ class SearchPage extends Component {
             getDoctors={this.getDoctors}
           />
         </div>}
-        {!this.state.filtersEnabled && <div className="search-filters-column-hidden">
+        {!this.state.filtersEnabled && <div onClick={this.toggleFilters} className="search-filters-column-hidden box-shadow">
           <p>
-            <button className="icon  icon-secondary small" onClick={this.toggleFilters} title="Show Filters">
+            <button className="icon  icon-secondary small" title="Show Filters">
               <i className="fas fa-angle-double-right"></i>
             </button>
           </p>
@@ -238,7 +238,7 @@ class SearchPage extends Component {
               doctors={this.state.doctors} />
           </div>
           <div className="search-results">
-            {doctors.length ? doctors : <h3 className="no-results">No doctors found matching your search criteria. Please try your search again.</h3>}
+            {doctors.length ? doctors : <h3 className="no-results box-shadow">No doctors found matching your search criteria. Please try your search again.</h3>}
           </div>
           {this.state.displayRequestModal && <RequestModal
             doctor={this.state.doctor}

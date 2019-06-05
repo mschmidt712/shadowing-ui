@@ -5,17 +5,7 @@
 
 .search-filters-column {
   flex: 50%;
-  border: 1px solid var(--box-shadow-gray);
   text-align: center;
-  padding: 1em;
-  box-shadow:  0px 1px 3px var(--box-shadow-gray),
-  -3px 1px 5px var(--box-shadow-gray), 3px 1px 5px var(--box-shadow-gray);
-}
-
-.search-filters-column-hidden {
-  border: 1px solid var(--box-shadow-gray);
-  box-shadow:  0px 1px 3px var(--box-shadow-gray),
-  -3px 1px 5px var(--box-shadow-gray), 3px 1px 5px var(--box-shadow-gray);
 }
 
 @media screen and (min-width: 800px) {
@@ -31,6 +21,9 @@
 
 .search-results {
   margin-top: 1em;
+}
+
+.box-shadow {
   padding: 1em;
   border: 1px solid var(--box-shadow-gray);
   box-shadow:  0px 1px 3px var(--box-shadow-gray),

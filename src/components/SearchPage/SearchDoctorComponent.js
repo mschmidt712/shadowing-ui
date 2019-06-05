@@ -45,7 +45,7 @@ export default class SearchDoctorComponent extends Component {
         </div>
       });
 
-      doctorComponent = <div className="request">
+      doctorComponent = <div className="request box-shadow">
         <div className="component-header">
           <div className="component-header-details">
             <h3>Dr. {this.props.doctor.name}, {this.props.doctor.degree}</h3>
@@ -84,13 +84,19 @@ export default class SearchDoctorComponent extends Component {
         </div>}
       </div>
     } else {
-      doctorComponent = <div className="request">
+      doctorComponent = <div className="request box-shadow ">
         <div className="component-header">
           <div className="component-header-details">
-            <h3>{this.props.doctor.specialty} Physician</h3>
-            <span>{this.props.doctor.specialty}</span>
+            <i className="fa fa-user-md"></i>
+            <div>
+              <h3>{this.props.doctor.specialty} Physician</h3>
+              <h5 className="app-subtitle">{this.props.doctor.specialty}</h5>
+            </div>
           </div>
-          <p className="component-header-right">{distanceMiles} Miles</p>
+          <div className="component-header-right">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>{distanceMiles} Miles</span>
+          </div>
         </div>
         <button disabled className="primary request-response-btn">Login For More Details</button>
       </div>

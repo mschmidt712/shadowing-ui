@@ -110,6 +110,8 @@ button:disabled,
 button[disabled]{
   background-color: var(--disabled-background);
   color: var(--disabled-text);
+  box-shadow: 0px 5px 5px var(--box-shadow-gray);
+  cursor: initial;
 }
 
 .center-button {

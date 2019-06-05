@@ -1,8 +1,4 @@
 .request {
-  padding: 0 1em 1em;
-  border: 1px solid #dfe7ed;
-  border-radius: 5px;
-  position: relative;
   margin-bottom: 1em;
 }
 
@@ -12,20 +8,42 @@
 
 .component-header {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 
 .component-header-details {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   margin-right: 1em;
+}
+
+.component-header-details h3 {
+  margin: 0 0 5px 0;
+}
+
+.component-header-details h5 {
+  margin: 0;
+}
+
+.component-header-details > i {
+  color: var(--main-color-blue);
+  padding: 0.5em;
+  font-size: 2em;
 }
 
 .component-header-right {
   font-style: italic;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.component-header-right > i {
+  padding: 0.5em;
+  font-size: 1em;
+  color: var(--disabled-background);
 }
 
 .request-data-header {
@@ -33,16 +51,8 @@
 }
 
 .request-response-btn {
-  margin: 2em 0;
-}
-
-@media screen and (min-width: 480px) {
-  .request-response-btn {
-    position: absolute;
-    bottom: 1em;
-    right: 1em;
-    margin: 0;
-  }
+  display: block;
+  margin: 2em auto;
 }
 
 .accept-request-btn {
@@ -51,4 +61,13 @@
 
 .deny-request-btn {
   background-color: #FFCCCC;
+}
+
+@media screen and (min-width: 480px) {
+  .component-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
 }

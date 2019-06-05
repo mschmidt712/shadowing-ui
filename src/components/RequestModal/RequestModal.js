@@ -82,8 +82,9 @@ class RequestModal extends Component {
     });
     const availability = availableDays.map((day, key) => {
       return <div className="form-input" key={key}>
-        <div className="form-input availability">
+        <div className="form-input checkbox-container inline">
           <input type="checkbox" id={`request-${day}`} name={day} checked={this.state.availability[day]} onChange={this.onAvailabilityChange} className="checkbox" />
+          <span className="checkbox"></span>
           <label htmlFor={`request-${day}`}>{this.capitalizeWord(day)}</label>
         </div>
       </div>
