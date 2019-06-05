@@ -11,9 +11,9 @@ function Login(props) {
       <span className="close" onClick={() => props.handleLoginClose()}>&times;</span>
       <div className="modal-text">
         <h1>Please Sign In</h1>
-        {/* <Facebook></Facebook>
+        <Facebook></Facebook>
         <Google></Google>
-        <h3 className="with-horizontal-line"><span>or</span></h3> */}
+        <h3 className="with-horizontal-line"><span>or</span></h3>
         <div className="form">
           <label>Email</label>
           <input type="email" name="email" value={props.email} onChange={props.onEmailChange} />
@@ -29,11 +29,11 @@ function Login(props) {
           <button className="primary" onClick={() => props.loginUser(props.email, props.password)}>Login</button>
           <button className="link" onClick={() => props.handleForgotPasswordClick(props.email)}>Forgot Password?</button>
         </div>
-        <span>
+        <div>
           New to findshadowing.com?
-          {/* <button className="link disabled" onClick={() => { props.handleSignUpClick(); props.setOccupation(""); }}>Student Sign Up Coming Soon.</button> */}
-        </span>
-        <p> Student Sign Up Coming Soon! </p>
+            <button className="link" onClick={() => { props.setOccupation('student'); props.handleSignUpClick(); }}>Sign Up Here.</button>
+          {/* <p> Student Sign Up Coming Soon! </p> */}
+        </div>
       </div>
     </div>
   </div>);

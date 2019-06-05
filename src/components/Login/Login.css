@@ -1,11 +1,11 @@
 /* Words within horizontal line Styling*/
 .with-horizontal-line {
-  border-bottom: 1px solid #888;
+  border-bottom: 1px solid var(--disabled-text);
   line-height: 0.1em;
   margin: 2em;
 }
 
 .with-horizontal-line > span {
-  background:#dfe7ed; 
-  padding:0 10px;  
+  background-color: var(--modal-background);
+  padding:0 10px;
 }
