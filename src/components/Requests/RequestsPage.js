@@ -35,7 +35,7 @@ class RequestsPage extends Component {
   }
 
   render() {
-    let requests = <div>No requests for shadowing found!</div>;
+    let requests = <h3 className="app-subtitle">No requests for shadowing found!</h3>;
     if (this.props.requests && this.props.requests.length) {
       if (this.props.occupation === 'student') {
         requests = this.props.requests.map((request) => (
@@ -57,7 +57,7 @@ class RequestsPage extends Component {
 
     return (
       <div className="main">
-        <h2>Shadowing Requests</h2>
+        <h3 className="app-title">Shadowing Requests</h3>
         {requests}
       </div>
     )
