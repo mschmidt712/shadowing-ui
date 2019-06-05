@@ -49,13 +49,15 @@ function SignUp(props) {
             </label>
             <input type="password" name="confirmPassword" value={props.confirmPassword} onChange={props.onInputChange} />
             <div className="form">
-              <label>What kind of account would you like to create?</label>
-              <div className="radio-form">
+              <p>What kind of account would you like to create?</p>
+              <div className="radio-form checkbox-container">
                 <input type="radio" name="occupation" value="doctor" id="doctor" onChange={props.onInputChange} checked={doctorChecked} />
+                <span className="radiobox"></span>
                 <label htmlFor="doctor">Doctor</label>
               </div>
-              <div className="radio-form">
+              <div className="radio-form checkbox-container">
                 <input type="radio" name="occupation" value="student" id="student" onChange={props.onInputChange} checked={!doctorChecked} />
+                <span className="radiobox"></span>
                 <label htmlFor="student">Student</label>
               </div>
             </div>
