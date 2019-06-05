@@ -97,7 +97,12 @@
 
 .checkbox-container {
   position: relative;
-  padding: 0 0 1em calc(10px + 1em);
+  padding: 0 1em 1em calc(10px + 1em);
+}
+
+.checkbox-container.inline {
+  position: relative;
+  padding: 0 1em 0 calc(10px + 1em);
 }
 
 .checkbox-container input[type="checkbox"] {

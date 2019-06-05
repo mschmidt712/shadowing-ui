@@ -193,12 +193,14 @@ class SignUpPageStudent extends Component {
           </div>
         </div>
         <div className="form-element">
-          <label>Address</label>
-          <i
-            data-tip="This is only used for shadowing.com to sort distance  for potential matches. Physicians will not have access to this information."
-            className="fas fa-info-circle icon">
-          </i>
-          <ReactTooltip />
+          <div>
+            <label>Address</label>
+            <i
+              data-tip="This is only used for shadowing.com to sort distance  for potential matches. Physicians will not have access to this information."
+              className="fas fa-info-circle icon">
+            </i>
+            <ReactTooltip />
+          </div>
           <div className="form-input">
             <input type="text" name="streetAddress" value={this.state.streetAddress} onChange={this.onInputChange} placeholder="Street Address" className={this.state.touched} required />
             <input type="text" name="city" value={this.state.city} onChange={this.onInputChange} placeholder="City" className={this.state.touched} required />
@@ -268,19 +270,23 @@ class SignUpPageStudent extends Component {
           <input type="int" name="phoneNumber" value={this.state.phoneNumber} onChange={this.onInputChange} placeholder="Phone Number" className={`form-input ${this.state.touched}`} required />
         </div>
         <div className="form-element">
-          <label>Are You HIPAA Certified?</label>
-          <i
-            data-tip="HIPAA (Health Insurance Portability and Accountability Act) helps keep patient's medical information confidential. HIPAA certification is an important first step to a healthcare career. It can be completed quickly and easily online via websites like xxx."
-            className="fas fa-info-circle icon">
-          </i>
-          <ReactTooltip />
+          <div>
+            <label>Are You HIPAA Certified?</label>
+            <i
+              data-tip="HIPAA (Health Insurance Portability and Accountability Act) helps keep patient's medical information confidential. HIPAA certification is an important first step to a healthcare career. It can be completed quickly and easily online via websites like xxx."
+              className="fas fa-info-circle icon">
+            </i>
+            <ReactTooltip />
+          </div>
           <div className="form-input">
-            <div className="radio-form">
+            <div className="radio-form checkbox-container inline">
               <input type="radio" name="hipaaCert" value='true' id="yes" onChange={this.onInputChange} className={this.state.touched} checked={this.convertStringToBoolean(this.state.hipaaCert)} required />
+              <span className="radiobox"></span>
               <label htmlFor="yes">Yes</label>
             </div>
-            <div className="radio-form">
+            <div className="radio-form checkbox-container inline">
               <input type="radio" name="hipaaCert" value='false' id="no" onChange={this.onInputChange} className={this.state.touched} checked={!this.convertStringToBoolean(this.state.hipaaCert)} required />
+              <span className="radiobox"></span>
               <label htmlFor="no">No</label>
             </div>
           </div>
