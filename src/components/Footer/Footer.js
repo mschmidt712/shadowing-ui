@@ -19,13 +19,24 @@ export default function Footer() {
         <span className="app-subtitle">Copyright 2019 Find Shadowing. All Rights Reserved.</span>
         <div className="menu">
           <button className="icon small">
-            <i className="fab fa-facebook-f"></i>
+            <a href="https://medicalschoolhq.net/group" target="_blank" className="no-decoration">
+              <i className="fab fa-facebook-f"></i>
+            </a>
           </button>
           <button className="icon small">
-            <i className="fab fa-twitter"></i>
+            <a href="https://www.twitter.com/medicalschoolhq/" target="_blank" className="no-decoration">
+              <i className="fab fa-twitter"></i>
+            </a>
           </button>
           <button className="icon small">
-            <i className="fab fa-instagram"></i>
+            <a href="https://www.instagram.com/medicalschoolhq/" target="_blank" className="no-decoration">
+              <i className="fab fa-instagram"></i>
+            </a>
+          </button>
+          <button className="icon small">
+            <a href="https://medicalschoolhq.net/youtube" target="_blank" className="no-decoration">
+              <i class="fab fa-youtube"></i>
+            </a>
           </button>
         </div>
       </div>
