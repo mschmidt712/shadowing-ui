@@ -35,7 +35,7 @@ export default function Footer() {
           </button>
           <button className="icon small">
             <a href="https://medicalschoolhq.net/youtube" target="_blank" className="no-decoration">
-              <i class="fab fa-youtube"></i>
+              <i className="fab fa-youtube"></i>
             </a>
           </button>
         </div>
