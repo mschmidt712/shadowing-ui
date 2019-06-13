@@ -22,6 +22,7 @@ class SignUpPageStudent extends Component {
       zipCode: props.address.zipCode || undefined,
       phoneNumber: props.phoneNumber || undefined,
       hipaaCert: props.hipaaCert || false,
+      subscribe: true,
       touched: 'clean',
       displayChangeEmail: false,
       displayChangePasswordModal: false,
@@ -134,7 +135,8 @@ class SignUpPageStudent extends Component {
       loginMethod: this.props.loginMethod,
       address,
       phoneNumber,
-      hipaaCert
+      hipaaCert,
+      subscribe: this.state.subscribe
     }
 
     if (this.props.active) {
@@ -289,6 +291,13 @@ class SignUpPageStudent extends Component {
               <span className="radiobox"></span>
               <label htmlFor="no">No</label>
             </div>
+          </div>
+        </div>
+        <div className="form-element">
+          <div className="form-input checkbox-container">
+            <input type="checkbox" id="subscribe" name="subscribe" checked={this.state.subscribe} onChange={this.onInputChange} className="checkbox" />
+            <span className="checkbox"></span>
+            <label htmlFor="subscribe">Sign Up For More Great Pre-med Content!</label>
           </div>
         </div>
         {!this.props.active && <input type="button" className="button primary" value="Complete Profile" onClick={this.validateForm} />}
