@@ -34,6 +34,7 @@ class SignUpPageStudent extends Component {
     }
 
     this.onInputChange = this.onInputChange.bind(this);
+    this.onCheckboxChange = this.onCheckboxChange.bind(this);
     this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
     this.setTouched = this.setTouched.bind(this);
 
@@ -63,8 +64,16 @@ class SignUpPageStudent extends Component {
   }
 
   onInputChange(event) {
+    console.log(event.target.checked);
+
     let newState = {};
     newState[event.target.name] = event.target.value;
+    this.setState(newState);
+  }
+
+  onCheckboxChange(event) {
+    let newState = {};
+    newState[event.target.name] = event.target.checked;
     this.setState(newState);
   }
 
@@ -295,7 +304,7 @@ class SignUpPageStudent extends Component {
         </div>
         <div className="form-element">
           <div className="form-input checkbox-container">
-            <input type="checkbox" id="subscribe" name="subscribe" checked={this.state.subscribe} onChange={this.onInputChange} className="checkbox" />
+            <input type="checkbox" id="subscribe" name="subscribe" checked={this.state.subscribe} onChange={this.onCheckboxChange} className="checkbox" />
             <span className="checkbox"></span>
             <label htmlFor="subscribe">Sign Up For More Great Pre-med Content!</label>
           </div>
