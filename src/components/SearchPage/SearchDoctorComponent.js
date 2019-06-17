@@ -32,14 +32,17 @@ export default class SearchDoctorComponent extends Component {
     let doctorComponent;
     if (this.props.isLoggedIn) {
       const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-      const headerRow = daysOfWeek.map(day => {
-        return <th key={day}>{this.capitalizeWord(day)}</th>
-      });
-      const availabilityRow = daysOfWeek.map(day => {
+      const availability = daysOfWeek.map(day => {
         if (!this.props.doctor.scheduling[day]) {
-          return <td key={day}>Unavailable</td>;
+          return <table key={day}>
+            <tr><th>{this.capitalizeWord(day)}</th></tr>
+            <tr><td>Unavailable</td></tr>
+          </table>
         }
-        return <td key={day}>{this.convertTime(this.props.doctor.scheduling[day][0])} to {this.convertTime(this.props.doctor.scheduling[day][1])}</td>
+        return <table key={day}>
+          <tr><th>{this.capitalizeWord(day)}</th></tr>
+          <tr><td>{this.convertTime(this.props.doctor.scheduling[day][0])} to {this.convertTime(this.props.doctor.scheduling[day][1])}</td></tr>
+        </table>
       });
 
       doctorComponent = <div className="request box-shadow">
@@ -80,7 +83,7 @@ export default class SearchDoctorComponent extends Component {
               <i class="fas fa-map-marker-alt"></i>
               <div className="data-item column nested">
                 <h5 className="request-data-header">Address: </h5>
-                <span>{this.props.doctor.address.streetAddress}</span>
+                <span>{this.props.doctor.address.streetAddress} </span>
                 <span>{this.props.doctor.address.city}, {this.props.doctor.address.state} {this.props.doctor.address.zipCode}</span>
               </div>
             </div>
@@ -88,10 +91,9 @@ export default class SearchDoctorComponent extends Component {
           <h6 className="with-horizontal-line"></h6>
           <div className="nested">
             <h5>Availability</h5>
-            <table className="availability-table">
-              <tr>{headerRow}</tr>
-              <tr>{availabilityRow}</tr>
-            </table>
+            <div className="availability-table">
+              {availability}
+            </div>
           </div>
           <div className="data-item column nested">
             <h4 className="request-data-header">Additional Details: </h4>

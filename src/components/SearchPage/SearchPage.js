@@ -24,7 +24,7 @@ class SearchPage extends Component {
       approved: true,
       doctors: [],
       addressLatLng: undefined,
-      filtersEnabled: true,
+      filtersEnabled: false,
       doctor: undefined,
       displayRequestModal: false,
       displayConfirmationModal: false
@@ -104,6 +104,12 @@ class SearchPage extends Component {
     filterObj.availability = this.filterAvailabilityObj(filterObj.availability);
 
     this.props.getDoctors(filterObj);
+
+    if (window.innerWidth <= 480) {
+      this.setState({
+        filtersEnabled: false
+      });
+    }
   }
 
   filterAvailabilityObj(availabilityObj) {
@@ -206,9 +212,10 @@ class SearchPage extends Component {
         requestShadowing={this.requestShadowing} />
     });
 
-    return (
-      <div className="search-page main">
-        {this.state.filtersEnabled && <div className="search-filters-column box-shadow">
+    let body;
+    if (window.innerWidth <= 480 && this.state.filtersEnabled) {
+      body = <div className="search-page main">
+        <div className="search-filters-column box-shadow">
           <SearchFilters
             zipCode={this.state.zipCode}
             distance={this.state.distance}
@@ -219,14 +226,17 @@ class SearchPage extends Component {
             onAvailabilityChange={this.onAvailabilityChange}
             getDoctors={this.getDoctors}
           />
-        </div>}
-        {!this.state.filtersEnabled && <div onClick={this.toggleFilters} className="search-filters-column-hidden box-shadow">
+        </div>
+      </div>
+    } else if (window.innerWidth <= 480 && !this.state.filtersEnabled) {
+      body = <div className="search-page main">
+        <div onClick={this.toggleFilters} className="search-filters-column-hidden box-shadow">
           <p>
             <button className="icon  icon-secondary small" title="Show Filters">
               <i className="fas fa-angle-double-right"></i>
             </button>
           </p>
-        </div>}
+        </div>
         <div className="search-data-column">
           <div>
             <SearchMapComponent
@@ -251,7 +261,55 @@ class SearchPage extends Component {
           />}
         </div>
       </div>
-    )
+    } else {
+      body = <div className="search-page main">
+        {this.state.filtersEnabled && <div className="search-filters-column box-shadow">
+          <SearchFilters
+            zipCode={this.state.zipCode}
+            distance={this.state.distance}
+            specialty={this.state.specialty}
+            availability={this.state.availability}
+            toggleFilters={this.toggleFilters}
+            onInputChange={this.onInputChange}
+            onAvailabilityChange={this.onAvailabilityChange}
+            getDoctors={this.getDoctors}
+          />
+        </div>}
+        {!this.state.filtersEnabled &&
+          <div onClick={this.toggleFilters} className="search-filters-column-hidden box-shadow">
+            <p>
+              <button className="icon  icon-secondary small" title="Show Filters">
+                <i className="fas fa-angle-double-right"></i>
+              </button>
+            </p>
+          </div>}
+        <div className="search-data-column">
+          <div>
+            <SearchMapComponent
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${config['google-api-key']}`}
+              loadingElement={<div style={{ height: `100%` }} />}
+              containerElement={<div style={{ height: `300px` }} />}
+              mapElement={<div style={{ height: `100%` }} />}
+              addressLatLng={this.state.addressLatLng}
+              doctors={this.state.doctors} />
+          </div>
+          <div className="search-results">
+            {doctors.length ? doctors : <h3 className="no-results box-shadow">No doctors found matching your search criteria. Please try your search again.</h3>}
+          </div>
+          {this.state.displayRequestModal && <RequestModal
+            doctor={this.state.doctor}
+            closeRequestModal={this.closeRequestModal}
+            toggleConfirmationModal={this.toggleConfirmationModal}
+          />}
+          {this.state.displayConfirmationModal && !this.props.loading && <RequestConfirmationModal
+            doctor={this.state.doctor}
+            toggleConfirmationModal={this.toggleConfirmationModal}
+          />}
+        </div>
+      </div>
+    }
+
+    return body;
   }
 }
 

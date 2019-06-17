@@ -8,6 +8,10 @@
   text-align: center;
 }
 
+.search-filters-column-hidden {
+  margin-bottom: 1em;
+}
+
 @media screen and (min-width: 800px) {
   .search-filters-column {
     flex: 20%;
@@ -159,11 +163,20 @@
 .dropdown-container {
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 
 .dropdown i {
   font-size: 1.5em;
   color: var(--main-color-blue);
+  padding: 0.5em;
+}
+
+@media screen and (min-width: 480px) {
+  .dropdown-container {
+    flex-direction: row;
+  }
+
 }
 
 .spaced {
@@ -178,12 +191,15 @@
 .left-icon-container > i {
   font-size: 1.5em;
   color: var(--disabled-background);
+  padding: 0.5em;
 }
 
 .availability-table {
   font-size: 0.75em;
   text-align: center;
   border-spacing: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .availability-table th {
@@ -197,7 +213,6 @@
   padding: 10px;
 }
 
-.availability-table, .availability-table th, .availability-table td {
-  border: 1px solid var(--background-white);
+table, .availability-table th, .availability-table td {
   border-collapse: collapse;
 }

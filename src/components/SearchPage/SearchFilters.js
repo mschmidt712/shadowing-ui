@@ -31,8 +31,8 @@ export default function SearchFilters(props) {
 
   return (
     <div>
-      <div className="component-header">
-        <div className="component-header-details">
+      <div className="component-header-details">
+        <div className="">
           <h3>Filters</h3>
         </div>
         <p className="component-header-right">
@@ -65,7 +65,7 @@ export default function SearchFilters(props) {
             <option value="">All Specialties</option>
             {specialties}
           </select>
-          <i class="fas fa-angle-down"></i>
+          <i className="fas fa-angle-down"></i>
         </div>
       </div>
       <div className="data-item column">

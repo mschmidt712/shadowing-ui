@@ -22,6 +22,7 @@ function SearchMapComponent(props) {
     <GoogleMap
       defaultZoom={9}
       defaultCenter={props.addressLatLng}
+      key={Date.now()}
     >
       {markers}
       {homeMarker}
