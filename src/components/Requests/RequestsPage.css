@@ -52,7 +52,7 @@
 
 .request-response-btn {
   display: block;
-  margin: auto;
+  margin: 1em auto;
 }
 
 .accept-request-btn {
@@ -64,6 +64,10 @@
 }
 
 @media screen and (min-width: 480px) {
+  .request-response-btn {
+    margin: 0 auto;
+  }
+
   .component-header {
     display: flex;
     flex-direction: row;
