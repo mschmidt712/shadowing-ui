@@ -39,7 +39,7 @@ class Home extends Component {
           <h3 className="app-subtitle">A website built to help students find physicians to shadow in a number of specialities in their area.</h3>
           <h3 className="app-subtitle">Enter your location below to get started</h3>
           <div className="search">
-            <input maxLength="5" placeholder="Enter Your Zip Code" name="zipCode" value={this.state.zipCode} onChange={this.onInputChange}></input>
+            <input type="text" maxLength="5" placeholder="Enter Your Zip Code" name="zipCode" value={this.state.zipCode} onChange={this.onInputChange}></input>
             <Link to={`/search?zipCode=${this.state.zipCode}`} className="primary button">
               <i className="fa fa-search"></i>
             </Link>
