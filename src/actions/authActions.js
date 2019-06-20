@@ -8,6 +8,7 @@ import awsData from '../aws-config.json';
 
 import { getStudent, getDoctor } from './userActions';
 import { loadingStart, loadingStop } from './loadingActions';
+import { getStudentRequests, getDoctorRequests } from './requestActions';
 
 const poolData = {
   UserPoolId: awsData['pool-id'],
@@ -41,8 +42,10 @@ export const loginUser = (email, password) => {
           }).then(attributes => {
             if (attributes['custom:occupation'] === 'student') {
               dispatch(getStudent(attributes.sub));
+              dispatch(getStudentRequests(attributes.sub));
             } else if (attributes['custom:occupation'] === 'doctor') {
               dispatch(getDoctor(attributes.sub));
+              dispatch(getDoctorRequests(attributes.sub));
             }
 
             dispatch({
@@ -187,8 +190,10 @@ export const checkAuthStatus = () => {
       }).then(credentials => {
         if (attributes['custom:occupation'] === 'student') {
           dispatch(getStudent(attributes.sub));
+          dispatch(getStudentRequests(attributes.sub));
         } else if (attributes['custom:occupation'] === 'doctor') {
           dispatch(getDoctor(attributes.sub));
+          dispatch(getDoctorRequests(attributes.sub));
         }
 
         dispatch({
@@ -587,6 +592,7 @@ export const facebookLoginUser = (email, picture, token, id) => {
 
     return getFacebookUserCredentials(token).then(credentials => {
       dispatch(getStudent(id));
+      dispatch(getStudentRequests(id));
 
       dispatch({
         type: authAction.FACEBOOK_LOGIN_USER,
@@ -648,6 +654,7 @@ export const googleLoginUser = (email, picture, token, id) => {
 
     return getGoogleUserCredentials(token).then(credentials => {
       dispatch(getStudent(id));
+      dispatch(getStudentRequests(id));
 
       dispatch({
         type: authAction.GOOGLE_LOGIN_USER,

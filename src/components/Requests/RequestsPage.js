@@ -20,7 +20,7 @@ class RequestsPage extends Component {
   }
 
   componentDidMount() {
-    if (this.props.requests) {
+    if (!this.props.requests) {
       if (this.props.occupation === 'student') {
         this.props.getStudentRequests(this.props.id);
       }
