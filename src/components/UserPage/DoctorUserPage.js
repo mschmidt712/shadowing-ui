@@ -11,7 +11,7 @@ export default function DoctorUserPage(props) {
     return <div></div>;
   }
 
-  const accountStatus = props.accountStatus ? 'approved' : 'pending';
+  const accountStatus = props.approved ? 'approved' : 'pending';
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
   const availability = days.filter(day => {
     if (!props.scheduling[day]) {
