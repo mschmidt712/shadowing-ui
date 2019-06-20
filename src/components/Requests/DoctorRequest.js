@@ -1,72 +1,128 @@
-import React from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 
-import DeleteRequestModal from './DeleteRequestModal';
+import ResolveRequestModal from './ResolveRequestModal';
 
-export default function DoctorRequest({ request, doctorName, deleteRequest, displayDeleteRequestModal, toggleDeleteRequestModal }) {
-  let availabilityText = [];
-  const availability = Object.keys(request.scheduling).filter(day => {
-    return request.scheduling[day];
-  }).map((day, availIndex) => {
-    const [start, end] = request.scheduling[day];
-    availabilityText.push(`${capitalizeWord(day)}: ${convertTime(start)} to ${convertTime(end)}`);
-    return <div key={availIndex}>{capitalizeWord(day)}: {convertTime(start)} to {convertTime(end)}</div>
-  });
+class DoctorRequest extends React.Component {
+  constructor(props) {
+    super(props)
 
-  let hipaaCert = 'No';
-  if (request.student.hipaaCert) {
-    hipaaCert = 'Yes';
+    this.state = {
+      status: undefined,
+      hipaaCert: 'No',
+      availabilityText: [],
+      availability: [],
+      acceptRequestBody: '',
+      denyRequestBody: ''
+    }
+
+    this.setStatus = this.setStatus.bind(this);
   }
 
-  const acceptRequestBody = `Dear ${request.student.name},
-  %0A%0A I am happy to inform you that your shadowing request has been approved! Let's set up a time to for shadowing based on the proposed availability of ${availabilityText.join(' & ')}. I look forward to meeting you and helping you on your path to becoming a physician!
-  %0A%0A Thanks,
-  %0A ${doctorName}`;
-  const denyRequestBody = `Dear ${request.student.name},
-  %0A%0A I am sorry to inform you that I will not be able to accomidate your shadowing request due to the number of requests received and a busy work schedule. I wish you the best in your future endevours.
-  %0A%0A Thanks,
-  %0A ${doctorName}`;
+  componentDidMount() {
+    if (this.props.request) {
+      const request = this.props.request;
 
-  return (<div className="request box-shadow">
-    <div className="component-header">
-      <div className="component-header-details">
-        <i className="fa fa-user-graduate"></i>
+      let availabilityText = [];
+      const availability = Object.keys(request.scheduling).filter(day => {
+        return request.scheduling[day];
+      }).map((day, availIndex) => {
+        const [start, end] = request.scheduling[day];
+        availabilityText.push(`${this.capitalizeWord(day)}: ${this.convertTime(start)} to ${this.convertTime(end)}`);
+        return <div key={availIndex}>{this.capitalizeWord(day)}: {this.convertTime(start)} to {this.convertTime(end)}</div>
+      });
+      availabilityText = availabilityText.join(' and ');
+
+      let hipaaCert = 'No';
+      if (request.student.hipaaCert) {
+        hipaaCert = 'Yes';
+      }
+
+      const acceptRequestBody = `Dear ${request.student.name},
+      %0A%0A I am happy to inform you that your shadowing request has been approved! Let's set up a time to for shadowing based on the proposed availability of ${availabilityText}. I look forward to meeting you and helping you on your path to becoming a physician!
+      %0A%0A Thanks,
+      %0A ${this.props.doctorName}`;
+      const denyRequestBody = `Dear ${request.student.name},
+      %0A%0A I am sorry to inform you that I will not be able to accomidate your shadowing request due to the number of requests received and a busy work schedule. I wish you the best in your future endevours.
+      %0A%0A Thanks,
+      %0A ${this.props.doctorName}`;
+
+      this.setState({
+        status: request.status,
+        hipaaCert,
+        availabilityText,
+        availability,
+        acceptRequestBody,
+        denyRequestBody
+      });
+    }
+  }
+
+  setStatus(status) {
+    this.setState({
+      status
+    });
+  }
+
+  changeRequestStatus(request, status) {
+    return Object.assign({}, request, {
+      status
+    });
+  }
+
+  capitalizeWord(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  convertTime(time) {
+    return moment(time, 'HH:mm:ss').format('h:mm A');
+  }
+
+  render() {
+    const request = this.props.request;
+    return (
+      <div className="request box-shadow">
+        <div className="component-header">
+          <div className="component-header-details">
+            <i className="fa fa-user-graduate"></i>
+            <div>
+              <h3 className="request-data-header">{request.student.name}</h3>
+              <h5 className="app-subtitle">{request.student.email}</h5>
+              <h5 className="app-subtitle">{request.student.phoneNumber}</h5>
+            </div>
+          </div>
+          <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
+        </div>
+        <h6 className="with-horizontal-line"></h6>
         <div>
-          <h3 className="request-data-header">{request.student.name}</h3>
-          <h5 className="app-subtitle">{request.student.email}</h5>
-          <h5 className="app-subtitle">{request.student.phoneNumber}</h5>
+          <div className="data-item column nested">
+            <h5 className="request-data-header">HIPAA Certified: </h5>
+            {this.state.hipaaCert}
+          </div>
+          <div className="data-item column nested">
+            <h5 className="request-data-header">Availability:</h5>
+            {this.state.availability}
+          </div>
+          <div className="data-item request-response-btn">
+            {request.status === 'pending' && <div>
+              <button className="button primary">
+                <a href={`mailto:${request.student.email}?subject=Shadowing Request Accepted&body=${this.state.acceptRequestBody}`} className="no-decoration accept-request-btn" onClick={() => { this.props.toggleResolveRequestModal(); this.setStatus('approved'); }}>Accept Request</a>
+              </button>
+              <button className="button secondary">
+                <a href={`mailto:${request.student.email}?subject=Shadowing Request Denied&body=${this.state.denyRequestBody}`} className="no-decoration deny-request-btn" onClick={() => { this.props.toggleResolveRequestModal(); this.setStatus('denied'); }}>Deny Request</a>
+              </button>
+            </div>}
+            {request.status !== 'pending' && <div className="data-item nested">
+              <h5>Status:</h5>
+              <span className={request.status}>{this.capitalizeWord(request.status)}</span>
+            </div>}
+          </div>
+          {this.props.displayResolveRequestModal &&
+            <ResolveRequestModal changeRequestStatus={this.props.changeRequestStatus} toggleResolveRequestModal={this.props.toggleResolveRequestModal} request={request} status={this.state.status} />}
         </div>
       </div>
-      <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
-    </div>
-    <h6 className="with-horizontal-line"></h6>
-    <div>
-      <div className="data-item column nested">
-        <h5 className="request-data-header">HIPAA Certified: </h5>
-        {hipaaCert}
-      </div>
-      <div className="data-item column nested">
-        <h5 className="request-data-header">Availability:</h5>
-        {availability}
-      </div>
-      <div className="data-item request-response-btn">
-        <button className="button primary">
-          <a href={`mailto:${request.student.email}?subject=Shadowing Request Accepted&body=${acceptRequestBody}`} className="no-decoration accept-request-btn" onClick={toggleDeleteRequestModal}>Accept Request</a>
-        </button>
-        <button className="button secondary">
-          <a href={`mailto:${request.student.email}?subject=Shadowing Request Denied&body=${denyRequestBody}`} className="no-decoration deny-request-btn" onClick={toggleDeleteRequestModal}>Deny Request</a>
-        </button>
-      </div>
-      {displayDeleteRequestModal &&
-        <DeleteRequestModal deleteRequest={deleteRequest} toggleDeleteRequestModal={toggleDeleteRequestModal} request={request} />}
-    </div>
-  </div>);
+    )
+  }
 }
 
-function capitalizeWord(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function convertTime(time) {
-  return moment(time, 'HH:mm:ss').format('h:mm A');
-}
+export default DoctorRequest;

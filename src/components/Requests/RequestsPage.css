@@ -63,6 +63,16 @@
   color: var(--main-color-blue);
 }
 
+.approved {
+  color: var(--success-green);
+  font-style: italic;
+}
+
+.denied {
+  color: var(--error-red);
+  font-style: italic;
+}
+
 @media screen and (min-width: 480px) {
   .request-response-btn {
     margin: 0 auto;

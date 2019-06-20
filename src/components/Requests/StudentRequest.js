@@ -8,6 +8,7 @@ export default function StudentRequest({ request, deleteRequest }) {
     const [start, end] = request.scheduling[day];
     return <div key={day}>{capitalizeWord(day)}: {convertTime(start)} to {convertTime(end)}</div>
   });
+
   return (<div className="request box-shadow">
     <div className="component-header">
       <div className="component-header-details">
@@ -24,7 +25,11 @@ export default function StudentRequest({ request, deleteRequest }) {
       <h5 className="request-data-header">Availability: </h5>
       {availability}
     </div>
-    <button className="secondary request-response-btn" onClick={() => { deleteRequest(request.uuid) }}>Delete Request</button>
+    {request.status === 'pending' && <button className="secondary request-response-btn" onClick={() => { deleteRequest(request.uuid) }}>Delete Request</button>}
+    {request.status !== 'pending' && <div className="data-item nested">
+      <h5>Status:</h5>
+      <span className={request.status}>{capitalizeWord(request.status)}</span>
+    </div>}
   </div>);
 }
 

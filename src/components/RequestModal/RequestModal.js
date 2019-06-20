@@ -72,7 +72,6 @@ class RequestModal extends Component {
 
     this.props.createRequest(requestData);
     this.props.closeRequestModal();
-    this.props.toggleConfirmationModal(true);
   }
 
   render() {

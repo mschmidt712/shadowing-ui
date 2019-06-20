@@ -23,6 +23,13 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         requests: [...state.requests, action.payload]
       });
+    case requestAction.CHANGE_REQUEST_STATUS:
+      const filteredRequests = state.requests.filter(request => {
+        return request.uuid !== action.payload.uuid;
+      });
+      return Object.assign({}, state, {
+        requests: [...filteredRequests, action.payload]
+      });
     case requestAction.REQUEST_ERROR:
       return Object.assign({}, state, {
         requestErr: JSON.parse(action.payload.err)

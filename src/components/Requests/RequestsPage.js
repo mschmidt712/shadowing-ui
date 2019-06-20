@@ -11,10 +11,12 @@ class RequestsPage extends Component {
     super(props)
 
     this.state = {
-      displayDeleteRequestModal: false
+      displayResolveRequestModal: false,
+      status: 'pending'
     }
 
-    this.toggleDeleteRequestModal = this.toggleDeleteRequestModal.bind(this);
+    this.toggleResolveRequestModal = this.toggleResolveRequestModal.bind(this);
+    this.setStatus = this.setStatus.bind(this);
   }
 
   componentDidMount() {
@@ -28,36 +30,67 @@ class RequestsPage extends Component {
     }
   }
 
-  toggleDeleteRequestModal() {
+  toggleResolveRequestModal() {
     this.setState({
-      displayDeleteRequestModal: !this.state.displayDeleteRequestModal
+      displayResolveRequestModal: !this.state.displayResolveRequestModal
+    });
+  }
+
+  setStatus(status) {
+    this.setState({
+      status
     });
   }
 
   render() {
-    let requests = <h3 className="app-subtitle">No requests for shadowing found!</h3>;
-    if (this.props.requests && this.props.requests.length) {
+    let requests = this.props.requests;
+    if (requests && requests.length) {
+      if (this.state.status === 'pending') {
+        requests = requests.filter(request => {
+          return request.status === 'pending';
+        });
+      } else if (this.state.status === 'resolved') {
+        requests = requests.filter(request => {
+          return request.status !== 'pending';
+        });
+      }
+
       if (this.props.occupation === 'student') {
-        requests = this.props.requests.map((request) => (
-          <StudentRequest key={request.uuid} request={request} deleteRequest={this.props.deleteRequest} />
+        requests = requests.map((request) => (
+          <StudentRequest
+            key={request.uuid}
+            request={request}
+            deleteRequest={this.props.deleteRequest}
+          />
         ));
-      } else if (this.props.occupation === 'doctor') {
-        requests = this.props.requests.map((request) => (
+      } else {
+        requests = requests.map(request => (
           <DoctorRequest
             key={request.uuid}
             request={request}
             doctorName={`Dr. ${this.props.name}, ${this.props.degree}`}
-            deleteRequest={this.props.deleteRequest}
-            displayDeleteRequestModal={this.state.displayDeleteRequestModal}
-            toggleDeleteRequestModal={this.toggleDeleteRequestModal}
+            changeRequestStatus={this.props.changeRequestStatus}
+            displayResolveRequestModal={this.state.displayResolveRequestModal}
+            toggleResolveRequestModal={this.toggleResolveRequestModal}
           />
         ));
       }
+
+      if (requests.length === 0) {
+        requests = <h3 className="app-subtitle">No pending requests for shadowing found!</h3>;
+      }
+    } else {
+      requests = <h3 className="app-subtitle">No requests for shadowing found!</h3>;
     }
 
     return (
       <div className="main">
-        <h3 className="app-title">Shadowing Requests</h3>
+        <h3 className="app-title">Shadowing Requests
+          <div>
+            <button className="primary" onClick={() => this.setStatus('pending')}>Pending Requests</button>
+            <button className="secondary" onClick={() => this.setStatus('resolved')}>Resolved Requests</button>
+          </div>
+        </h3>
         {requests}
       </div>
     )
@@ -73,7 +106,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getStudentRequests: (id, query) => dispatch(requestActions.getStudentRequests(id, query)),
   getDoctorRequests: (id, query) => dispatch(requestActions.getDoctorRequests(id, query)),
-  deleteRequest: (requestId) => dispatch(requestActions.deleteRequest(requestId))
+  deleteRequest: (requestId) => dispatch(requestActions.deleteRequest(requestId)),
+  changeRequestStatus: (request, status) => dispatch(requestActions.changeRequestStatus(request, status))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestsPage);

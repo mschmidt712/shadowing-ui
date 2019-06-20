@@ -255,7 +255,7 @@ class SearchPage extends Component {
             closeRequestModal={this.closeRequestModal}
             toggleConfirmationModal={this.toggleConfirmationModal}
           />}
-          {this.state.displayConfirmationModal && !this.props.loading && <RequestConfirmationModal
+          {this.state.displayConfirmationModal && !this.props.loading && !this.props.requestErr && <RequestConfirmationModal
             doctor={this.state.doctor}
             toggleConfirmationModal={this.toggleConfirmationModal}
           />}

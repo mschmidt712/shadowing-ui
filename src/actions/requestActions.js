@@ -161,6 +161,80 @@ export const getDoctorRequests = (id, query) => {
   }
 }
 
+export const changeRequestStatus = (request, status) => {
+  return (dispatch) => {
+    dispatch(loadingStart());
+
+    let url = `${baseUrl}/request`
+    const requestData = Object.assign({}, request, {
+      student: request.student.id,
+      status
+    });
+
+    return fetch(url, {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ request: requestData })
+    }).then(resp => {
+      if (!resp.ok) {
+        return resp.json().then(jsonResp => {
+          dispatch({
+            type: requestAction.REQUEST_ERROR,
+            payload: {
+              err: jsonResp.errorMessage
+            }
+          });
+          dispatch(loadingStop());
+          return;
+        });
+      }
+
+      let studentPromiseStatus;
+      return new Promise((resolve, reject) => {
+        return fetch(`${baseUrl}/student/${requestData.student}`, {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(resp => {
+          studentPromiseStatus = resp.ok;
+          return resp.json();
+        }).then(resp => {
+          if (!studentPromiseStatus) {
+            return reject(resp.errorMessage);
+          }
+
+          const student = JSON.parse(resp.body);
+          requestData.student = student;
+          resolve(requestData);
+        });
+      });
+    }).then(request => {
+      console.log('Final Request: ', request);
+
+      dispatch({
+        type: requestAction.CHANGE_REQUEST_STATUS,
+        payload: requestData
+      });
+      dispatch(loadingStop());
+      return;
+    }).catch(err => {
+      dispatch({
+        type: requestAction.REQUEST_ERROR,
+        payload: {
+          err
+        }
+      });
+      dispatch(loadingStop());
+      return;
+    });
+  }
+}
+
 export const deleteRequest = (requestId) => {
   return (dispatch) => {
     dispatch(loadingStart());
