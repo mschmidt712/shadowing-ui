@@ -99,7 +99,12 @@ export default class SearchDoctorComponent extends Component {
             <h4 className="request-data-header">Additional Details: </h4>
             <span>{this.props.doctor.additionalComments}</span>
           </div>
-          <button className="primary request-response-btn" onClick={() => { this.props.requestShadowing(this.props.doctor) }}>Request</button>
+          <button
+            className="primary request-response-btn"
+            onClick={() => { this.props.requestShadowing(this.props.doctor) }}
+            disabled={this.props.occupation === 'doctor'}>
+            Request
+          </button>
         </div>}
       </div>
     } else {

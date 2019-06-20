@@ -208,6 +208,7 @@ class SearchPage extends Component {
       return <SearchDoctorComponent
         key={doctor.id}
         doctor={doctor}
+        occupation={this.props.occupation}
         isLoggedIn={this.props.isLoggedIn}
         requestShadowing={this.requestShadowing} />
     });
