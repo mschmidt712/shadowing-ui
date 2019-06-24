@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import moment from 'moment';
 
 import ResolveRequestModal from './ResolveRequestModal';
@@ -93,7 +93,7 @@ class DoctorRequest extends React.Component {
           </div>
           <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
         </div>
-        <h6 className="with-horizontal-line"></h6>
+        <p className="with-horizontal-line"></p>
         <div>
           <div className="data-item column nested">
             <h5 className="request-data-header">HIPAA Certified: </h5>

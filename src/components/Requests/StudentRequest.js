@@ -20,7 +20,7 @@ export default function StudentRequest({ request, deleteRequest }) {
       </div>
       <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
     </div>
-    <h6 className="with-horizontal-line"></h6>
+    <p className="with-horizontal-line"></p>
     <div className="data-item column nested">
       <h5 className="request-data-header">Availability: </h5>
       {availability}
