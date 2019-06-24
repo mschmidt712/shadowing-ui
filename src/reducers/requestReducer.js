@@ -3,6 +3,7 @@ import * as requestAction from '../actions/requestTypes';
 const initialState = {
   requests: [],
   request: {},
+  displayConfirmationModal: false,
   requestErr: undefined
 };
 
@@ -27,6 +28,14 @@ export default (state = initialState, action) => {
       });
       return Object.assign({}, state, {
         requests: [...filteredRequests, action.payload]
+      });
+    case requestAction.SHOW_CONFIRMATION_MODAL:
+      return Object.assign({}, state, {
+        displayConfirmationModal: true
+      });
+    case requestAction.CLOSE_CONFIRMATION_MODAL:
+      return Object.assign({}, state, {
+        displayConfirmationModal: false
       });
     case requestAction.REQUEST_ERROR:
       return Object.assign({}, state, {

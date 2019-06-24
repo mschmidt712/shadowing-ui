@@ -11,6 +11,7 @@ import './SearchPage.css';
 import config from '../../aws-config.json';
 
 import * as userActions from '../../actions/userActions';
+import * as requestActions from '../../actions/requestActions';
 
 class SearchPage extends Component {
   constructor(props) {
@@ -38,7 +39,6 @@ class SearchPage extends Component {
     this.onAvailabilityChange = this.onAvailabilityChange.bind(this);
     this.requestShadowing = this.requestShadowing.bind(this);
     this.closeRequestModal = this.closeRequestModal.bind(this);
-    this.toggleConfirmationModal = this.toggleConfirmationModal.bind(this);
   }
 
   componentDidMount() {
@@ -197,12 +197,6 @@ class SearchPage extends Component {
     });
   }
 
-  toggleConfirmationModal(status) {
-    this.setState({
-      displayConfirmationModal: status
-    });
-  }
-
   render() {
     const doctors = this.state.doctors.map((doctor, index) => {
       return <SearchDoctorComponent
@@ -302,11 +296,10 @@ class SearchPage extends Component {
           {this.state.displayRequestModal && <RequestModal
             doctor={this.state.doctor}
             closeRequestModal={this.closeRequestModal}
-            toggleConfirmationModal={this.toggleConfirmationModal}
           />}
-          {this.state.displayConfirmationModal && !this.props.loading && <RequestConfirmationModal
+          {this.props.displayConfirmationModal && !this.props.loading && <RequestConfirmationModal
             doctor={this.state.doctor}
-            toggleConfirmationModal={this.toggleConfirmationModal}
+            closeConfirmationModal={this.props.closeConfirmationModal}
           />}
         </div>
       </div>
@@ -320,11 +313,13 @@ class SearchPage extends Component {
 const mapStateToProps = state => ({
   ...state.authReducer,
   ...state.userReducer,
-  ...state.loadingReducer
+  ...state.loadingReducer,
+  ...state.requestReducer
 });
 
 const mapDispatchToProps = dispatch => ({
-  getDoctors: (query) => dispatch(userActions.getDoctors(query))
+  getDoctors: (query) => dispatch(userActions.getDoctors(query)),
+  closeConfirmationModal: () => dispatch(requestActions.closeConfirmationModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

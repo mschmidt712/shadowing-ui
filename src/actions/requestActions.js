@@ -299,11 +299,28 @@ export const createRequest = (requestData) => {
       }
 
       dispatch(getStudentRequests(requestData.student));
+      dispatch(displayConfirmationModal());
       dispatch({
         type: requestAction.CREATE_REQUEST
       });
       dispatch(loadingStop());
       return;
+    });
+  }
+}
+
+export const displayConfirmationModal = () => {
+  return dispatch => {
+    dispatch({
+      type: requestAction.SHOW_CONFIRMATION_MODAL
+    });
+  }
+}
+
+export const closeConfirmationModal = () => {
+  return dispatch => {
+    dispatch({
+      type: requestAction.CLOSE_CONFIRMATION_MODAL
     });
   }
 }

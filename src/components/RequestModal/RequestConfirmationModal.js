@@ -4,7 +4,7 @@ export default function RequestConfirmationModal(props) {
   return <div>
     <div className="modal">
       <div className="modal-content">
-        <span className="close" onClick={() => props.toggleConfirmationModal(false)}>&times;</span>
+        <span className="close" onClick={() => props.closeConfirmationModal(false)}>&times;</span>
         <div className="modal-text">
           <div className="form">
             <h1 className="app-title">Thank You!</h1>
@@ -18,7 +18,7 @@ export default function RequestConfirmationModal(props) {
             <div className="data-item">
               <p>Thanks for using FindShadowing.com!</p>
             </div>
-            <button className="primary" onClick={() => { props.toggleConfirmationModal(false) }}>Close</button>
+            <button className="primary" onClick={() => { props.closeConfirmationModal(false) }}>Close</button>
           </div>
         </div>
       </div>
