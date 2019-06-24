@@ -298,9 +298,9 @@ export const createRequest = (requestData) => {
         });
       }
 
+      dispatch(getStudentRequests(requestData.student));
       dispatch({
-        type: requestAction.CREATE_REQUEST,
-        payload: requestData
+        type: requestAction.CREATE_REQUEST
       });
       dispatch(loadingStop());
       return;

@@ -20,9 +20,7 @@ export default (state = initialState, action) => {
         requests: newRequests
       });
     case requestAction.CREATE_REQUEST:
-      return Object.assign({}, state, {
-        requests: [...state.requests, action.payload]
-      });
+      return state;
     case requestAction.CHANGE_REQUEST_STATUS:
       const filteredRequests = state.requests.filter(request => {
         return request.uuid !== action.payload.uuid;

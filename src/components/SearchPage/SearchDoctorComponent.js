@@ -35,13 +35,17 @@ export default class SearchDoctorComponent extends Component {
       const availability = daysOfWeek.map(day => {
         if (!this.props.doctor.scheduling[day]) {
           return <table key={day}>
-            <tr><th>{this.capitalizeWord(day)}</th></tr>
-            <tr><td>Unavailable</td></tr>
+            <tbody>
+              <tr><th>{this.capitalizeWord(day)}</th></tr>
+              <tr><td>Unavailable</td></tr>
+            </tbody>
           </table>
         }
         return <table key={day}>
-          <tr><th>{this.capitalizeWord(day)}</th></tr>
-          <tr><td>{this.convertTime(this.props.doctor.scheduling[day][0])} to {this.convertTime(this.props.doctor.scheduling[day][1])}</td></tr>
+          <tbody>
+            <tr><th>{this.capitalizeWord(day)}</th></tr>
+            <tr><td>{this.convertTime(this.props.doctor.scheduling[day][0])} to {this.convertTime(this.props.doctor.scheduling[day][1])}</td></tr>
+          </tbody>
         </table>
       });
 
@@ -56,7 +60,7 @@ export default class SearchDoctorComponent extends Component {
           </div>
           <div className="dropdown-container">
             <div className="component-header-right">
-              <i class="fas fa-map-marked-alt"></i>
+              <i className="fas fa-map-marked-alt"></i>
               <span>{distanceMiles} Miles</span>
             </div>
             <div className="dropdown">
@@ -73,14 +77,14 @@ export default class SearchDoctorComponent extends Component {
           <p className="with-horizontal-line"></p>
           <div className="data-item spaced">
             <div className="left-icon-container">
-              <i class="far fa-clock"></i>
+              <i className="far fa-clock"></i>
               <div className="data-item column nested">
                 <h5 className="request-data-header">Shift Length: </h5>
                 <span>{this.props.doctor.shiftLength[0]} hours to {this.props.doctor.shiftLength[1]} hours</span>
               </div>
             </div>
             <div className="left-icon-container">
-              <i class="fas fa-map-marker-alt"></i>
+              <i className="fas fa-map-marker-alt"></i>
               <div className="data-item column nested">
                 <h5 className="request-data-header">Address: </h5>
                 <span>{this.props.doctor.address.streetAddress} </span>
@@ -118,7 +122,7 @@ export default class SearchDoctorComponent extends Component {
             </div>
           </div>
           <div className="component-header-right">
-            <i class="fas fa-map-marked-alt"></i>
+            <i className="fas fa-map-marked-alt"></i>
             <span>{distanceMiles} Miles</span>
           </div>
         </div>
