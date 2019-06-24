@@ -24,11 +24,21 @@ export const getStudentRequests = (id, query) => {
         "Content-Type": "application/json",
       }
     }).then(response => {
-      requestPromiseStatus = response.ok;
+      requestPromiseStatus = {
+        status: response.ok,
+        statusCode: response.status
+      };
       return response.json();
     }).then(resp => {
-      if (!requestPromiseStatus) {
-        throw new Error(resp.errorMessage);
+      if (!requestPromiseStatus.status) {
+        if (requestPromiseStatus.statusCode === 404) {
+          dispatch(loadingStop());
+          return dispatch({
+            type: requestAction.NO_REQUESTS
+          });
+        } else {
+          throw new Error(resp.errorMessage);
+        }
       }
 
       requests = JSON.parse(resp.body);
@@ -103,11 +113,21 @@ export const getDoctorRequests = (id, query) => {
         "Content-Type": "application/json",
       }
     }).then(response => {
-      requestPromiseStatus = response.ok;
-      return response.json()
+      requestPromiseStatus = {
+        status: response.ok,
+        statusCode: response.status
+      };
+      return response.json();
     }).then(resp => {
-      if (!requestPromiseStatus) {
-        throw new Error(resp.errorMessage);
+      if (!requestPromiseStatus.status) {
+        if (requestPromiseStatus.statusCode === 404) {
+          dispatch(loadingStop());
+          return dispatch({
+            type: requestAction.NO_REQUESTS
+          });
+        } else {
+          throw new Error(resp.errorMessage);
+        }
       }
 
       requests = JSON.parse(resp.body);
