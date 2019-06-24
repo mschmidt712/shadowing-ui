@@ -21,7 +21,7 @@ export default function Step1(props) {
   }
 
   const specialties = medicalSpecialties.map(specialty => (
-    <option value={specialty}>{specialty}</option>
+    <option value={specialty} key={specialty}>{specialty}</option>
   ));
 
   return (
@@ -71,7 +71,7 @@ export default function Step1(props) {
               <option value="DO">DO</option>
               <option value="MBBS">MBBS</option>
             </select>
-            <i class="fas fa-angle-down"></i>
+            <i className="fas fa-angle-down"></i>
           </div>
         </div>
       </div>
@@ -142,7 +142,7 @@ export default function Step1(props) {
               <option value="WI">WI</option>
               <option value="WY">WY</option>
             </select>
-            <i class="fas fa-angle-down"></i>
+            <i className="fas fa-angle-down"></i>
           </span>
           <input type="text" name="zipCode" value={props.zipCode} onChange={props.onInputChange} placeholder="Zip Code" className={props.touched} required />
         </div>
@@ -154,7 +154,7 @@ export default function Step1(props) {
             <option value=""></option>
             {specialties}
           </select>
-          <i class="fas fa-angle-down"></i>
+          <i className="fas fa-angle-down"></i>
         </div>
       </div>
       <button onClick={validateForm} type="button" className="primary">Next</button>

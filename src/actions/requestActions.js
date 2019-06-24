@@ -214,8 +214,6 @@ export const changeRequestStatus = (request, status) => {
         });
       });
     }).then(request => {
-      console.log('Final Request: ', request);
-
       dispatch({
         type: requestAction.CHANGE_REQUEST_STATUS,
         payload: requestData

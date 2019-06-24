@@ -72,7 +72,7 @@ export const updateStudent = (data) => {
 
         dispatch({
           type: userAction.UPDATE_STUDENT,
-          payload: data.student
+          payload: JSON.parse(resp.body)
         });
         dispatch(push(`/user?${data.student.id}`));
         dispatch(loadingStop());
@@ -263,10 +263,9 @@ export const updateDoctor = (data, credentials) => {
 
       dispatch({
         type: userAction.UPDATE_DOCTOR,
-        payload: {
-          ...data,
+        payload: Object.assign({}, JSON.parse(resp.body), {
           badgePhoto
-        }
+        })
       });
       dispatch(push(`/user?${data.id}`));
       dispatch(loadingStop());
