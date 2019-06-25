@@ -267,6 +267,12 @@ textarea {
   font-family: 'Roboto', sans-serif;
 }
 
+.textarea-container {
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+
 textarea.dirty:invalid {
   background-color: var(--dirty-input);
 }

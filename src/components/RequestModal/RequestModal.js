@@ -16,9 +16,11 @@ class RequestModal extends Component {
         'thursday': false,
         'friday': false,
         'saturday': false
-      }
+      },
+      additionalInfo: ''
     }
 
+    this.onInputChange = this.onInputChange.bind(this);
     this.onAvailabilityChange = this.onAvailabilityChange.bind(this);
     this.validateRequest = this.validateRequest.bind(this);
     this.requestShadowing = this.requestShadowing.bind(this);
@@ -35,6 +37,12 @@ class RequestModal extends Component {
     }
 
     this.requestShadowing();
+  }
+
+  onInputChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
 
   onAvailabilityChange(e) {
@@ -67,7 +75,8 @@ class RequestModal extends Component {
     const requestData = {
       student: this.props.id,
       doctor: this.props.doctor.id,
-      scheduling: formattedAvailability
+      scheduling: formattedAvailability,
+      additionalInfo: this.state.additionalInfo
     }
 
     this.props.createRequest(requestData);
@@ -112,6 +121,15 @@ class RequestModal extends Component {
               <div className="data-item">
                 <h5 className="app-subtitle">Scheduling:</h5>
                 {availability}
+              </div>
+              <div className="textarea-container">
+                <h5 className="app-subtitle">Additional Info:</h5>
+                <textarea
+                  maxLength="150"
+                  name="additionalInfo"
+                  value={this.state.additionalInfo}
+                  onChange={this.onInputChange}
+                  placeholder={`Any additional information you would like Dr. ${this.props.doctor.name} to know when considering your request. 150 character limit.`}></textarea>
               </div>
               <button className="primary" onClick={this.validateRequest}>Request</button>
             </div>
