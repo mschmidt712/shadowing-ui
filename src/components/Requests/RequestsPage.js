@@ -45,15 +45,9 @@ class RequestsPage extends Component {
   render() {
     let requests = this.props.requests;
     if (requests && requests.length) {
-      if (this.state.status === 'pending') {
-        requests = requests.filter(request => {
-          return request.status === 'pending';
-        });
-      } else if (this.state.status === 'resolved') {
-        requests = requests.filter(request => {
-          return request.status !== 'pending';
-        });
-      }
+      requests = requests.filter(request => {
+        return request.status === this.state.status;
+      });
 
       if (this.props.occupation === 'student') {
         requests = requests.map((request) => (
@@ -77,7 +71,7 @@ class RequestsPage extends Component {
       }
 
       if (requests.length === 0) {
-        requests = <h3 className="app-subtitle">No pending requests for shadowing found!</h3>;
+        requests = <h3 className="app-subtitle">No {this.state.status} requests for shadowing found!</h3>;
       }
     } else {
       requests = <h3 className="app-subtitle">No requests for shadowing found!</h3>;

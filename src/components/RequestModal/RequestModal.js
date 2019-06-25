@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import * as requestActions from '../../actions/requestActions';
 
@@ -122,6 +123,11 @@ class RequestModal extends Component {
               <div className="data-item">
                 <h5 className="app-subtitle">Phone Number:</h5>
                 {this.props.phoneNumber}
+              </div>
+              <div className="data-item">
+                <button className="secondary">
+                  <Link to={`/user?id=${this.props.id}`} className="no-decoration secondary">Edit Contact Info in Your Profile</Link>
+                </button>
               </div>
               <div className="data-item">
                 <h5 className="app-subtitle">Scheduling:</h5>
