@@ -25,6 +25,11 @@ export default function StudentRequest({ request, deleteRequest }) {
       <h5 className="request-data-header">Availability: </h5>
       {availability}
     </div>
+    <div className="data-item column nested">
+      <h5 className="request-data-header">Additional Info: </h5>
+      {request.additionalInfo && <p>{request.additionalInfo}</p>}
+      {!request.additionalInfo && <p>No additional information given.</p>}
+    </div>
     {request.status === 'pending' && <button className="secondary request-response-btn" onClick={() => { deleteRequest(request.uuid) }}>Delete Request</button>}
     {request.status !== 'pending' && <div className="data-item nested">
       <h5>Status:</h5>

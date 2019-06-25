@@ -72,11 +72,16 @@ class RequestModal extends Component {
       formattedAvailability[obj.day] = obj.scheduling
     });
 
-    const requestData = {
+    let requestData = {
       student: this.props.id,
       doctor: this.props.doctor.id,
-      scheduling: formattedAvailability,
-      additionalInfo: this.state.additionalInfo
+      scheduling: formattedAvailability
+    }
+
+    if (this.state.additionalInfo) {
+      requestData = Object.assign({}, requestData, {
+        additionalInfo: this.state.additionalInfo
+      });
     }
 
     this.props.createRequest(requestData);
