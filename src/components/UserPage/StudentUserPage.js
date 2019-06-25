@@ -13,6 +13,11 @@ export default function StudentUserPage(props) {
     hipaaIcon = 'fa-times';
   }
 
+  let gender = props.gender;
+  if (gender === 'none') {
+    gender = 'prefer not to say';
+  }
+
   return (
     <div>
       <h1 className="user-header"><i className="fa fa-user icon"></i>{props.name}</h1>
@@ -26,6 +31,10 @@ export default function StudentUserPage(props) {
             addressLatLong={props.addressLatLong} />
         </div>
         <div className="user-data">
+          <div className="data-item">
+            <h3 className="app-subtitle">Gender:</h3>
+            {gender}
+          </div>
           <div className="data-item">
             <h3 className="app-subtitle">Email:</h3>
             {props.email}

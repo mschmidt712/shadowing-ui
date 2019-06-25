@@ -44,9 +44,15 @@ class RequestsPage extends Component {
 
   render() {
     let requests = this.props.requests;
+    console.log(requests);
+
     if (requests && requests.length) {
       requests = requests.filter(request => {
-        return request.status === this.state.status;
+        if (this.state.status === 'pending') {
+          return request.status === this.state.status;
+        } else {
+          return request.status !== this.state.status;
+        }
       });
 
       if (this.props.occupation === 'student') {
