@@ -80,6 +80,7 @@ class DoctorRequest extends React.Component {
 
   render() {
     const request = this.props.request;
+    console.log(request);
     return (
       <div className="request box-shadow">
         <div className="component-header">
@@ -102,6 +103,10 @@ class DoctorRequest extends React.Component {
           <div className="data-item column nested">
             <h5 className="request-data-header">Availability:</h5>
             {this.state.availability}
+          </div>
+          <div className="data-item column nested">
+            <h5 className="request-data-header">Additional Info:</h5>
+            <p>{request.additionalInfo}</p>
           </div>
           <div className="data-item request-response-btn">
             {request.status === 'pending' && <div>
