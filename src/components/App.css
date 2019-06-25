@@ -137,7 +137,8 @@ button[disabled]{
   background-color: var(--modal-background);
   margin: 5% auto; /* 15% from the top and centered */
   padding: 20px;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
+  max-width: 800px;
   border-radius: 5px;
 }
 
