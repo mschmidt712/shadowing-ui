@@ -136,11 +136,11 @@ class RequestModal extends Component {
               <div className="textarea-container">
                 <h5 className="app-subtitle">Additional Info:</h5>
                 <textarea
-                  maxLength="150"
+                  maxLength="250"
                   name="additionalInfo"
                   value={this.state.additionalInfo}
                   onChange={this.onInputChange}
-                  placeholder={`Any additional information you would like Dr. ${this.props.doctor.name} to know when considering your request. 150 character limit.`}></textarea>
+                  placeholder={`Any additional information you would like Dr. ${this.props.doctor.name} to know when considering your request. 250 character limit.`}></textarea>
               </div>
               <button className="primary" onClick={this.validateRequest}>Request</button>
             </div>
