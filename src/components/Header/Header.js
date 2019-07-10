@@ -29,13 +29,22 @@ function Header(props) {
       >
       </GoogleLogout>}
   </div>);
+  const userLoggedInAdmin = (<div className="login">
+    <Link to={`/admin`}>
+      <button class="secondary">
+        Admin Dashboard
+      </button>
+    </Link>
+    <button className="primary" onClick={props.logoutUser}>Logout</button>
+  </div>);
   const header = (<header className="app-header-condensed">
     <div className="header-content">
       <Link to="/" className="no-decoration">
         <h1 className="app-title" >Find Shadowing</h1>
       </Link>
       {!props.isLoggedIn && userNotLoggedIn}
-      {props.isLoggedIn && userLoggedIn}
+      {props.isLoggedIn && !props.isAdmin && userLoggedIn}
+      {props.isLoggedIn && props.isAdmin && userLoggedInAdmin}
     </div>
   </header>);
   // }

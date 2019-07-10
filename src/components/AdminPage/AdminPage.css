@@ -1,0 +1,11 @@
+.badge-image {
+  max-width: 400px;
+  max-height: 250px;
+  display: block;
+  margin: auto;
+}
+
+.center {
+  display: block;
+  margin: auto;
+}

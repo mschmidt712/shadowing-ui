@@ -1,6 +1,7 @@
 import * as authAction from '../actions/authTypes';
 
 const initialState = {
+  isAdmin: false,
   credentials: {},
   email: '',
   occupation: '',
@@ -145,6 +146,10 @@ export default (state = initialState, action) => {
     case authAction.CONFIRMATION_CLOSE:
       return Object.assign({}, state, {
         displayConfirmation: false
+      });
+    case authAction.IS_ADMIN:
+      return Object.assign({}, state, {
+        isAdmin: true
       });
     case authAction.HANDLE_ERROR:
       return Object.assign({}, state, {

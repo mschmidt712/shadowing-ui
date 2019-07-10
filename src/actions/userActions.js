@@ -283,6 +283,50 @@ export const updateDoctor = (data, credentials) => {
   }
 }
 
+export const approveDoctor = (doctor) => {
+  return (dispatch) => {
+    dispatch(loadingStart());
+    const url = `${baseUrl}/doctor`;
+
+    const bodyData = Object.assign({}, doctor, {
+      approved: true
+    });
+    let doctorRespStatus;
+    return fetch(url, {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ doctor: bodyData }),
+    }).then(response => {
+      doctorRespStatus = response.ok;
+      return response.json();
+    }).then(resp => {
+      if (!doctorRespStatus) {
+        throw new Error(resp.errorMessage);
+      }
+
+      dispatch({
+        type: userAction.UPDATE_DOCTOR,
+        payload: JSON.parse(resp.body)
+      });
+      dispatch(getDoctorsForApproval());
+      dispatch(loadingStop());
+      return;
+    }).catch(err => {
+      dispatch({
+        type: userAction.USER_ERROR,
+        payload: {
+          err: err.message
+        }
+      });
+      dispatch(loadingStop());
+      return;
+    });
+  }
+}
+
 export const getDoctor = (id) => {
   return (dispatch) => {
     dispatch(loadingStart());
@@ -332,7 +376,6 @@ export const getDoctor = (id) => {
     });
   }
 }
-
 
 export const getDoctors = (query) => {
   return (dispatch) => {
@@ -384,6 +427,56 @@ export const getDoctors = (query) => {
           payload: JSON.parse(response.body)
         });
         dispatch(push(`/search?${queryString}`));
+        dispatch(loadingStop());
+        return;
+      });
+    })
+      .catch(err => {
+        dispatch({
+          type: userAction.USER_ERROR,
+          payload: {
+            err: err.message
+          }
+        });
+        dispatch(loadingStop());
+        return;
+      });
+  }
+}
+
+export const getDoctorsForApproval = () => {
+  return (dispatch) => {
+    dispatch(loadingStart());
+
+    let url = `${baseUrl}/doctors?approved=false`;
+
+    let doctorRespStatus;
+    return fetch(url, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }).then(response => {
+      doctorRespStatus = response.ok;
+
+      if (response.status === 404) {
+        dispatch({
+          type: userAction.GET_DOCTORS_FAILURE
+        });
+        dispatch(loadingStop());
+        return;
+      }
+
+      return response.json().then(response => {
+        if (!doctorRespStatus) {
+          throw new Error(response.errorMessage);
+        }
+
+        dispatch({
+          type: userAction.GET_DOCTORS,
+          payload: JSON.parse(response.body)
+        });
         dispatch(loadingStop());
         return;
       });

@@ -32,6 +32,12 @@ export const loginUser = (email, password) => {
     });
 
     cognitoUser.authenticateUser(authenticationDetails, {
+      newPasswordRequired: function (userAttributes, requiredAttributes) {
+        delete userAttributes.email_verified;
+
+        const newPassword = prompt('Please enter a new password below: ')
+        cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, this);
+      },
       onSuccess: (authResult) => {
         let credentials;
         return getUserCredentials(authResult)
@@ -46,6 +52,15 @@ export const loginUser = (email, password) => {
             } else if (attributes['custom:occupation'] === 'doctor') {
               dispatch(getDoctor(attributes.sub));
               dispatch(getDoctorRequests(attributes.sub));
+            }
+
+            if (attributes['sub'] === '6e3a3ee5-a29e-408e-93cf-dc95b2c0f819') {
+              dispatch({
+                type: authAction.IS_ADMIN
+              });
+              dispatch(push(`/admin`));
+
+              attributes['custom:occupation'] = 'admin';
             }
 
             dispatch({
@@ -194,6 +209,14 @@ export const checkAuthStatus = () => {
         } else if (attributes['custom:occupation'] === 'doctor') {
           dispatch(getDoctor(attributes.sub));
           dispatch(getDoctorRequests(attributes.sub));
+        }
+
+        if (attributes['sub'] === '6e3a3ee5-a29e-408e-93cf-dc95b2c0f819') {
+          dispatch({
+            type: authAction.IS_ADMIN
+          });
+          dispatch(push(`/admin`));
+          attributes['custom:occupation'] = 'admin';
         }
 
         dispatch({

@@ -15,6 +15,7 @@ import SearchPage from './components/SearchPage/SearchPage';
 import AboutUsPage from './components/AboutUsPage/AboutUsPage';
 import FaqPage from './components/FaqPage/FaqPage';
 import PrivacyPolicyPage from './components/PrivacyPolicyPage/PrivacyPolicyPage';
+import AdminPage from './components/AdminPage/AdminPage';
 import * as serviceWorker from './serviceWorker';
 import store, { history } from './store';
 
@@ -23,7 +24,7 @@ ReactDOM.render((
     <ConnectedRouter history={history}>
       <Route path="/" component={App} />
       <Route exact path="/" render={() => {
-        if (store.getState().authReducer.isLoggedIn && !store.getState().userReducer.active) {
+        if (store.getState().authReducer.isLoggedIn && !store.getState().userReducer.active && !store.getState().authReducer.isAdmin) {
           return <Redirect to={`sign-up/${store.getState().authReducer.occupation}`} />
         }
 
@@ -61,6 +62,9 @@ ReactDOM.render((
       <Route path="/about-us" component={AboutUsPage} />
       <Route path="/faq" component={FaqPage} />
       <Route path="/privacy-policy" component={PrivacyPolicyPage} />
+      <Route path="/admin" component={AdminPage} />
+      <Route path="/admin/pending-doctors" component={AdminPage} />
+      <Route path="/admin/enrolled" component={AdminPage} />
     </ConnectedRouter>
   </Provider>
 ),

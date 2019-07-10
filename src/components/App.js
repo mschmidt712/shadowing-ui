@@ -82,6 +82,7 @@ class App extends Component {
           id={this.props.id}
           picture={this.props.picture}
           isLoggedIn={this.props.isLoggedIn}
+          isAdmin={this.props.isAdmin}
           loginMethod={this.props.loginMethod}
           handleLoginClick={this.props.handleLoginClick}
           handleSignUpClick={this.props.handleSignUpClick}
