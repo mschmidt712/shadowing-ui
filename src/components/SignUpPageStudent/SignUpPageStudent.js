@@ -15,7 +15,6 @@ class SignUpPageStudent extends Component {
     this.state = {
       firstName: firstName || '',
       lastName: lastName || '',
-      gender: props.gender || 'male',
       email: props.email || '',
       streetAddress: props.address.streetAddress || '',
       city: props.address.city || '',
@@ -53,7 +52,6 @@ class SignUpPageStudent extends Component {
       this.setState({
         firstName: firstName || '',
         lastName: lastName || '',
-        gender: this.props.gender || 'male',
         email: this.props.email || '',
         streetAddress: this.props.address.streetAddress || '',
         city: this.props.address.city || '',
@@ -141,7 +139,6 @@ class SignUpPageStudent extends Component {
       email: this.props.email,
       id: this.props.id,
       name,
-      gender: this.state.gender,
       loginMethod: this.props.loginMethod,
       address,
       phoneNumber,
@@ -280,31 +277,6 @@ class SignUpPageStudent extends Component {
         <div className="form-element">
           <label>Phone Number</label>
           <input type="int" name="phoneNumber" value={this.state.phoneNumber} onChange={this.onInputChange} placeholder="Phone Number" className={`form-input ${this.state.touched}`} required />
-        </div>
-        <div className="form-element">
-          <label>Gender</label>
-          <div className="form-input">
-            <div className="radio-form checkbox-container inline">
-              <input type="radio" name="gender" value="male" id="male" onChange={this.onInputChange} checked={this.state.gender === 'male'} />
-              <span className="radiobox"></span>
-              <label htmlFor="male">Male</label>
-            </div>
-            <div className="radio-form checkbox-container inline">
-              <input type="radio" name="gender" value="female" id="female" onChange={this.onInputChange} checked={this.state.gender === 'female'} />
-              <span className="radiobox"></span>
-              <label htmlFor="female">Female</label>
-            </div>
-            <div className="radio-form checkbox-container inline">
-              <input type="radio" name="gender" value="other" id="other" onChange={this.onInputChange} checked={this.state.gender === 'other'} />
-              <span className="radiobox"></span>
-              <label htmlFor="other">Other</label>
-            </div>
-            <div className="radio-form checkbox-container inline">
-              <input type="radio" name="gender" value="none" id="none" onChange={this.onInputChange} checked={this.state.gender === 'none'} />
-              <span className="radiobox"></span>
-              <label htmlFor="none">Prefer Not To Say</label>
-            </div>
-          </div>
         </div>
         <div className="form-element">
           <div>

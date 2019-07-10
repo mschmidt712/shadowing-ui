@@ -15,7 +15,6 @@ export default (state = initialState, action) => {
     case userAction.CREATE_STUDENT:
       return Object.assign({}, state, {
         name: action.payload.name,
-        gender: action.payload.gender,
         address: action.payload.address,
         phoneNumber: action.payload.phoneNumber,
         hipaaCert: action.payload.hipaaCert,
@@ -25,7 +24,6 @@ export default (state = initialState, action) => {
     case userAction.UPDATE_STUDENT:
       return Object.assign({}, state, {
         name: action.payload.name,
-        gender: action.payload.gender,
         address: action.payload.address,
         phoneNumber: action.payload.phoneNumber,
         hipaaCert: action.payload.hipaaCert,
@@ -35,7 +33,6 @@ export default (state = initialState, action) => {
     case userAction.GET_STUDENT_SUCCESS:
       return Object.assign({}, state, {
         name: action.payload.name,
-        gender: action.payload.gender,
         address: action.payload.address,
         phoneNumber: action.payload.phoneNumber,
         hipaaCert: action.payload.hipaaCert,

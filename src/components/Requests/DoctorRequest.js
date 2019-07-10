@@ -80,10 +80,6 @@ class DoctorRequest extends React.Component {
 
   render() {
     const request = this.props.request;
-    let gender = request.student.gender;
-    if (gender === 'none') {
-      gender = 'prefer not to say';
-    }
 
     return (
       <div className="request box-shadow">
@@ -94,7 +90,6 @@ class DoctorRequest extends React.Component {
               <h3 className="request-data-header">{request.student.name}</h3>
               <h5 className="app-subtitle">{request.student.email}</h5>
               <h5 className="app-subtitle">{request.student.phoneNumber}</h5>
-              <h5 className="app-subtitle">Gender: {gender}</h5>
             </div>
           </div>
           <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
