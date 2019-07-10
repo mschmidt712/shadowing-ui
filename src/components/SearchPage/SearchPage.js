@@ -215,8 +215,8 @@ class SearchPage extends Component {
 
     let body;
     if (window.innerWidth <= 480 && this.state.filtersEnabled) {
-      body = <div className="search-page main">
-        <div className="search-filters-column box-shadow">
+      body = <div className="search-page main mobile">
+        <div className="search-filters-column box-shadow mobile">
           <SearchFilters
             zipCode={this.state.zipCode}
             distance={this.state.distance}
@@ -230,13 +230,16 @@ class SearchPage extends Component {
         </div>
       </div>
     } else if (window.innerWidth <= 480 && !this.state.filtersEnabled) {
-      body = <div className="search-page main">
+      body = <div className="search-page main mobile">
         <div onClick={this.toggleFilters} className="search-filters-column-hidden box-shadow">
-          <p>
-            <button className="icon  icon-secondary small" title="Show Filters">
-              <i className="fas fa-angle-double-right"></i>
-            </button>
-          </p>
+          <button className="icon icon-secondary small" title="Show Filters">
+            <div className="component-header-details">
+              <h3>Filters</h3>
+              <div className="icon">
+                <i className="fas fa-angle-double-right"></i>
+              </div>
+            </div>
+          </button>
         </div>
         <div className="search-data-column">
           <div>

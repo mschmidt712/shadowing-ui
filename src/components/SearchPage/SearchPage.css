@@ -3,6 +3,10 @@
   margin-top: 2em;
 }
 
+.mobile {
+  flex-direction: column;
+}
+
 .search-filters-column {
   flex: 50%;
   text-align: center;
@@ -10,6 +14,10 @@
 
 .search-filters-column-hidden {
   margin-bottom: 1em;
+}
+
+.mobile > .search-filters-column-hidden {
+  margin: 0 1em 1em 1em;
 }
 
 @media screen and (min-width: 800px) {
