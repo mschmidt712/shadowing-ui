@@ -25,7 +25,7 @@ class SearchPage extends Component {
       approved: true,
       doctors: [],
       addressLatLng: undefined,
-      filtersEnabled: false,
+      filtersEnabled: true,
       doctor: undefined,
       displayRequestModal: false,
       displayConfirmationModal: false
@@ -66,7 +66,13 @@ class SearchPage extends Component {
       distance,
       availability,
       approved: true
-    }))
+    }));
+
+    if (window.innerWidth <= 480) {
+      this.setState({
+        filtersEnabled: false
+      });
+    }
   }
 
   componentDidUpdate(oldProps) {
