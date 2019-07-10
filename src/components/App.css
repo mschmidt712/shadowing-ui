@@ -140,9 +140,8 @@ button[disabled]{
 .modal-content {
   background-color: var(--modal-background);
   margin: 5% auto; /* 15% from the top and centered */
-  padding: 20px;
-  width: 80%;
-  max-width: 800px;
+  padding: 1em;
+  max-width: 80%;
   border-radius: 5px;
 }
 
@@ -167,6 +166,13 @@ button[disabled]{
   color: var(--font-black);
   text-decoration: none;
   cursor: pointer;
+}
+
+@media screen and (min-width: 480px) {
+  .modal-content {
+    padding: 1em 3em;
+    max-width: 500px;
+  }
 }
 
 /* Form Styling */
