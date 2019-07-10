@@ -18,6 +18,7 @@ import PrivacyPolicyPage from './components/PrivacyPolicyPage/PrivacyPolicyPage'
 import AdminPage from './components/AdminPage/AdminPage';
 import * as serviceWorker from './serviceWorker';
 import store, { history } from './store';
+import * as authActions from './actions/authTypes';
 
 ReactDOM.render((
   <Provider store={store}>
@@ -27,6 +28,13 @@ ReactDOM.render((
         if (store.getState().authReducer.isLoggedIn && !store.getState().userReducer.active && !store.getState().authReducer.isAdmin) {
           return <Redirect to={`sign-up/${store.getState().authReducer.occupation}`} />
         }
+
+        return <Home />;
+      }} />
+      <Route path="/physician-sign-up" render={() => {
+        store.dispatch({
+          type: authActions.SIGNUP_CLICK
+        });
 
         return <Home />;
       }} />
