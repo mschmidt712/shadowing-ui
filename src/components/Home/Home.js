@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import handleEnterClick from '../handleEnterClick';
 import * as authActions from '../../actions/authActions';
 import './Home.css';
 
@@ -16,6 +17,10 @@ class Home extends Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.setOccupation = this.setOccupation.bind(this);
+  }
+
+  componentDidMount() {
+    handleEnterClick('zipCode');
   }
 
   onInputChange(event) {
@@ -39,8 +44,8 @@ class Home extends Component {
           <h3 className="app-subtitle">A website built to help students find physicians to shadow in a number of specialities in their area.</h3>
           <h3 className="app-subtitle">Enter your location below to get started</h3>
           <div className="search">
-            <input type="text" maxLength="5" placeholder="Enter Your Zip Code" name="zipCode" value={this.state.zipCode} onChange={this.onInputChange}></input>
-            <Link to={`/search?zipCode=${this.state.zipCode}`} className="primary button">
+            <input type="text" maxLength="5" placeholder="Enter Your Zip Code" id="zipCode" name="zipCode" value={this.state.zipCode} onChange={this.onInputChange}></input>
+            <Link to={`/search?zipCode=${this.state.zipCode}`} className="primary button" id="submit">
               <i className="fa fa-search"></i>
             </Link>
           </div>
