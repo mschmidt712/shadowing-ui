@@ -41,28 +41,30 @@ export default function DoctorUserPage(props) {
         <div>
           <div className="user-data">
             <div className="data-item">
-              <h3 className="app-subtitle">Account Status:</h3>
-              <p className={accountStatus}>{accountStatus}</p>
+              <h3 className="app-subtitle label">Account Status:</h3>
+              <div className="value">
+                <p className={accountStatus}>{accountStatus}</p>
+              </div>
             </div>
             <div className="data-item">
-              < h3 className="app-subtitle">Email:</h3>
-              {props.email}
+              < h3 className="app-subtitle label">Email:</h3>
+              <div className="value">{props.email}</div>
             </div>
             <div className="data-item">
-              <h3 className="app-subtitle">Address:</h3>
-              {`${props.address.streetAddress}, ${props.address.city}, ${props.address.state} ${props.address.zipCode}`}
-            </div>
-            <div className="data-item column">
-              <h3 className="app-subtitle">Availability:</h3>
-              {availability}
+              <h3 className="app-subtitle label">Address:</h3>
+              <div className="value">{`${props.address.streetAddress}, ${props.address.city}, ${props.address.state} ${props.address.zipCode}`}</div>
             </div>
             <div className="data-item">
-              <h3 className="app-subtitle">Preferred Shift Length:</h3>
-              {props.shiftLength[0]} to {props.shiftLength[1]} hrs
-          </div>
-            <div className="data-item column">
-              <h3 className="app-subtitle">Additional Comments:</h3>
-              {props.additionalComments}
+              <h3 className="app-subtitle label">Availability:</h3>
+              <div className="value">{availability}</div>
+            </div>
+            <div className="data-item">
+              <h3 className="app-subtitle label">Preferred Shift Length:</h3>
+              <div className="value">{props.shiftLength[0]} to {props.shiftLength[1]} hrs</div>
+            </div>
+            <div className="data-item">
+              <h3 className="app-subtitle label">Additional Comments:</h3>
+              <div className="value">{props.additionalComments}</div>
             </div>
           </div>
           <Link to="/sign-up/doctor" className="center-button">

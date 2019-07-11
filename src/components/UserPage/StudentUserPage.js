@@ -27,20 +27,20 @@ export default function StudentUserPage(props) {
         </div>
         <div className="user-data">
           <div className="data-item">
-            <h3 className="app-subtitle">Email:</h3>
-            {props.email}
+            <h3 className="app-subtitle label">Email:</h3>
+            <div className="value">{props.email}</div>
           </div>
           <div className="data-item">
-            <h3 className="app-subtitle">Phone Number:</h3>
-            {props.phoneNumber}
+            <h3 className="app-subtitle label">Phone Number:</h3>
+            <div className="value">{props.phoneNumber}</div>
           </div>
           <div className="data-item">
-            <h3 className="app-subtitle">Address:</h3>
-            {props.address.streetAddress} {props.address.city}, {props.address.state} {props.address.zipCode}
+            <h3 className="app-subtitle label">Address:</h3>
+            <div className="value">{props.address.streetAddress} {props.address.city}, {props.address.state} {props.address.zipCode}</div>
           </div>
           <div className="data-item">
-            <h3 className="app-subtitle">HIPAA Certified</h3>
-            <i className={`fa ${hipaaIcon} icon`}></i>
+            <h3 className="app-subtitle label">HIPAA Certified</h3>
+            <div className="value"><i className={`fa ${hipaaIcon} icon`}></i></div>
           </div>
           <Link to="/sign-up/student">
             <button className="secondary">Edit Profile</button>

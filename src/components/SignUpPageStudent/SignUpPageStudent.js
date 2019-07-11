@@ -173,12 +173,18 @@ class SignUpPageStudent extends Component {
             <br />
           Set up your profile to begin requesting shadowing with doctors in your area.
           </h4>
+        {this.props.loginMethod === 'cognito' && <div className="form-element">
+          <button className="primary" onClick={() => { this.toggleChangeEmail(true) }}>Change Email</button>
+          <button className="secondary" onClick={() => { this.toggleChangePasswordModal(true) }}>Change Password</button>
+        </div>}
         <div className="form-element">
-          <label>Email:</label>
-          {!this.state.displayChangeEmail && <span className="form-input">{this.props.email}</span>}
+          <label className="label">Email:</label>
+          {!this.state.displayChangeEmail && <div className="form-input value">
+            <input disabled value={this.props.email} />
+          </div>}
           {this.state.displayChangeEmail &&
-            <div>
-              <input type="text" name="email" value={this.state.email} onChange={this.onInputChange} className="form-input" />
+            <div className="form-input value">
+              <input type="text" name="email" value={this.state.email} onChange={this.onInputChange} />
               <button className="icon small">
                 <i className="fa fa-check" onClick={() => {
                   this.props.updateEmailAttribute(this.state.email);
@@ -190,19 +196,15 @@ class SignUpPageStudent extends Component {
               </button>
             </div>}
         </div>
-        {this.props.loginMethod === 'cognito' && <div className="form-element">
-          <button className="primary" onClick={() => { this.toggleChangeEmail(true) }}>Change Email</button>
-          <button className="secondary" onClick={() => { this.toggleChangePasswordModal(true) }}>Change Password</button>
-        </div>}
         <div className="form-element">
-          <label>Name</label>
-          <div className="form-input">
+          <label className="label">Name</label>
+          <div className="form-input value">
             <input type="text" name="firstName" value={this.state.firstName} onChange={this.onInputChange} placeholder="First Name" className={this.state.touched} required />
             <input type="text" name="lastName" value={this.state.lastName} onChange={this.onInputChange} placeholder="Last Name" className={this.state.touched} required />
           </div>
         </div>
         <div className="form-element">
-          <div>
+          <div className="label">
             <label>Address</label>
             <i
               data-tip="This is only used for findshadowing.com to find doctors closest to your location. This information will not be released or disclosed."
@@ -210,7 +212,7 @@ class SignUpPageStudent extends Component {
             </i>
             <ReactTooltip />
           </div>
-          <div className="form-input">
+          <div className="form-input value">
             <input type="text" name="streetAddress" value={this.state.streetAddress} onChange={this.onInputChange} placeholder="Street Address" className={this.state.touched} required />
             <input type="text" name="city" value={this.state.city} onChange={this.onInputChange} placeholder="City" className={this.state.touched} required />
             <div className="select small">
@@ -275,11 +277,13 @@ class SignUpPageStudent extends Component {
           </div>
         </div>
         <div className="form-element">
-          <label>Phone Number</label>
-          <input type="int" name="phoneNumber" value={this.state.phoneNumber} onChange={this.onInputChange} placeholder="Phone Number" className={`form-input ${this.state.touched}`} required />
+          <label className="label">Phone Number</label>
+          <div className="form-input value">
+            <input type="int" name="phoneNumber" value={this.state.phoneNumber} onChange={this.onInputChange} placeholder="Phone Number" className={this.state.touched} required />
+          </div>
         </div>
         <div className="form-element">
-          <div>
+          <div className="label">
             <label>Are You HIPAA Certified?</label>
             <i
               data-tip="HIPAA (Health Insurance Portability and Accountability Act) helps keep patient's medical information confidential. HIPAA certification is an important first step to a healthcare career. It can be completed quickly and easily online via websites like https://www.cybrary.it/course/hipaa-training/."
@@ -287,7 +291,7 @@ class SignUpPageStudent extends Component {
             </i>
             <ReactTooltip />
           </div>
-          <div className="form-input">
+          <div className="form-input value">
             <div className="radio-form checkbox-container inline">
               <input type="radio" name="hipaaCert" value='true' id="yes" onChange={this.onInputChange} className={this.state.touched} checked={this.convertStringToBoolean(this.state.hipaaCert)} required />
               <span className="radiobox"></span>

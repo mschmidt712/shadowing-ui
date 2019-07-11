@@ -103,6 +103,7 @@
 .checkbox-container {
   position: relative;
   padding: 0 1em 1em calc(10px + 1em);
+  margin: 0.5em;
 }
 
 .checkbox-container.inline {
