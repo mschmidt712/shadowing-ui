@@ -47,7 +47,7 @@ function SignUp(props) {
               </i>
               <ReactTooltip />
             </label>
-            <input type="password" name="confirmPassword" value={props.confirmPassword} onChange={props.onInputChange} />
+            <input type="password" id="confirmPassword" name="confirmPassword" value={props.confirmPassword} onChange={props.onInputChange} />
             <div className="form">
               <p>What kind of account would you like to create?</p>
               <div className="radio-form checkbox-container">
@@ -61,7 +61,7 @@ function SignUp(props) {
                 <label htmlFor="student">Student</label>
               </div> */}
             </div>
-            <button className="primary" onClick={() => validateForm(props.email, props.password, props.confirmPassword, props.occupation)}>Sign Up</button>
+            <button className="primary" id="submit" onClick={() => validateForm(props.email, props.password, props.confirmPassword, props.occupation)}>Sign Up</button>
           </div>
         </div>
       </div>

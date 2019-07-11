@@ -25,8 +25,8 @@ function Login(props) {
             </i>
             <ReactTooltip />
           </label>
-          <input type="password" name="password" value={props.password} onChange={props.onPasswordChange} />
-          <button className="primary" onClick={() => props.loginUser(props.email, props.password)}>Login</button>
+          <input type="password" id="password" name="password" value={props.password} onChange={props.onPasswordChange} />
+          <button className="primary" id="submit" onClick={() => props.loginUser(props.email, props.password)}>Login</button>
           <button className="link" onClick={() => props.handleForgotPasswordClick(props.email)}>Forgot Password?</button>
         </div>
         <div>

@@ -10,8 +10,8 @@ function ForgotPassword(props) {
           <p>Enter the email for which you would like to reset the password</p>
           <div className="form">
             <label>Email</label>
-            <input type="email" name="email" value={props.email} onChange={props.onInputChange} />
-            <button className="primary" onClick={() => props.forgotPassword(props.email)}>Send Verification Code</button>
+            <input type="email" id="email" name="email" value={props.email} onChange={props.onInputChange} />
+            <button className="primary" id="submit" onClick={() => props.forgotPassword(props.email)}>Send Verification Code</button>
           </div>
           <p>When you have received the verification code in your email, enter it below along with your new password.</p>
           <div className="form">

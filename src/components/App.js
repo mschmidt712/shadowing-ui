@@ -10,6 +10,7 @@ import SignUpModal from './SignUpModal/SignUpModal';
 import UserVerification from './UserVerification/UserVerification';
 import SignUpConfirmation from './SignUpConfirmationModal/SignUpConfirmationModal';
 import ForgotPassword from './ForgotPassword/ForgotPassword';
+import handleEnterClick from './utilities/handleEnterClick';
 
 import * as authActions from '../actions/authActions';
 import * as userActions from '../actions/userActions';
@@ -50,6 +51,19 @@ class App extends Component {
     } else if (this.props.requestErr) {
       alert(this.props.requestErr.body);
       this.props.handleRequestError();
+    }
+
+    if (this.props.displayLogin) {
+      handleEnterClick('password');
+    }
+    if (this.props.displaySignUp) {
+      handleEnterClick('confirmPassword');
+    }
+    if (this.props.displayVerification) {
+      handleEnterClick('verification');
+    }
+    if (this.props.displayForgotPassword) {
+      handleEnterClick('email');
     }
   }
 

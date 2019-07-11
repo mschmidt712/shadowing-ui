@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import handleEnterClick from '../handleEnterClick';
+import handleEnterClick from '../utilities/handleEnterClick';
 import * as authActions from '../../actions/authActions';
 import './Home.css';
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import handleEnterClick from '../utilities/handleEnterClick';
 import * as requestActions from '../../actions/requestActions';
 
 class RequestModal extends Component {
@@ -25,6 +26,10 @@ class RequestModal extends Component {
     this.onAvailabilityChange = this.onAvailabilityChange.bind(this);
     this.validateRequest = this.validateRequest.bind(this);
     this.requestShadowing = this.requestShadowing.bind(this);
+  }
+
+  componentDidMount() {
+    handleEnterClick('additionalInfo');
   }
 
   validateRequest() {
@@ -138,11 +143,12 @@ class RequestModal extends Component {
                 <textarea
                   maxLength="250"
                   name="additionalInfo"
+                  id="additionalInfo"
                   value={this.state.additionalInfo}
                   onChange={this.onInputChange}
                   placeholder={`Any additional information you would like Dr. ${this.props.doctor.name} to know when considering your request. 250 character limit.`}></textarea>
               </div>
-              <button className="primary" onClick={this.validateRequest}>Request</button>
+              <button className="primary" id="submit" onClick={this.validateRequest}>Request</button>
             </div>
           </div>
         </div>
