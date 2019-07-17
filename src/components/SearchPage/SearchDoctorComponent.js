@@ -19,6 +19,10 @@ export default class SearchDoctorComponent extends Component {
     return moment(time, 'HH:mm:ss').format('h:mm A');
   }
 
+  getAcceptingRequests(doctor) {
+    return doctor.weeklyRequests < doctor.maxRequests;
+  }
+
   toggleExpanded() {
     this.setState({
       expanded: !this.state.expanded
@@ -29,8 +33,11 @@ export default class SearchDoctorComponent extends Component {
     const distanceMeters = this.props.doctor.distance.distance.value;
     const distanceMiles = Math.round(distanceMeters / 1609.344);
 
+    console.log('Accepting Requests: ', this.getAcceptingRequests(this.props.doctor));
+    const acceptingRequests = this.getAcceptingRequests(this.props.doctor);
+
     let doctorComponent;
-    if (this.props.isLoggedIn) {
+    if (this.props.isLoggedIn && acceptingRequests) {
       const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
       const availability = daysOfWeek.map(day => {
         if (!this.props.doctor.scheduling[day]) {
@@ -111,7 +118,24 @@ export default class SearchDoctorComponent extends Component {
           </button>
         </div>}
       </div>
-    } else {
+    } else if (this.props.isLoggedIn && !acceptingRequests) {
+      doctorComponent = <div className="request box-shadow ">
+        <div className="component-header">
+          <div className="component-header-details">
+            <i className="fa fa-user-md"></i>
+            <div>
+              <h3>{this.props.doctor.specialty} Physician</h3>
+              <h5 className="app-subtitle">{this.props.doctor.specialty}</h5>
+            </div>
+          </div>
+          <div className="component-header-right">
+            <i className="fas fa-map-marked-alt"></i>
+            <span>{distanceMiles} Miles</span>
+          </div>
+        </div>
+        <button disabled className="primary request-response-btn">This Doctor is Not Currently Accepting Requests</button>
+      </div>
+    } else if (!this.props.isLoggedIn) {
       doctorComponent = <div className="request box-shadow ">
         <div className="component-header">
           <div className="component-header-details">
