@@ -211,7 +211,7 @@ class SearchPage extends Component {
         return 1;
       } else if (aAvailability & bAvailability) {
         return 0;
-      } else if (aAvailability & !bAvailability) {
+      } else {
         return -1;
       }
     }).map((doctor, index) => {

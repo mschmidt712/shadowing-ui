@@ -47,7 +47,7 @@ export default function DoctorUserPage(props) {
               </div>
             </div>
             <div className="data-item">
-              < h3 className="app-subtitle label">Email:</h3>
+              <h3 className="app-subtitle label">Email:</h3>
               <div className="value">{props.email}</div>
             </div>
             <div className="data-item">

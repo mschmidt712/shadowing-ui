@@ -30,8 +30,8 @@ function Header(props) {
       </GoogleLogout>}
   </div>);
   const userLoggedInAdmin = (<div className="login">
-    <Link to={`/admin`}>
-      <button class="secondary">
+    <Link to={`/admin/pending-doctors`}>
+      <button className="secondary">
         Admin Dashboard
       </button>
     </Link>
