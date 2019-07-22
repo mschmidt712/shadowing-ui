@@ -204,14 +204,24 @@ class SearchPage extends Component {
   }
 
   render() {
-    const doctors = this.state.doctors.map((doctor, index) => {
+    const doctors = this.state.doctors.sort((a, b) => {
+      const aAvailability = a.weeklyRequests < a.maxRequests;
+      const bAvailability = b.weeklyRequests < b.maxRequests;
+      if (!aAvailability & bAvailability) {
+        return 1;
+      } else if (aAvailability & bAvailability) {
+        return 0;
+      } else if (aAvailability & !bAvailability) {
+        return -1;
+      }
+    }).map((doctor, index) => {
       return <SearchDoctorComponent
         key={doctor.id}
         doctor={doctor}
         occupation={this.props.occupation}
         isLoggedIn={this.props.isLoggedIn}
         requestShadowing={this.requestShadowing} />
-    });
+    })
 
     let body;
     if (window.innerWidth <= 480 && this.state.filtersEnabled) {
