@@ -14,6 +14,7 @@ export default (state = initialState, action) => {
         doctorCount: action.payload.doctors,
         studentCount: action.payload.students,
         requestCount: action.payload.requests,
+        updateDate: action.payload.updateDate
       });
     case adminAction.ADMIN_ERROR:
       return Object.assign({}, state, {

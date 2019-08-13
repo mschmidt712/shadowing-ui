@@ -70,9 +70,9 @@ ReactDOM.render((
       <Route path="/about-us" component={AboutUsPage} />
       <Route path="/faq" component={FaqPage} />
       <Route path="/privacy-policy" component={PrivacyPolicyPage} />
-      <Route exact path="/admin" component={AdminPage} />
       <Route exact path="/admin/pending-doctors" component={AdminPage} />
       <Route exact path="/admin/enrollment" component={AdminPage} />
+      <Route exact path="/admin/email-templates" component={AdminPage} />
     </ConnectedRouter>
   </Provider>
 ),

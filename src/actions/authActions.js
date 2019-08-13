@@ -215,7 +215,7 @@ export const checkAuthStatus = () => {
           dispatch({
             type: authAction.IS_ADMIN
           });
-          dispatch(push(`/admin`));
+          dispatch(push(`/admin/pending-doctors`));
           attributes['custom:occupation'] = 'admin';
         }
 
