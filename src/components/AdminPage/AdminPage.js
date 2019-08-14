@@ -93,8 +93,7 @@ class AdminPage extends Component {
     const template = Object.assign({}, this.state.emailTemplate, {
       HtmlPart: stateToHTML(this.state.editorState.getCurrentContent())
     });
-    // this.props.sendTestEmail(this.props.email, template);
-    this.props.sendTestEmail('marie.schmidt.712@gmail.com', template);
+    this.props.sendTestEmail(this.props.email, template);
   }
 
   render() {
