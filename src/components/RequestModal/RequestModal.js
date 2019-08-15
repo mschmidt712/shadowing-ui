@@ -95,7 +95,7 @@ class RequestModal extends Component {
   }
 
   render() {
-    const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     const availableDays = daysOfTheWeek.filter(day => {
       return this.props.doctor.scheduling[day];
     });

@@ -20,7 +20,7 @@ export default function SearchFilters(props) {
     return <option value={val} key={index}>{val}</option>
   });
 
-  const daysOfTheWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
   const availability = daysOfTheWeek.map(day => {
     return <div className="form-input checkbox-container" key={day}>
       <input type="checkbox" id={day} name={day} checked={props.availability ? props.availability[day] : false} onChange={props.onAvailabilityChange} />

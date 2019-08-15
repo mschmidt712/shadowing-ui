@@ -16,7 +16,7 @@ export default class SearchDoctorComponent extends Component {
   }
 
   convertTime(time) {
-    return moment(time, 'HH:mm:ss').format('h:mm A');
+    return moment(time, 'HH:mm:ss').format('h A');
   }
 
   getAcceptingRequests(doctor) {
@@ -37,13 +37,13 @@ export default class SearchDoctorComponent extends Component {
 
     let doctorComponent;
     if (this.props.isLoggedIn && acceptingRequests) {
-      const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+      const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
       const availability = daysOfWeek.map(day => {
         if (!this.props.doctor.scheduling[day]) {
           return <table key={day}>
             <tbody>
               <tr><th>{this.capitalizeWord(day)}</th></tr>
-              <tr><td>Unavailable</td></tr>
+              <tr><td>N/A</td></tr>
             </tbody>
           </table>
         }
