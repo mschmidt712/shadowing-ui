@@ -208,7 +208,23 @@
   text-align: center;
   border-spacing: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: strech;
+}
+
+@media screen and (min-width: 480px) {
+  .availability-table {
+    flex-direction: row;
+  }
+
+  .availability-table table {
+    height: 100px;
+    width: 100%;
+  }
+
+  .availability-table table td{
+    height: 100%;
+  }
 }
 
 .availability-table th {
@@ -220,6 +236,9 @@
 .availability-table td {
   background-color: var(--box-shadow-gray);
   padding: 10px;
+  word-wrap: break-word;
+  align-items: stretch;
+  justify-content: stretch;
 }
 
 table, .availability-table th, .availability-table td {
