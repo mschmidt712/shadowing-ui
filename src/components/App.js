@@ -83,7 +83,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.props.loading && <div className="spinner-container">
+        {this.props.loading > 0 && <div className="spinner-container">
           <Loader
             type="Circles"
             color="#F7A707"

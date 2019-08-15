@@ -204,6 +204,9 @@ class SearchPage extends Component {
   }
 
   render() {
+    console.log(this.props.doctors);
+    console.log(this.props.loading);
+
     const doctors = this.state.doctors.sort((a, b) => {
       const aAvailability = a.weeklyRequests < a.maxRequests;
       const bAvailability = b.weeklyRequests < b.maxRequests;
@@ -262,8 +265,8 @@ class SearchPage extends Component {
               doctors={this.state.doctors} />
           </div>
           <div className="search-results">
-            {doctors.length >= 0 && doctors}
-            {doctors.length === 0 && !this.props.loading ? <h3 className="no-results box-shadow">No doctors found matching your search criteria. Please try your search again.</h3> : <div></div>}
+            {this.props.doctors.length >= 0 && doctors}
+            {this.props.doctors.length === 0 && !this.props.loading ? <h3 className="no-results box-shadow">No doctors found matching your search criteria. Please try your search again.</h3> : <div></div>}
           </div>
           {this.state.displayRequestModal && <RequestModal
             doctor={this.state.doctor}
@@ -309,8 +312,8 @@ class SearchPage extends Component {
               doctors={this.state.doctors} />
           </div>
           <div className="search-results">
-            {doctors.length >= 0 && doctors}
-            {doctors.length === 0 && !this.props.loading ? <h3 className="no-results box-shadow">No doctors found matching your search criteria. Please try your search again.</h3> : <div></div>}
+            {this.props.doctors.length >= 0 && doctors}
+            {this.props.doctors.length === 0 && this.props.loading === 0 ? <h3 className="no-results box-shadow">No doctors found matching your search criteria. Please try your search again.</h3> : <div></div>}
           </div>
           {this.state.displayRequestModal && <RequestModal
             doctor={this.state.doctor}
