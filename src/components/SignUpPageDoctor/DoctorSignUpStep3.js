@@ -14,9 +14,9 @@ export default function Step3(props) {
   return (
     <div className="form">
       <h4 className="app-subtitle">
-        Finally, we need to verify that you are who you say you are.
+        Finally, we need to verify your account details.
       <br />
-        Please upload a photo of your badge below.
+        Please upload an image to aid us in account verification. Some examples of items to upload are an image of your badge, a business card, or a physicians bio from your hospitals website.
       </h4>
       <div className="form-element">
         <label name="photoUpload">Badge Photo</label>
