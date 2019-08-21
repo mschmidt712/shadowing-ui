@@ -90,7 +90,7 @@ class DoctorRequest extends React.Component {
               <h3 className="request-data-header">{request.student.name}</h3>
               <h5 className="app-subtitle">{request.student.email}</h5>
               <h5 className="app-subtitle">{request.student.phoneNumber}</h5>
-              <a href={request.student.cv} className="secondary" target="_blank"><h5>View CV/Resume</h5></a>
+              <a href={request.student.cv} className="secondary" download><h5>Download CV/Resume</h5></a>
             </div>
           </div>
           <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>

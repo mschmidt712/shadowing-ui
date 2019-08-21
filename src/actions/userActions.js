@@ -89,7 +89,7 @@ export const updateStudent = (data, credentials) => {
     let cv = data.cv instanceof File ? data.cv : undefined;
     return new Promise(resolve => {
       if (cv) {
-        return uploadCV(data, credentials);
+        return uploadCV(data, credentials).then(cvLocation => resolve(cvLocation));
       } else {
         return resolve();
       }

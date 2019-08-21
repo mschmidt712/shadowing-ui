@@ -44,7 +44,7 @@ export default function StudentUserPage(props) {
           </div>
           <div className="data-item">
             <h3 className="app-subtitle label">CV/Resume</h3>
-            <button className="button primary"><a href={props.cv} className="no-decoration primary" target="_blank">View PDF</a></button>
+            <button className="button primary"><a href={props.cv} className="no-decoration primary" download>Download PDF</a></button>
           </div>
           <Link to="/sign-up/student">
             <button className="secondary">Edit Profile</button>
