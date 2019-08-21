@@ -11,9 +11,15 @@ export default (state = initialState, action) => {
         loading: state.loading + 1
       });
     case loadingAction.LOADING_STOP:
-      return Object.assign({}, state, {
-        loading: state.loading - 1
-      });
+      if (state.loading > 0) {
+        return Object.assign({}, state, {
+          loading: state.loading - 1
+        });
+      } else {
+        return Object.assign({}, state, {
+          loading: 0
+        });
+      }
     default:
       return state;
   }

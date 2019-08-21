@@ -90,6 +90,7 @@ class DoctorRequest extends React.Component {
               <h3 className="request-data-header">{request.student.name}</h3>
               <h5 className="app-subtitle">{request.student.email}</h5>
               <h5 className="app-subtitle">{request.student.phoneNumber}</h5>
+              <a href={request.student.cv} className="secondary" target="_blank"><h5>View CV/Resume</h5></a>
             </div>
           </div>
           <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
@@ -106,8 +107,8 @@ class DoctorRequest extends React.Component {
           </div>
           <div className="data-item column nested">
             <h5 className="request-data-header">Additional Info:</h5>
-            {request.additionalInfo && <p>{request.additionalInfo}</p>}
-            {!request.additionalInfo && <p>No additional info given.</p>}
+            {request.additionalInfo && <span>{request.additionalInfo}</span>}
+            {!request.additionalInfo && <span>No additional info given.</span>}
           </div>
           <div className="data-item request-response-btn">
             {request.status === 'pending' && <div>

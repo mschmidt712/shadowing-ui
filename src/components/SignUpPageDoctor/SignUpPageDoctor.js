@@ -192,7 +192,6 @@ class SignUpPageDoctor extends Component {
       return accum;
     }, {});
     const shiftLength = [this.state.shiftLengthMin, this.state.shiftLengthMax];
-    const badgePhoto = this.state.photoUpload instanceof File ? this.state.photoUpload : undefined;
 
     const data = {
       email: this.props.email,
@@ -205,7 +204,7 @@ class SignUpPageDoctor extends Component {
       scheduling,
       shiftLength,
       additionalComments: this.state.additionalComments || 'None',
-      badgePhoto
+      badgePhoto: this.state.photoUpload
     }
 
     if (this.props.active) {

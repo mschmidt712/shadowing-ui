@@ -6,6 +6,7 @@ const initialState = {
   address: '',
   phoneNumber: undefined,
   hipaaCert: undefined,
+  cv: '',
   doctors: [],
   userErr: undefined
 };
@@ -18,6 +19,7 @@ export default (state = initialState, action) => {
         address: action.payload.address,
         phoneNumber: action.payload.phoneNumber,
         hipaaCert: action.payload.hipaaCert,
+        cv: action.payload.cv,
         requests: action.payload.requests,
         active: true
       });
@@ -27,6 +29,7 @@ export default (state = initialState, action) => {
         address: action.payload.address,
         phoneNumber: action.payload.phoneNumber,
         hipaaCert: action.payload.hipaaCert,
+        cv: action.payload.cv,
         requests: action.payload.requests,
         active: true
       });
@@ -36,6 +39,7 @@ export default (state = initialState, action) => {
         address: action.payload.address,
         phoneNumber: action.payload.phoneNumber,
         hipaaCert: action.payload.hipaaCert,
+        cv: action.payload.cv,
         requests: action.payload.requests,
         active: true
       });

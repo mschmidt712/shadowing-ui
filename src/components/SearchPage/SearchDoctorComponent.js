@@ -17,7 +17,7 @@ export default class SearchDoctorComponent extends Component {
 
   convertTime(time) {
     const minutes = time.split(':')[1];
-    if (minutes == '00') {
+    if (minutes === '00') {
       return moment(time, 'HH:mm:ss').format('h A');
     } else {
       return moment(time, 'HH:mm:ss').format('h:mm A');

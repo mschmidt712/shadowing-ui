@@ -22,6 +22,7 @@ class SignUpPageStudent extends Component {
       zipCode: props.address.zipCode || undefined,
       phoneNumber: props.phoneNumber || undefined,
       hipaaCert: props.hipaaCert || false,
+      cv: props.cv || '',
       subscribe: true,
       touched: 'clean',
       displayChangeEmail: false,
@@ -36,6 +37,7 @@ class SignUpPageStudent extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onCheckboxChange = this.onCheckboxChange.bind(this);
     this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
+    this.onCvInputChange = this.onCvInputChange.bind(this);
     this.setTouched = this.setTouched.bind(this);
 
     this.validateForm = this.validateForm.bind(this);
@@ -59,6 +61,7 @@ class SignUpPageStudent extends Component {
         zipCode: this.props.address.zipCode || undefined,
         phoneNumber: this.props.phoneNumber || undefined,
         hipaaCert: this.props.hipaaCert || false,
+        cv: this.props.cv || ''
       });
     }
   }
@@ -81,6 +84,12 @@ class SignUpPageStudent extends Component {
     });
     this.setState({
       changePassword: newState
+    });
+  }
+
+  onCvInputChange(event) {
+    this.setState({
+      cv: event.target.files[0]
     });
   }
 
@@ -119,6 +128,9 @@ class SignUpPageStudent extends Component {
     } else if (!this.state.phoneNumber) {
       alert('Phone number is required!');
       return;
+    } else if (!this.state.cv) {
+      alert('A CV or resume upload is required!');
+      return;
     }
 
     this.createStudent();
@@ -143,13 +155,14 @@ class SignUpPageStudent extends Component {
       address,
       phoneNumber,
       hipaaCert,
+      cv: this.state.cv,
       subscribe: this.state.subscribe
-    }
+    };
 
     if (this.props.active) {
-      this.props.updateStudent({ student: data });
+      this.props.updateStudent(data, this.props.credentials);
     } else {
-      this.props.createStudent({ student: data });
+      this.props.createStudent(data, this.props.credentials);
     }
   }
 
@@ -305,6 +318,10 @@ class SignUpPageStudent extends Component {
           </div>
         </div>
         <div className="form-element">
+          <label name="cvUpload" className="label">CV/Resume Upload</label>
+          <input name="cvUpload" type="file" accept="application/pdf" onChange={this.onCvInputChange} className={`${this.state.touched} value`} required />
+        </div>
+        <div className="form-element">
           <div className="form-input checkbox-container">
             <input type="checkbox" id="subscribe" name="subscribe" checked={this.state.subscribe} onChange={this.onCheckboxChange} className="checkbox" />
             <span className="checkbox"></span>
@@ -334,8 +351,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateEmailAttribute: (email) => dispatch(authActions.updateEmailAttribute(email)),
   changePassword: (oldPassword, newPassword) => dispatch(authActions.changePassword(oldPassword, newPassword)),
-  createStudent: (data) => dispatch(userActions.createStudent(data)),
-  updateStudent: (data) => dispatch(userActions.updateStudent(data)),
+  createStudent: (data, credentials) => dispatch(userActions.createStudent(data, credentials)),
+  updateStudent: (data, credentials) => dispatch(userActions.updateStudent(data, credentials)),
   getStudent: (id) => dispatch(userActions.getStudent(id))
 });
 

@@ -42,6 +42,10 @@ export default function StudentUserPage(props) {
             <h3 className="app-subtitle label">HIPAA Certified</h3>
             <div className="value"><i className={`fa ${hipaaIcon} icon`}></i></div>
           </div>
+          <div className="data-item">
+            <h3 className="app-subtitle label">CV/Resume</h3>
+            <button className="button primary"><a href={props.cv} className="no-decoration primary" target="_blank">View PDF</a></button>
+          </div>
           <Link to="/sign-up/student">
             <button className="secondary">Edit Profile</button>
           </Link>

@@ -204,9 +204,6 @@ class SearchPage extends Component {
   }
 
   render() {
-    console.log(this.props.doctors);
-    console.log(this.props.loading);
-
     const doctors = this.state.doctors.sort((a, b) => {
       const aAvailability = a.weeklyRequests < a.maxRequests;
       const bAvailability = b.weeklyRequests < b.maxRequests;
