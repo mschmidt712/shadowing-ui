@@ -35,7 +35,7 @@ export default function DoctorUserPage(props) {
         <h5 className="user-subheader react-switch">Your Account is Set To</h5>
         <Switch
           onChange={props.onAccountActiveChange}
-          checked={props.accountActive}
+          checked={props.active}
           uncheckedIcon={
             <div
               style={{

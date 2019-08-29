@@ -15,13 +15,11 @@ class UserPage extends Component {
     this.state = {
       email: this.props.email,
       hipaaCert: undefined,
-      addressLatLong: undefined,
-      accountActive: true
+      addressLatLong: undefined
     }
 
     this.geocodeAddress = this.geocodeAddress.bind(this);
     this.onAccountActiveChange = this.onAccountActiveChange.bind(this);
-    this.updateDoctor = this.updateDoctor.bind(this);
   }
 
   componentDidMount() {
@@ -36,16 +34,21 @@ class UserPage extends Component {
     }
   }
 
-  updateDoctor() {
-    console.log(this.props);
+  componentDidUpdate(oldProps) {
+    if (this.props.doctor && (oldProps.doctor !== this.props.doctor)) {
+      this.setState({
+        ...this.props.doctor
+      });
+    }
   }
 
   onAccountActiveChange(status) {
-    this.updateDoctor();
-
-    this.setState({
-      accountActive: status
+    const data = Object.assign({}, this.props.doctor, {
+      email: this.props.email,
+      id: this.props.id,
+      active: status
     });
+    this.props.updateDoctor(data, this.props.credentials);
   }
 
   geocodeAddress() {
@@ -94,7 +97,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getStudent: (id) => dispatch(userActions.getStudent(id)),
-  getDoctor: (id) => dispatch(userActions.getDoctor(id))
+  getDoctor: (id) => dispatch(userActions.getDoctor(id)),
+  updateDoctor: (id) => dispatch(userActions.updateDoctor(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
