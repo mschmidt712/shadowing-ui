@@ -14,14 +14,22 @@ class UserPage extends Component {
 
     this.state = {
       hipaaCert: undefined,
-      addressLatLong: undefined
+      addressLatLong: undefined,
+      accountActive: true
     }
 
     this.geocodeAddress = this.geocodeAddress.bind(this);
+    this.onAccountActiveChange = this.onAccountActiveChange.bind(this);
   }
 
   componentDidMount() {
     this.geocodeAddress();
+  }
+
+  onAccountActiveChange(status) {
+    this.setState({
+      accountActive: status
+    });
   }
 
   geocodeAddress() {
@@ -52,7 +60,10 @@ class UserPage extends Component {
           addressLatLong={this.state.addressLatLong} />}
         {this.props.occupation === 'doctor' && <DoctorUserPage
           {...this.props}
-          addressLatLong={this.state.addressLatLong} />}
+          addressLatLong={this.state.addressLatLong}
+          accountActive={this.state.accountActive}
+          onAccountActiveChange={this.onAccountActiveChange}
+        />}
       </div>
     )
   }

@@ -7,7 +7,7 @@
 .user-subheader {
   text-align: center;
   margin: auto;
-  padding-bottom: 1em;
+  /* padding-bottom: 1em; */
 }
 
 .user-body {
@@ -74,6 +74,10 @@
     flex-wrap: wrap;
   }
 
+  .data-item.center {
+    justify-content: center;
+  }
+
   .nested {
     padding: 0 1em 1em;
   }
@@ -112,4 +116,8 @@
     text-align:left;
     padding-left:1em;
   }
+}
+
+.react-switch {
+  margin: 1em 0;
 }

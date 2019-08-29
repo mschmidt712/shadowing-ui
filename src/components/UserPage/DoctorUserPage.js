@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import Switch from "react-switch";
 
 import UserPageMapComponent from './UserPageMapComponent';
 import './UserPage.css';
@@ -29,6 +31,52 @@ export default function DoctorUserPage(props) {
     <div>
       <h1 className="user-header"><i className="fa fa-user icon"></i>{props.name}, {props.degree}</h1>
       <h3 className="user-subheader">{props.specialty}</h3>
+      <div className="data-item center">
+        <h5 className="user-subheader react-switch">Your Account is Set To</h5>
+        <Switch
+          onChange={props.onAccountActiveChange}
+          checked={props.accountActive}
+          uncheckedIcon={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                width: "150px",
+                transform: "translateX(-108px)"
+              }}
+            >
+              Inactive
+          </div>
+          }
+          checkedIcon={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                width: "150px"
+              }}
+            >
+              Active
+        </div>}
+          width={150}
+          onColor="#3CADE7"
+          className="react-switch"
+          aria-label="Account Active Toggle Switch"
+        />
+        <i
+          data-for="account-active"
+          data-tip="You can use this switch to toggle your account on and off when you are unavailable to accept shadowing requests. Some examples might include the holiday season or vacations."
+          className="fas fa-info-circle icon">
+        </i>
+        <ReactTooltip
+          id="account-active"
+          className="tooltip"
+        />
+      </div>
       <div className="user-body">
         <div className="user-map">
           <UserPageMapComponent
