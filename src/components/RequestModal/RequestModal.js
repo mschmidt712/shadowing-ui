@@ -72,7 +72,7 @@ class RequestModal extends Component {
     }).map(day => {
       return {
         day,
-        scheduling: this.props.doctor.scheduling[day]
+        scheduling: this.props.selectedDoctor.scheduling[day]
       };
     }).forEach(obj => {
       formattedAvailability[obj.day] = obj.scheduling
@@ -80,7 +80,7 @@ class RequestModal extends Component {
 
     let requestData = {
       student: this.props.id,
-      doctor: this.props.doctor.id,
+      doctor: this.props.selectedDoctor.id,
       scheduling: formattedAvailability
     }
 
@@ -97,7 +97,7 @@ class RequestModal extends Component {
   render() {
     const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     const availableDays = daysOfTheWeek.filter(day => {
-      return this.props.doctor.scheduling[day];
+      return this.props.selectedDoctor.scheduling[day];
     });
     const availability = availableDays.map((day, key) => {
       return <div className="form-input" key={key}>
@@ -116,10 +116,10 @@ class RequestModal extends Component {
           <div className="modal-text">
             <div className="form">
               <h1 className="app-title">Request Shadowing</h1>
-              <h3 className="app-subtitle">Dr. {this.props.doctor.name}, {this.props.doctor.degree}</h3>
+              <h3 className="app-subtitle">Dr. {this.props.selectedDoctor.name}, {this.props.selectedDoctor.degree}</h3>
               <div className="data-item">
                 <h5 className="app-subtitle">Name:</h5>
-                {this.props.name}
+                {this.props.student.name}
               </div>
               <div className="data-item">
                 <h5 className="app-subtitle">Email:</h5>
@@ -127,7 +127,7 @@ class RequestModal extends Component {
               </div>
               <div className="data-item">
                 <h5 className="app-subtitle">Phone Number:</h5>
-                {this.props.phoneNumber}
+                {this.props.student.phoneNumber}
               </div>
               <div className="data-item">
                 <button className="secondary">
@@ -136,7 +136,7 @@ class RequestModal extends Component {
               </div>
               <div className="data-item">
                 <h5 className="app-subtitle">Scheduling:</h5>
-                {availability}
+                <div>{availability}</div>
               </div>
               <div className="textarea-container">
                 <h5 className="app-subtitle">Additional Info:</h5>
@@ -146,7 +146,7 @@ class RequestModal extends Component {
                   id="additionalInfo"
                   value={this.state.additionalInfo}
                   onChange={this.onInputChange}
-                  placeholder={`Any additional information you would like Dr. ${this.props.doctor.name} to know when considering your request. 250 character limit.`}></textarea>
+                  placeholder={`Any additional information you would like Dr. ${this.props.selectedDoctor.name} to know when considering your request. 250 character limit.`}></textarea>
               </div>
               <button className="primary" id="submit" onClick={this.validateRequest}>Request</button>
             </div>

@@ -13,6 +13,7 @@ class UserPage extends Component {
     super(props)
 
     this.state = {
+      email: this.props.email,
       hipaaCert: undefined,
       addressLatLong: undefined,
       accountActive: true
@@ -20,13 +21,28 @@ class UserPage extends Component {
 
     this.geocodeAddress = this.geocodeAddress.bind(this);
     this.onAccountActiveChange = this.onAccountActiveChange.bind(this);
+    this.updateDoctor = this.updateDoctor.bind(this);
   }
 
   componentDidMount() {
-    this.geocodeAddress();
+    if (this.props.occupation === 'doctor') {
+      this.setState({
+        ...this.props.doctor
+      });
+    } else if (this.props.occupation === 'student') {
+      this.setState({
+        ...this.props.student
+      });
+    }
+  }
+
+  updateDoctor() {
+    console.log(this.props);
   }
 
   onAccountActiveChange(status) {
+    this.updateDoctor();
+
     this.setState({
       accountActive: status
     });
@@ -34,7 +50,7 @@ class UserPage extends Component {
 
   geocodeAddress() {
     Geocode.setApiKey(config['google-api-key']);
-    const address = `${this.props.address.streetAddress} ${this.props.address.city}, ${this.props.address.state} ${this.props.address.zipCode}`;
+    const address = `${this.state.address.streetAddress} ${this.state.address.city}, ${this.state.address.state} ${this.state.address.zipCode}`;
 
     Geocode.fromAddress(address).then(
       response => {
@@ -53,15 +69,17 @@ class UserPage extends Component {
   }
 
   render() {
+    if (this.state.address && !this.state.addressLatLong) {
+      this.geocodeAddress();
+    }
+
     return (
       <div className="main">
         {this.props.occupation === 'student' && <StudentUserPage
-          {...this.props}
-          addressLatLong={this.state.addressLatLong} />}
+          {...this.state}
+        />}
         {this.props.occupation === 'doctor' && <DoctorUserPage
-          {...this.props}
-          addressLatLong={this.state.addressLatLong}
-          accountActive={this.state.accountActive}
+          {...this.state}
           onAccountActiveChange={this.onAccountActiveChange}
         />}
       </div>

@@ -25,10 +25,6 @@ ReactDOM.render((
     <ConnectedRouter history={history}>
       <Route path="/" component={App} />
       <Route exact path="/" render={() => {
-        if (store.getState().authReducer.isLoggedIn && !store.getState().userReducer.active && !store.getState().authReducer.isAdmin) {
-          return <Redirect to={`sign-up/${store.getState().authReducer.occupation}`} />
-        }
-
         return <Home />;
       }} />
       <Route path="/physician-sign-up" render={() => {
@@ -39,7 +35,7 @@ ReactDOM.render((
         return <Home />;
       }} />
       <Route path="/user" render={() => {
-        if (store.getState().authReducer.isLoggedIn && store.getState().userReducer.active) {
+        if (store.getState().authReducer.isLoggedIn) {
           return <UserPage />;
         } else {
           return <Redirect to='/' />
@@ -60,7 +56,7 @@ ReactDOM.render((
         }
       }} />
       <Route path="/requests" render={() => {
-        if (store.getState().authReducer.isLoggedIn && store.getState().userReducer.active) {
+        if (store.getState().authReducer.isLoggedIn) {
           return <RequestsPage />;
         } else {
           return <Redirect to='/' />

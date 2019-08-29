@@ -8,12 +8,12 @@ export default function RequestConfirmationModal(props) {
         <div className="modal-text">
           <div className="form">
             <h1 className="app-title">Thank You!</h1>
-            <h3 className="app-subtitle">You're request to shadow Dr. {props.doctor.name}, {props.doctor.degree} has been submitted!</h3>
+            <h3 className="app-subtitle">You're request to shadow Dr. {props.selectedDoctor.name}, {props.selectedDoctor.degree} has been submitted!</h3>
             <div className="data-item">
               <p>You should receive a confirmation email shortly.</p>
             </div>
             <div className="data-item">
-              <p>Dr. {props.doctor.name} will reach out to you to either accept for deny this request, and for further scheduling. Please note, if the request has not been responded to within 60 days it will be automatically deleted.</p>
+              <p>Dr. {props.selectedDoctor.name} will reach out to you to either accept for deny this request, and for further scheduling. Please note, if the request has not been responded to within 60 days it will be automatically deleted.</p>
             </div>
             <div className="data-item">
               <p>Thanks for using FindShadowing.com!</p>

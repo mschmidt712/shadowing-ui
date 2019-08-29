@@ -13,6 +13,10 @@ export default function StudentUserPage(props) {
     hipaaIcon = 'fa-times';
   }
 
+  if (!props.address) {
+    return <div></div>
+  }
+
   return (
     <div>
       <h1 className="user-header"><i className="fa fa-user icon"></i>{props.name}</h1>

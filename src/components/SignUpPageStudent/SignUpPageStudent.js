@@ -353,7 +353,7 @@ class SignUpPageStudent extends Component {
 
 const mapStateToProps = state => ({
   ...state.authReducer,
-  ...state.userReducer
+  ...state.userReducer.student
 });
 
 const mapDispatchToProps = dispatch => ({

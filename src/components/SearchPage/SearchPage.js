@@ -26,7 +26,7 @@ class SearchPage extends Component {
       doctors: [],
       addressLatLng: undefined,
       filtersEnabled: true,
-      doctor: undefined,
+      selectedDoctor: undefined,
       displayRequestModal: false,
       displayConfirmationModal: false
     }
@@ -192,7 +192,7 @@ class SearchPage extends Component {
 
   requestShadowing(doctor) {
     this.setState({
-      doctor,
+      selectedDoctor: doctor,
       displayRequestModal: true
     });
   }
@@ -266,12 +266,12 @@ class SearchPage extends Component {
             {this.props.doctors.length === 0 && !this.props.loading ? <h3 className="no-results box-shadow">No doctors found matching your search criteria. Please try your search again.</h3> : <div></div>}
           </div>
           {this.state.displayRequestModal && <RequestModal
-            doctor={this.state.doctor}
+            selectedDoctor={this.state.selectedDoctor}
             closeRequestModal={this.closeRequestModal}
             toggleConfirmationModal={this.toggleConfirmationModal}
           />}
           {this.state.displayConfirmationModal && !this.props.loading && !this.props.requestErr && <RequestConfirmationModal
-            doctor={this.state.doctor}
+            selectedDoctor={this.state.selectedDoctora}
             toggleConfirmationModal={this.toggleConfirmationModal}
           />}
         </div>
@@ -313,11 +313,11 @@ class SearchPage extends Component {
             {this.props.doctors.length === 0 && this.props.loading === 0 ? <h3 className="no-results box-shadow">No doctors found matching your search criteria. Please try your search again.</h3> : <div></div>}
           </div>
           {this.state.displayRequestModal && <RequestModal
-            doctor={this.state.doctor}
+            selectedDoctor={this.state.selectedDoctor}
             closeRequestModal={this.closeRequestModal}
           />}
           {this.props.displayConfirmationModal && !this.props.loading && <RequestConfirmationModal
-            doctor={this.state.doctor}
+            selectedDoctor={this.state.selectedDoctor}
             closeConfirmationModal={this.props.closeConfirmationModal}
           />}
         </div>

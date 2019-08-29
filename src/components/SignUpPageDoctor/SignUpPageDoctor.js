@@ -288,7 +288,7 @@ class SignUpPageDoctor extends Component {
 
 const mapStateToProps = state => ({
   ...state.authReducer,
-  ...state.userReducer
+  ...state.userReducer.doctor
 });
 
 const mapDispatchToProps = dispatch => ({
