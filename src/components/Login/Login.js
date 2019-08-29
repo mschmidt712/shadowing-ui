@@ -20,10 +20,14 @@ function Login(props) {
           <label>
             Password
             <i
+              data-for="password"
               data-tip="Password must be at least 6 characters and contain upper and lower case letters."
               className="fas fa-info-circle icon">
             </i>
-            <ReactTooltip />
+            <ReactTooltip
+              id="password"
+              className="tooltip"
+            />
           </label>
           <input type="password" id="password" name="password" value={props.password} onChange={props.onPasswordChange} />
           <button className="primary" id="submit" onClick={() => props.loginUser(props.email, props.password)}>Login</button>

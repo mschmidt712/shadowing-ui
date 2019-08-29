@@ -306,3 +306,17 @@ textarea.dirty:invalid {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+/* Tooltip Styling */
+.tooltip {
+  max-width: 50%;
+  display: block;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+@media screen and (min-width: 800px) {
+  .tooltip {
+    max-width: 25%;
+  }
+}

@@ -39,10 +39,14 @@ export default function Step1(props) {
         <div className="label">
           <label>Email:</label>
           <i
+            data-for="email"
             data-tip="This is only used for shadowing.com to contact you for potential matches. Students will not have access to this information"
             className="fas fa-info-circle icon">
           </i>
-          <ReactTooltip />
+          <ReactTooltip
+            id="email"
+            className="tooltip"
+          />
         </div>
         {!props.displayChangeEmail && <div className="form-input value">
           <input value={props.email} disabled />
@@ -81,11 +85,15 @@ export default function Step1(props) {
         <div className="label">
           <label>Address</label>
           <i
+            data-for="address"
             data-tip="This is used by findshadowing.com to match student by location. Please see the privacy policy for more information."
             className="fas fa-info-circle icon">
           </i>
         </div>
-        <ReactTooltip />
+        <ReactTooltip
+          id="address"
+          className="tooltip"
+        />
         <div className="form-input value">
           <input type="text" name="streetAddress" value={props.streetAddress} onChange={props.onInputChange} placeholder="Street Address" className={props.touched} required />
           <input type="text" name="city" value={props.city} onChange={props.onInputChange} placeholder="City" className={props.touched} required />

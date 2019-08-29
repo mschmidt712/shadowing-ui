@@ -220,10 +220,14 @@ class SignUpPageStudent extends Component {
           <div className="label">
             <label>Address</label>
             <i
+              data-for="address"
               data-tip="This is only used for findshadowing.com to find doctors closest to your location. This information will not be released or disclosed."
               className="fas fa-info-circle icon">
             </i>
-            <ReactTooltip />
+            <ReactTooltip
+              id="address"
+              className="tooltip"
+            />
           </div>
           <div className="form-input value">
             <input type="text" name="streetAddress" value={this.state.streetAddress} onChange={this.onInputChange} placeholder="Street Address" className={this.state.touched} required />
@@ -299,10 +303,14 @@ class SignUpPageStudent extends Component {
           <div className="label">
             <label>Are You HIPAA Certified?</label>
             <i
+              data-for="hipaa"
               data-tip="HIPAA (Health Insurance Portability and Accountability Act) helps keep patient's medical information confidential. HIPAA certification is an important first step to a healthcare career. It can be completed quickly and easily online via websites like https://www.cybrary.it/course/hipaa-training/."
               className="fas fa-info-circle icon">
             </i>
-            <ReactTooltip />
+            <ReactTooltip
+              id="hipaa"
+              className="tooltip"
+            />
           </div>
           <div className="form-input value">
             <div className="radio-form checkbox-container inline">

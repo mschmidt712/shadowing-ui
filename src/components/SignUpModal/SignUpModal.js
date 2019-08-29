@@ -33,19 +33,27 @@ function SignUp(props) {
             <label>
               Password
               <i
+                data-for="password"
                 data-tip="Password must be at least 6 characters and contain upper and lower case letters."
                 className="fas fa-info-circle icon">
               </i>
-              <ReactTooltip />
+              <ReactTooltip
+                id="password"
+                className="tooltip"
+              />
             </label>
             <input type="password" name="password" value={props.password} onChange={props.onInputChange} />
             <label>
               Confirm Password
               <i
+                data-for="confirm-password"
                 data-tip="Password must be at least 6 characters and contain upper and lower case letters."
                 className="fas fa-info-circle icon">
               </i>
-              <ReactTooltip />
+              <ReactTooltip
+                id="confirm-password"
+                className="tooltip"
+              />
             </label>
             <input type="password" id="confirmPassword" name="confirmPassword" value={props.confirmPassword} onChange={props.onInputChange} />
             <div className="form">

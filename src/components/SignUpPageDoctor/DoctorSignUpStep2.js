@@ -63,10 +63,14 @@ export default function Step2(props) {
       <div className="form-element">
         <label>What is the maximum shadowing requests per week you could respond to?</label>
         <i
+          data-for="max-requests"
           data-tip="A good default for this is 2 requests per week but feel free to select any number you are comfortable with."
           className="fas fa-info-circle icon">
         </i>
-        <ReactTooltip />
+        <ReactTooltip
+          id="max-requests"
+          className="tooltip"
+        />
         <div className="form-input">
           <input type="number" name="maxRequests" value={props.maxRequests} onChange={props.onInputChange} placeholder="2" min="0" max="20" className={`small ${props.touched}`} required />
         </div>
