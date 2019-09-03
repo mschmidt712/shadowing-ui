@@ -233,7 +233,6 @@ class SignUpPageStudent extends Component {
             <input type="text" name="streetAddress" value={this.state.streetAddress} onChange={this.onInputChange} placeholder="Street Address" className={this.state.touched} required />
             <input type="text" name="city" value={this.state.city} onChange={this.onInputChange} placeholder="City" className={this.state.touched} required />
             <div className="select small">
-
               <select name="state" value={this.state.state} onChange={this.onInputChange} className={this.state.touched} required>
                 <option value=""></option>
                 <option value="AL">AL</option>
@@ -297,6 +296,42 @@ class SignUpPageStudent extends Component {
           <label className="label">Phone Number</label>
           <div className="form-input value">
             <input type="int" name="phoneNumber" value={this.state.phoneNumber} onChange={this.onInputChange} placeholder="Phone Number" className={this.state.touched} required />
+          </div>
+        </div>
+        <div className="form-element">
+          <div className="label">
+            <label>School Name</label>
+            <i
+              data-for="school"
+              data-tip="Please enter the name of your high school, college, or university. If you are not currently in school, enter N/A or your last attented school."
+              className="fas fa-info-circle icon">
+            </i>
+            <ReactTooltip
+              id="school"
+              className="tooltip"
+            />
+          </div>
+          <div className="form-input value">
+            <input type="text" name="school" value={this.state.school} onChange={this.onInputChange} placeholder="School Name or N/A" className={this.state.touched} required />
+          </div>
+        </div>
+        <div className="form-element">
+          <label className="label">School Year</label>
+          <div className="form-input value">
+            <div className="select">
+              <select name="schoolYear" value={this.state.schoolYear} onChange={this.onInputChange} className={this.state.touched} required>
+                <option value=""></option>
+                <option value="high-school">High School</option>
+                <option value="freshman">College Freshman</option>
+                <option value="sophomore">College Sophomore</option>
+                <option value="junior">College Junior</option>
+                <option value="senior">College Senior</option>
+                <option value="masters">Masters Student</option>
+                <option value="post-baccalaureate">Post Baccalaureate</option>
+                <option value="graduated">Graduated</option>
+              </select>
+              <i className="fas fa-angle-down"></i>
+            </div>
           </div>
         </div>
         <div className="form-element">
