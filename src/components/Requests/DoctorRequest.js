@@ -52,6 +52,8 @@ class DoctorRequest extends React.Component {
         hipaaCert,
         availabilityText,
         availability,
+        school: request.student.school,
+        schoolYear: request.student.schoolYear,
         acceptRequestBody,
         denyRequestBody
       });
@@ -68,6 +70,19 @@ class DoctorRequest extends React.Component {
     return Object.assign({}, request, {
       status
     });
+  }
+
+  formatSchoolYear(str) {
+    if (!str) {
+      return;
+    }
+
+    const arr = str.split('-');
+    return arr.map(string => {
+      return this.capitalizeWord(string);
+    }).reduce((str, val) => {
+      return `${str} ${val}`
+    }, '').trim();
   }
 
   capitalizeWord(string) {
@@ -97,6 +112,10 @@ class DoctorRequest extends React.Component {
         </div>
         <p className="with-horizontal-line"></p>
         <div>
+          <div className="data-item column nested">
+            <h5 className="request-data-header">School Information: </h5>
+            {this.state.school} - {this.formatSchoolYear(this.state.schoolYear)}
+          </div>
           <div className="data-item column nested">
             <h5 className="request-data-header">HIPAA Certified: </h5>
             {this.state.hipaaCert}
