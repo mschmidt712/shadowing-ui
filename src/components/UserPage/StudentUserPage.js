@@ -13,6 +13,15 @@ export default function StudentUserPage(props) {
     hipaaIcon = 'fa-times';
   }
 
+  function formatSchoolYear(str) {
+    const arr = str.split('-');
+    return arr.map(string => {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }).reduce((str, val) => {
+      return `${str} ${val}`
+    }, '').trim();
+  }
+
   if (!props.address) {
     return <div></div>
   }
@@ -43,15 +52,23 @@ export default function StudentUserPage(props) {
             <div className="value">{props.address.streetAddress} {props.address.city}, {props.address.state} {props.address.zipCode}</div>
           </div>
           <div className="data-item">
-            <h3 className="app-subtitle label">HIPAA Certified</h3>
+            <h3 className="app-subtitle label">School Name:</h3>
+            <div className="value">{props.school}</div>
+          </div>
+          <div className="data-item">
+            <h3 className="app-subtitle label">School Year:</h3>
+            <div className="value">{formatSchoolYear(props.schoolYear)}</div>
+          </div>
+          <div className="data-item">
+            <h3 className="app-subtitle label">HIPAA Certified:</h3>
             <div className="value"><i className={`fa ${hipaaIcon} icon`}></i></div>
           </div>
           <div className="data-item">
             <h3 className="app-subtitle label">CV/Resume</h3>
             <button className="button primary"><a href={props.cv} className="no-decoration primary" download>Download PDF</a></button>
           </div>
-          <Link to="/sign-up/student">
-            <button className="secondary">Edit Profile</button>
+          <Link to="/sign-up/student" className="center">
+            <button className="secondary center">Edit Profile</button>
           </Link>
         </div>
       </div>

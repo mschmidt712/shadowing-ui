@@ -16,6 +16,8 @@ export default (state = initialState, action) => {
           address: action.payload.address,
           phoneNumber: action.payload.phoneNumber,
           hipaaCert: action.payload.hipaaCert,
+          school: action.payload.school,
+          schoolYear: action.payload.schoolYear,
           cv: action.payload.cv,
           requests: action.payload.requests,
           active: true
@@ -28,6 +30,8 @@ export default (state = initialState, action) => {
           address: action.payload.address,
           phoneNumber: action.payload.phoneNumber,
           hipaaCert: action.payload.hipaaCert,
+          school: action.payload.school,
+          schoolYear: action.payload.schoolYear,
           cv: action.payload.cv,
           requests: action.payload.requests,
           active: true
@@ -40,6 +44,8 @@ export default (state = initialState, action) => {
           address: action.payload.address,
           phoneNumber: action.payload.phoneNumber,
           hipaaCert: action.payload.hipaaCert,
+          school: action.payload.school,
+          schoolYear: action.payload.schoolYear,
           cv: action.payload.cv,
           requests: action.payload.requests,
           active: true

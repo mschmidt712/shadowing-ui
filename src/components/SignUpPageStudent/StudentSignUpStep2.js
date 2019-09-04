@@ -53,7 +53,7 @@ export default function StudentSignUpStep2(props) {
             <select name="schoolYear" value={props.schoolYear} onChange={props.onInputChange} className={props.setTwoTouched} required>
               <option value=""></option>
               <option value="high-school">High School</option>
-              <option value="freshman">College Freshman</option>
+              <option value="freshmen">College Freshman</option>
               <option value="sophomore">College Sophomore</option>
               <option value="junior">College Junior</option>
               <option value="senior">College Senior</option>

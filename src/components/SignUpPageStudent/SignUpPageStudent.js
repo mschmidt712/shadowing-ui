@@ -24,7 +24,7 @@ class SignUpPageStudent extends Component {
       zipCode: props.address.zipCode || undefined,
       phoneNumber: props.phoneNumber || undefined,
       school: props.school || '',
-      schoolYear: props.schoolYear || '',
+      schoolYear: props.schoolYear || undefined,
       hipaaCert: props.hipaaCert || false,
       cv: props.cv || '',
       subscribe: true,
@@ -67,6 +67,8 @@ class SignUpPageStudent extends Component {
         state: this.props.address.state || '',
         zipCode: this.props.address.zipCode || undefined,
         phoneNumber: this.props.phoneNumber || undefined,
+        school: this.props.school || '',
+        schoolYear: this.props.schoolYear || undefined,
         hipaaCert: this.props.hipaaCert || false,
         cv: this.props.cv || ''
       });
@@ -155,6 +157,8 @@ class SignUpPageStudent extends Component {
       address,
       phoneNumber,
       hipaaCert,
+      school: this.state.school,
+      schoolYear: this.state.schoolYear,
       cv: this.state.cv,
       subscribe: this.state.subscribe
     };
