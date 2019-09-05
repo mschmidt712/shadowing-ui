@@ -32,7 +32,7 @@ export default function SearchFilters(props) {
   return (
     <div>
       <div className="component-header-details">
-        <div className="">
+        <div>
           <h3>Filters</h3>
         </div>
         <p className="component-header-right">
@@ -43,7 +43,7 @@ export default function SearchFilters(props) {
       </div>
       <div className="data-item column">
         <label htmlFor="distance"><h5>Zip Code:</h5></label>
-        <input name="zipCode" value={props.zipCode} placeholder="Enter Zip Code" onChange={props.onInputChange} />
+        <input name="zipCode" id="zipCode" value={props.zipCode} placeholder="Enter Zip Code" onChange={props.onInputChange} />
       </div>
       <div className="data-item column">
         <label htmlFor="distance"><h5>Mile Radius:</h5></label>
@@ -72,7 +72,7 @@ export default function SearchFilters(props) {
         <h5>Availability:</h5>
         {availability}
       </div>
-      <button className="primary" onClick={() => {
+      <button className="primary" id="submit" onClick={() => {
         props.getDoctors({
           zipCode: props.zipCode,
           disance: props.distance

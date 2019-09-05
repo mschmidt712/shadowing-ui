@@ -20,12 +20,12 @@ function Login(props) {
           <label>
             Password
             <i
-              data-for="password"
+              data-for="password-info"
               data-tip="Password must be at least 6 characters and contain upper and lower case letters."
               className="fas fa-info-circle icon">
             </i>
             <ReactTooltip
-              id="password"
+              id="password-info"
               className="tooltip"
             />
           </label>

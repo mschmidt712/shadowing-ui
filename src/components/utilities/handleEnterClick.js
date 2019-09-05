@@ -4,9 +4,8 @@ export default function handleEnterClick(el) {
   input.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
       event.preventDefault();
-      const submitButton = document.getElementById("submit")
+      const submitButton = document.getElementById("submit");
       submitButton.click();
-      submitButton.disabled = true;
     }
   });
 };

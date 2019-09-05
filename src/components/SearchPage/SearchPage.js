@@ -7,6 +7,7 @@ import SearchFilters from './SearchFilters';
 import SearchDoctorComponent from './SearchDoctorComponent';
 import RequestModal from '../RequestModal/RequestModal';
 import RequestConfirmationModal from '../RequestModal/RequestConfirmationModal';
+import handleEnterClick from '../utilities/handleEnterClick';
 import './SearchPage.css';
 import config from '../../aws-config.json';
 
@@ -73,6 +74,13 @@ class SearchPage extends Component {
         filtersEnabled: false
       });
     }
+
+    handleEnterClick('zipCode');
+    handleEnterClick('specialty');
+    const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    daysOfWeek.forEach(day => {
+      handleEnterClick(day);
+    });
   }
 
   componentDidUpdate(oldProps) {
