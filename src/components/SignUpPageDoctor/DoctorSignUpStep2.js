@@ -75,6 +75,12 @@ export default function Step2(props) {
           <input type="number" name="maxRequests" value={props.maxRequests} onChange={props.onInputChange} placeholder="2" min="0" max="20" className={`small ${props.touched}`} required />
         </div>
       </div>
+      <div className="form-element">
+        <label>Would you like your requests notifications to be sent to a seperate email?</label>
+        <div className="form-input">
+          <input type="text" name="requestEmail" value={props.requestEmail} onChange={props.onInputChange} placeholder="Additional Request Email" />
+        </div>
+      </div>
       <div className="form-element column">
         <label>Availability</label>
         {availability}

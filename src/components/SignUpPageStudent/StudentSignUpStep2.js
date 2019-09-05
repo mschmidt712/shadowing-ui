@@ -104,8 +104,7 @@ export default function StudentSignUpStep2(props) {
       </div>
       <div>
         <button onClick={props.previousStep} type="button" className="button secondary">Previous</button>
-        {!props.active && <input type="button" className="button primary" value="Complete Profile" onClick={validateForm} />}
-        {props.active && <input type="submit" className="button primary" value="Save" onClick={validateForm} />}
+        <input type="submit" className="button primary" value="Save" onClick={validateForm} />
       </div>
     </div>
   )

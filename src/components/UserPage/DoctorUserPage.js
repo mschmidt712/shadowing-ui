@@ -99,6 +99,10 @@ export default function DoctorUserPage(props) {
               <div className="value">{props.email}</div>
             </div>
             <div className="data-item">
+              <h3 className="app-subtitle label">Request Email:</h3>
+              <div className="value">{props.requestEmail || props.email}</div>
+            </div>
+            <div className="data-item">
               <h3 className="app-subtitle label">Address:</h3>
               <div className="value">{`${props.address.streetAddress}, ${props.address.city}, ${props.address.state} ${props.address.zipCode}`}</div>
             </div>

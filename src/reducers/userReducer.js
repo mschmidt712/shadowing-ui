@@ -64,6 +64,7 @@ export default (state = initialState, action) => {
           specialty: action.payload.specialty,
           approved: action.payload.approved,
           maxRequests: action.payload.maxRequests,
+          requestEmail: action.payload.requestEmail,
           scheduling: action.payload.scheduling,
           shiftLength: action.payload.shiftLength,
           additionalComments: action.payload.additionalComments,
@@ -73,6 +74,8 @@ export default (state = initialState, action) => {
         }
       });
     case userAction.UPDATE_DOCTOR:
+      console.log('Update Doctor Payload: ', action.payload);
+
       return Object.assign({}, state, {
         doctor: {
           name: action.payload.name,
@@ -81,6 +84,7 @@ export default (state = initialState, action) => {
           specialty: action.payload.specialty,
           approved: action.payload.approved,
           maxRequests: action.payload.maxRequests,
+          requestEmail: action.payload.requestEmail,
           scheduling: action.payload.scheduling,
           shiftLength: action.payload.shiftLength,
           additionalComments: action.payload.additionalComments,
@@ -98,6 +102,7 @@ export default (state = initialState, action) => {
           specialty: action.payload.specialty,
           approved: action.payload.approved,
           maxRequests: action.payload.maxRequests,
+          requestEmail: action.payload.requestEmail,
           scheduling: action.payload.scheduling,
           shiftLength: action.payload.shiftLength,
           additionalComments: action.payload.additionalComments,

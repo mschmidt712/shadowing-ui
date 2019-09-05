@@ -74,6 +74,7 @@ class SignUpPageDoctor extends Component {
       zipCode: props.address.zipCode || undefined,
       specialty: props.specialty || '',
       maxRequests: props.maxRequests || undefined,
+      requestEmail: props.requestEmail || '',
       availability,
       shiftLengthMin: props.shiftLength ? Number(props.shiftLength[0]) : undefined,
       shiftLengthMax: props.shiftLength ? props.shiftLength[1] : undefined,
@@ -201,13 +202,16 @@ class SignUpPageDoctor extends Component {
       address,
       specialty: this.state.specialty,
       maxRequests: this.state.maxRequests,
+      requestEmail: this.state.requestEmail,
       scheduling,
       shiftLength,
       additionalComments: this.state.additionalComments || 'None',
       badgePhoto: this.state.photoUpload
     }
 
-    if (this.props.active) {
+    console.log('Data: ', data);
+
+    if (this.props.name) {
       this.props.updateDoctor(data, this.props.credentials);
     } else {
       this.props.createDoctor(data, this.props.credentials);
@@ -251,6 +255,7 @@ class SignUpPageDoctor extends Component {
         />}
         {this.state.step === 2 && <Step2
           maxRequests={this.state.maxRequests}
+          requestEmail={this.state.requestEmail}
           availability={this.state.availability}
           shiftLengthMin={this.state.shiftLengthMin}
           shiftLengthMax={this.state.shiftLengthMax}

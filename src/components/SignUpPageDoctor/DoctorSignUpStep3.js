@@ -24,8 +24,7 @@ export default function Step3(props) {
       </div>
       <div className="form-element">
         <button onClick={props.previousStep} className="button primary">Previous</button>
-        {!props.active && <button className="button primary" onClick={validateForm}>Complete Profile</button>}
-        {props.active && <button className="button primary" onClick={validateForm}>Save</button>}
+        <button className="button primary" onClick={validateForm}>Save</button>
       </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 
 import ChangePasswordModal from '../SignUpPageShared/ChangePasswordModal';
 import StudentSignUpStep1 from '../SignUpPageStudent/StudentSignUpStep1';
