@@ -97,6 +97,8 @@ class AdminPage extends Component {
   }
 
   render() {
+    console.log('Location: ', this.props.location);
+
     const doctors = this.props.doctors.map(doctor => {
       return <div className="request box-shadow" key={doctor.id}>
         <div className="component-header">

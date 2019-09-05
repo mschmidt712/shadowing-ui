@@ -66,16 +66,27 @@ ReactDOM.render((
       <Route path="/about-us" component={AboutUsPage} />
       <Route path="/faq" component={FaqPage} />
       <Route path="/privacy-policy" component={PrivacyPolicyPage} />
-      <Route path="/admin" render={() => {
+      <Route exact path="/admin/pending-doctors" render={(props) => {
         if (store.getState().authReducer.isLoggedIn) {
-          return <AdminPage />;
+          return <AdminPage location={props.location} />;
         } else {
           return <Redirect to='/' />
         }
       }} />
-      <Route exact path="/admin/pending-doctors" component={AdminPage} />
-      <Route exact path="/admin/enrollment" component={AdminPage} />
-      <Route exact path="/admin/email-templates" component={AdminPage} />
+      <Route exact path="/admin/enrollment" render={(props) => {
+        if (store.getState().authReducer.isLoggedIn) {
+          return <AdminPage location={props.location} />;
+        } else {
+          return <Redirect to='/' />
+        }
+      }} />
+      <Route exact path="/admin/email-templates" render={(props) => {
+        if (store.getState().authReducer.isLoggedIn) {
+          return <AdminPage location={props.location} />;
+        } else {
+          return <Redirect to='/' />
+        }
+      }} />
     </ConnectedRouter>
   </Provider>
 ),
