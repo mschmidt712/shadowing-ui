@@ -100,7 +100,7 @@ export default function DoctorUserPage(props) {
             </div>
             <div className="data-item">
               <h3 className="app-subtitle label">Request Email:</h3>
-              <div className="value">{props.requestEmail || props.email}</div>
+              <div className="value">{props.requestEmail}</div>
             </div>
             <div className="data-item">
               <h3 className="app-subtitle label">Address:</h3>

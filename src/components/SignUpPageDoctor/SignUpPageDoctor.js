@@ -202,7 +202,7 @@ class SignUpPageDoctor extends Component {
       address,
       specialty: this.state.specialty,
       maxRequests: this.state.maxRequests,
-      requestEmail: this.state.requestEmail,
+      requestEmail: this.state.requestEmail || this.props.email,
       scheduling,
       shiftLength,
       additionalComments: this.state.additionalComments || 'None',
