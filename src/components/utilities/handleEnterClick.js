@@ -6,6 +6,11 @@ export default function handleEnterClick(el) {
       event.preventDefault();
       const submitButton = document.getElementById("submit");
       submitButton.click();
+
+      submitButton.disabled = true;
+      setTimeout(() => {
+        submitButton.disabled = false;
+      }, 10);
     }
   });
 };
