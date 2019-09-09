@@ -4,6 +4,7 @@ const initialState = {
   doctor: {},
   student: {},
   doctors: [],
+  students: [],
   userErr: undefined
 };
 
@@ -40,6 +41,7 @@ export default (state = initialState, action) => {
     case userAction.GET_STUDENT_SUCCESS:
       return Object.assign({}, state, {
         student: {
+          email: action.payload.email,
           name: action.payload.name,
           address: action.payload.address,
           phoneNumber: action.payload.phoneNumber,
@@ -54,6 +56,14 @@ export default (state = initialState, action) => {
     case userAction.GET_STUDENT_FAILURE:
       return Object.assign({}, state, {
         active: false
+      });
+    case userAction.GET_STUDENTS:
+      return Object.assign({}, state, {
+        students: action.payload
+      });
+    case userAction.GET_STUDENTS_FAILURE:
+      return Object.assign({}, state, {
+        students: []
       });
     case userAction.CREATE_DOCTOR:
       return Object.assign({}, state, {
@@ -94,6 +104,7 @@ export default (state = initialState, action) => {
     case userAction.GET_DOCTOR_SUCCESS:
       return Object.assign({}, state, {
         doctor: {
+          email: action.payload.email,
           name: action.payload.name,
           degree: action.payload.degree,
           address: action.payload.address,

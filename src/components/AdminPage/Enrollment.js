@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { Link } from 'react-router-dom'
 
 export default function Enrollment(props) {
   const doctors = props.doctors.map(doctor => {
@@ -8,9 +9,18 @@ export default function Enrollment(props) {
       <td>{doctor.specialty}</td>
       <td>{doctor.address.city}, {doctor.address.state}</td>
       <td>{doctor.active ? 'Active' : 'Inactive'}</td>
+      <td><Link to={`/user?id=${doctor.id}&occupation=doctor`}>See User Page</Link></td>
     </tr>
   });
-  const students = [];
+  const students = props.students.map(student => {
+    return <tr className="user-row" key={student.id}>
+      <td>{student.name}</td>
+      <td>{student.school}</td>
+      <td>{student.schoolYear}</td>
+      <td>{student.address.city}, {student.address.state}</td>
+      <td><Link to={`/user?id=${student.id}&occupation=student`}>See User Page</Link></td>
+    </tr>
+  });
 
   return (
     <div>
@@ -27,6 +37,7 @@ export default function Enrollment(props) {
             <th>Specialty</th>
             <th>Location</th>
             <th>Active Status</th>
+            <th>ID</th>
           </tr>
           {doctors}
         </tbody>
@@ -42,6 +53,7 @@ export default function Enrollment(props) {
             <th>School</th>
             <th>School Year</th>
             <th>Location</th>
+            <th>ID</th>
           </tr>
           {students}
         </tbody>

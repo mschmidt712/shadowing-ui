@@ -35,6 +35,7 @@ class AdminPage extends Component {
 
   componentDidMount() {
     this.props.getDoctors();
+    this.props.getStudents();
     this.props.getAdminData();
     this.props.getEmailTemplates();
   }
@@ -153,6 +154,7 @@ class AdminPage extends Component {
             doctors={this.props.doctors}
             showDoctors={this.state.showDoctors}
             doctorCount={this.props.doctorCount}
+            students={this.props.students}
             showStudents={this.state.showStudents}
             studentCount={this.props.studentCount}
             requestCount={this.props.requestCount}
@@ -184,8 +186,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // getDoctorsForApproval: () => dispatch(userActions.getDoctorsForApproval()),
   getDoctors: () => dispatch(userActions.getDoctors()),
+  getStudents: () => dispatch(userActions.getStudents()),
   approveDoctor: (doctor) => dispatch(userActions.approveDoctor(doctor)),
   getAdminData: () => dispatch(adminActions.getAdminData()),
   getEmailTemplates: () => dispatch(emailActions.getEmailTemplates()),

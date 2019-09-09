@@ -12,18 +12,10 @@ class UserPage extends Component {
   constructor(props) {
     super(props);
 
-    const search = props.location.search.slice(1, props.location.search.length).split('&').reduce((obj, val) => {
-      const [prop, value] = val.split('=');
-      return Object.assign({}, obj, {
-        [prop]: value
-      });
-    }, {});
-
     this.state = {
-      email: this.props.email,
       hipaaCert: undefined,
       addressLatLong: undefined,
-      currentUser: props.id === search.id
+      currentUser: props.id === this.formatSearchQuery(props.location).id
     }
 
     this.geocodeAddress = this.geocodeAddress.bind(this);
@@ -39,6 +31,10 @@ class UserPage extends Component {
       this.setState({
         ...this.props.student
       });
+    } else if (this.props.occupation === 'admin') {
+      const search = this.formatSearchQuery(this.props.location);
+
+      this.props.getUser(search.id, search.occupation);
     }
   }
 
@@ -48,6 +44,20 @@ class UserPage extends Component {
         ...this.props.doctor
       });
     }
+    if (this.props.student && (oldProps.student !== this.props.student)) {
+      this.setState({
+        ...this.props.student
+      });
+    }
+  }
+
+  formatSearchQuery(location) {
+    return location.search.slice(1, location.search.length).split('&').reduce((obj, val) => {
+      const [prop, value] = val.split('=');
+      return Object.assign({}, obj, {
+        [prop]: value
+      });
+    }, {});
   }
 
   onAccountActiveChange(status) {
@@ -93,6 +103,12 @@ class UserPage extends Component {
           {...this.state}
           onAccountActiveChange={this.onAccountActiveChange}
         />}
+        {this.props.occupation === 'admin' && this.formatSearchQuery(this.props.location).occupation === 'student' && <StudentUserPage
+          {...this.state}
+        />}
+        {this.props.occupation === 'admin' && this.formatSearchQuery(this.props.location).occupation === 'doctor' && <DoctorUserPage
+          {...this.state}
+        />}
       </div>
     )
   }
@@ -106,6 +122,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getStudent: (id) => dispatch(userActions.getStudent(id)),
   getDoctor: (id) => dispatch(userActions.getDoctor(id)),
+  getUser: (id, occupation) => dispatch(userActions.getUser(id, occupation)),
   updateDoctor: (id) => dispatch(userActions.updateDoctor(id)),
 });
 

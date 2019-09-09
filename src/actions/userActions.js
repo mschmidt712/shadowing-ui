@@ -187,6 +187,58 @@ export const getStudent = (id) => {
   }
 }
 
+
+export const getStudents = () => {
+  return (dispatch) => {
+    dispatch(loadingStart());
+
+    const url = `${baseUrl}/students`;
+
+    let studentRespStatus;
+    return fetch(url, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then(response => {
+        studentRespStatus = response.ok;
+
+        if (response.status === 404) {
+          dispatch({
+            type: userAction.GET_STUDENTS_FAILURE
+          });
+          dispatch(loadingStop());
+          return;
+        }
+
+        return response.json().then(response => {
+          if (!studentRespStatus) {
+            throw new Error(response.errorMessage);
+          }
+
+          dispatch({
+            type: userAction.GET_STUDENTS,
+            payload: JSON.parse(response.body)
+          });
+          dispatch(loadingStop());
+          return;
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type: userAction.USER_ERROR,
+          payload: {
+            err: err.message
+          }
+        });
+        dispatch(loadingStop());
+        return;
+      });
+  }
+}
+
 function uploadBadgePhoto(data, credentials) {
   const s3 = new AWS.S3({
     region: 'us-east-1',
@@ -528,6 +580,16 @@ export const getDoctorsForApproval = () => {
         dispatch(loadingStop());
         return;
       });
+  }
+}
+
+export const getUser = (id, occupation) => {
+  return (dispatch) => {
+    if (occupation === 'doctor') {
+      dispatch(getDoctor(id));
+    } else if (occupation === 'student') {
+      dispatch(getStudent(id));
+    }
   }
 }
 
