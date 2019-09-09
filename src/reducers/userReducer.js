@@ -13,6 +13,7 @@ export default (state = initialState, action) => {
     case userAction.CREATE_STUDENT:
       return Object.assign({}, state, {
         student: {
+          email: action.payload.email,
           name: action.payload.name,
           address: action.payload.address,
           phoneNumber: action.payload.phoneNumber,
@@ -27,6 +28,7 @@ export default (state = initialState, action) => {
     case userAction.UPDATE_STUDENT:
       return Object.assign({}, state, {
         student: {
+          email: action.payload.email,
           name: action.payload.name,
           address: action.payload.address,
           phoneNumber: action.payload.phoneNumber,
@@ -68,6 +70,7 @@ export default (state = initialState, action) => {
     case userAction.CREATE_DOCTOR:
       return Object.assign({}, state, {
         doctor: {
+          email: action.payload.email,
           name: action.payload.name,
           degree: action.payload.degree,
           address: action.payload.address,
@@ -86,6 +89,7 @@ export default (state = initialState, action) => {
     case userAction.UPDATE_DOCTOR:
       return Object.assign({}, state, {
         doctor: {
+          email: action.payload.email,
           name: action.payload.name,
           degree: action.payload.degree,
           address: action.payload.address,
