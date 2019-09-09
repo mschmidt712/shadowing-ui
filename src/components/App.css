@@ -78,7 +78,7 @@ button.tertiary, input.tertiary, a.tertiary {
   padding: 1em 0;
 }
 
-button.link {
+button.link, .button.link {
   background: none;
   text-decoration: underline;
   color: var(--main-color-blue);

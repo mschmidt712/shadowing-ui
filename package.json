@@ -10,6 +10,7 @@
     "draft-js-export-html": "^1.4.1",
     "google-distance-matrix": "^1.1.1",
     "google-maps-react": "^2.0.2",
+    "history": "^4.9.0",
     "moment": "^2.24.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",

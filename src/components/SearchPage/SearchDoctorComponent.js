@@ -35,6 +35,10 @@ export default class SearchDoctorComponent extends Component {
   }
 
   render() {
+    if (!this.props.doctor) {
+      return <div></div>;
+    }
+
     const distanceMeters = this.props.doctor.distance.distance.value;
     const distanceMiles = Math.round(distanceMeters / 1609.344);
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
 import Geocode from 'react-geocode';
 
@@ -64,12 +65,17 @@ class SearchPage extends Component {
       availability
     })
 
-    this.props.getDoctors(Object.assign({}, searchObj, {
+    const query = Object.assign({}, searchObj, {
       distance,
       availability,
       approved: true,
       active: true
-    }), true);
+    });
+
+    const history = createBrowserHistory();
+    history.push(`/search?${this.createQueryString(query)}`);
+
+    this.props.getDoctors(query);
 
     if (window.innerWidth <= 480) {
       this.setState({
@@ -119,6 +125,9 @@ class SearchPage extends Component {
 
     filterObj.availability = this.filterAvailabilityObj(filterObj.availability);
 
+    const history = createBrowserHistory();
+    history.push(`/search?${this.createQueryString(filterObj)}`);
+
     this.props.getDoctors(filterObj, true);
 
     if (window.innerWidth <= 480) {
@@ -136,6 +145,20 @@ class SearchPage extends Component {
         }), {});
     }
     return {};
+  }
+
+  createQueryString(queryObj) {
+    return Object.keys(queryObj)
+      .map(val => {
+        let queryVal;
+        if (typeof queryObj[val] === 'object') {
+          queryVal = encodeURI(encodeURIComponent(JSON.stringify(queryObj[val])));
+        } else {
+          queryVal = queryObj[val]
+        }
+        return `${val}=${queryVal}`;
+      }, [])
+      .join('&');
   }
 
   geocodeAddress(zipCode) {
@@ -349,7 +372,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getDoctors: (query, search) => dispatch(userActions.getDoctors(query, search)),
+  getDoctors: (query) => dispatch(userActions.getDoctors(query)),
   closeConfirmationModal: () => dispatch(requestActions.closeConfirmationModal())
 });
 

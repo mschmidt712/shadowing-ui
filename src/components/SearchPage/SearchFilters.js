@@ -53,7 +53,7 @@ export default function SearchFilters(props) {
             step={5}
             maxValue={100}
             minValue={0}
-            value={props.distance}
+            value={parseInt(props.distance)}
             onChange={distance => { handleDistanceSlider(distance) }}
           />
         </div>
