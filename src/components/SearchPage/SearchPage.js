@@ -271,7 +271,8 @@ class SearchPage extends Component {
           </div>
           <div className="search-results">
             {this.props.doctors.length >= 0 && doctors}
-            {this.props.doctors.length === 0 && !this.props.loading ? <h3 className="no-results box-shadow">No doctors found matching your search criteria. Please try your search again.</h3> : <div></div>}
+            {this.props.doctors.length === 0 && !this.props.loading ? <h3 className="no-results box-shadow">
+              No physicians matching your search criteria are currently registered. We are actively working on recruiting doctors at this time. Please check back soon.</h3> : <div></div>}
           </div>
           {this.state.displayRequestModal && <RequestModal
             selectedDoctor={this.state.selectedDoctor}
@@ -318,7 +319,8 @@ class SearchPage extends Component {
           </div>
           <div className="search-results">
             {this.props.doctors.length >= 0 && doctors}
-            {this.props.doctors.length === 0 && this.props.loading === 0 ? <h3 className="no-results box-shadow">No doctors found matching your search criteria. Please try your search again.</h3> : <div></div>}
+            {this.props.doctors.length === 0 && this.props.loading === 0 ? <h3 className="no-results box-shadow">
+              No physicians matching your search criteria are currently registered. We are actively working on recruiting doctors at this time. Please check back soon.</h3> : <div></div>}
           </div>
           {this.state.displayRequestModal && <RequestModal
             selectedDoctor={this.state.selectedDoctor}
