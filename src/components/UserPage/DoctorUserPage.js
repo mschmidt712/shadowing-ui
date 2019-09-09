@@ -31,7 +31,7 @@ export default function DoctorUserPage(props) {
     <div>
       <h1 className="user-header"><i className="fa fa-user icon"></i>{props.name}, {props.degree}</h1>
       <h3 className="user-subheader">{props.specialty}</h3>
-      <div className="data-item center">
+      {props.currentUser && <div className="data-item center">
         <h5 className="user-subheader react-switch">Your Account is Set To</h5>
         <Switch
           onChange={props.onAccountActiveChange}
@@ -76,7 +76,7 @@ export default function DoctorUserPage(props) {
           id="account-active"
           className="tooltip"
         />
-      </div>
+      </div>}
       <div className="user-body">
         <div className="user-map">
           <UserPageMapComponent
@@ -119,9 +119,9 @@ export default function DoctorUserPage(props) {
               <div className="value">{props.additionalComments}</div>
             </div>
           </div>
-          <Link to="/sign-up/doctor" className="center-button">
+          {props.currentUser && <Link to="/sign-up/doctor" className="center-button">
             <button className="secondary">Edit Profile</button>
-          </Link>
+          </Link>}
         </div>
       </div>
     </div>

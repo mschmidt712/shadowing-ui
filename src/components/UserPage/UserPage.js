@@ -10,12 +10,20 @@ import config from '../../aws-config.json';
 
 class UserPage extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    const search = props.location.search.slice(1, props.location.search.length).split('&').reduce((obj, val) => {
+      const [prop, value] = val.split('=');
+      return Object.assign({}, obj, {
+        [prop]: value
+      });
+    }, {});
 
     this.state = {
       email: this.props.email,
       hipaaCert: undefined,
-      addressLatLong: undefined
+      addressLatLong: undefined,
+      currentUser: props.id === search.id
     }
 
     this.geocodeAddress = this.geocodeAddress.bind(this);
@@ -72,6 +80,8 @@ class UserPage extends Component {
   }
 
   render() {
+    console.log(this.state.currentUser);
+
     if (this.state.address && !this.state.addressLatLong) {
       this.geocodeAddress();
     }

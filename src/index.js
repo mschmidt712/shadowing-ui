@@ -34,9 +34,9 @@ ReactDOM.render((
 
         return <Home />;
       }} />
-      <Route path="/user" render={() => {
+      <Route path="/user" render={(props) => {
         if (store.getState().authReducer.isLoggedIn) {
-          return <UserPage />;
+          return <UserPage location={props.location} />;
         } else {
           return <Redirect to='/' />
         }

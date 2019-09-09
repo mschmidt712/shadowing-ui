@@ -209,8 +209,6 @@ class SignUpPageDoctor extends Component {
       badgePhoto: this.state.photoUpload
     }
 
-    console.log('Data: ', data);
-
     if (this.props.name) {
       this.props.updateDoctor(data, this.props.credentials);
     } else {

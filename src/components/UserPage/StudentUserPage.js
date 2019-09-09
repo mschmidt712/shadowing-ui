@@ -67,9 +67,9 @@ export default function StudentUserPage(props) {
             <h3 className="app-subtitle label">CV/Resume</h3>
             <button className="button primary"><a href={props.cv} className="no-decoration primary" download>Download PDF</a></button>
           </div>
-          <Link to="/sign-up/student" className="center">
+          {props.currentUser && <Link to="/sign-up/student" className="center">
             <button className="secondary center">Edit Profile</button>
-          </Link>
+          </Link>}
         </div>
       </div>
     </div>

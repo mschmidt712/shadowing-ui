@@ -74,8 +74,6 @@ export default (state = initialState, action) => {
         }
       });
     case userAction.UPDATE_DOCTOR:
-      console.log('Update Doctor Payload: ', action.payload);
-
       return Object.assign({}, state, {
         doctor: {
           name: action.payload.name,
