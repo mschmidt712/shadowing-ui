@@ -80,8 +80,6 @@ class UserPage extends Component {
   }
 
   render() {
-    console.log(this.state.currentUser);
-
     if (this.state.address && !this.state.addressLatLong) {
       this.geocodeAddress();
     }

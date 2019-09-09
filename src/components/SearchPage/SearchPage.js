@@ -24,6 +24,7 @@ class SearchPage extends Component {
       specialty: undefined,
       availability: {},
       approved: true,
+      active: true,
       doctors: [],
       addressLatLng: undefined,
       filtersEnabled: true,
@@ -66,8 +67,9 @@ class SearchPage extends Component {
     this.props.getDoctors(Object.assign({}, searchObj, {
       distance,
       availability,
-      approved: true
-    }));
+      approved: true,
+      active: true
+    }), true);
 
     if (window.innerWidth <= 480) {
       this.setState({
@@ -102,7 +104,7 @@ class SearchPage extends Component {
   }
 
   getDoctors() {
-    const filters = ['zipCode', 'distance', 'specialty', 'availability', 'approved'];
+    const filters = ['zipCode', 'distance', 'specialty', 'availability', 'approved', 'active'];
 
     const filterObj = filters.filter(val => {
       if (this.state[val]) {
@@ -117,7 +119,7 @@ class SearchPage extends Component {
 
     filterObj.availability = this.filterAvailabilityObj(filterObj.availability);
 
-    this.props.getDoctors(filterObj);
+    this.props.getDoctors(filterObj, true);
 
     if (window.innerWidth <= 480) {
       this.setState({
@@ -347,7 +349,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getDoctors: (query) => dispatch(userActions.getDoctors(query)),
+  getDoctors: (query, search) => dispatch(userActions.getDoctors(query, search)),
   closeConfirmationModal: () => dispatch(requestActions.closeConfirmationModal())
 });
 

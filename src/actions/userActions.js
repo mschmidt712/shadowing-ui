@@ -410,7 +410,7 @@ export const getDoctor = (id) => {
   }
 }
 
-export const getDoctors = (query) => {
+export const getDoctors = (query, search) => {
   return (dispatch) => {
     dispatch(loadingStart());
 
@@ -445,7 +445,9 @@ export const getDoctors = (query) => {
         dispatch({
           type: userAction.GET_DOCTORS_FAILURE
         });
-        dispatch(push(`/search?${queryString}`));
+        if (search) {
+          dispatch(push(`/search?${queryString}`));
+        }
         dispatch(loadingStop());
         return;
       }
@@ -459,7 +461,9 @@ export const getDoctors = (query) => {
           type: userAction.GET_DOCTORS,
           payload: JSON.parse(response.body)
         });
-        dispatch(push(`/search?${queryString}`));
+        if (search) {
+          dispatch(push(`/search?${queryString}`));
+        }
         dispatch(loadingStop());
         return;
       });

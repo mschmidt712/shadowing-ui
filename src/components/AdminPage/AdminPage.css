@@ -14,3 +14,21 @@
   padding: 1em;
   border: 1px solid var(--box-shadow-gray);
 }
+
+.enrollment-button {
+  width: 100%;
+  border-radius: 0;
+}
+
+.enrollment-button:disabled {
+  cursor: auto;
+  background-color: white;
+  color: black;
+}
+
+.user-row {
+  width: 100%;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
+}

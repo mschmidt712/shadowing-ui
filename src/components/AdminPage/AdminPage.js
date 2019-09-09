@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
-import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
+import DoctorsPendingApproval from './DoctorsPendingApproval';
+import Enrollment from './Enrollment';
+import EmailTemplates from './EmailTemplates';
 import * as userActions from '../../actions/userActions';
 import * as adminActions from '../../actions/adminActions';
 import * as emailActions from '../../actions/emailActions';
@@ -18,7 +19,9 @@ class AdminPage extends Component {
 
     this.state = {
       emailTemplate: {},
-      editorState: EditorState.createEmpty()
+      editorState: EditorState.createEmpty(),
+      showDoctors: false,
+      showStudents: false
     }
 
     this.setEditorState = this.setEditorState.bind(this);
@@ -27,10 +30,11 @@ class AdminPage extends Component {
     this.changeTemplate = this.changeTemplate.bind(this);
     this.updateEmailTemplate = this.updateEmailTemplate.bind(this);
     this.sendTestEmail = this.sendTestEmail.bind(this);
+    this.toggleEnrollmentVisibility = this.toggleEnrollmentVisibility.bind(this);
   }
 
   componentDidMount() {
-    this.props.getDoctorsForApproval();
+    this.props.getDoctors();
     this.props.getAdminData();
     this.props.getEmailTemplates();
   }
@@ -96,8 +100,17 @@ class AdminPage extends Component {
     this.props.sendTestEmail(this.props.email, template);
   }
 
+  toggleEnrollmentVisibility(occupation) {
+    const prop = `show${occupation}`;
+    this.setState({
+      [prop]: !this.state[prop]
+    });
+  }
+
   render() {
-    const doctors = this.props.doctors.map(doctor => {
+    const doctorsForApproval = this.props.doctors.filter(doctor => {
+      return !doctor.approved;
+    }).map(doctor => {
       return <div className="request box-shadow" key={doctor.id}>
         <div className="component-header">
           <div className="component-header-details">
@@ -130,74 +143,34 @@ class AdminPage extends Component {
           <button className="secondary"><Link to="/admin/email-templates" className="no-decoration secondary">Email Templates</Link></button>
         </nav>
         <p className="with-horizontal-line"></p>
-        {this.props.location.pathname === '/admin/pending-doctors' && <div>
-          <h3 className="app-subtitle">Doctors Pending Approval</h3>
-          {doctors.length > 0 && doctors}
-          {doctors.length === 0 && <div className="request box-shadow">
-            <p className="app-subtitle">No unapproved doctors found.</p>
-          </div>}
-        </div>}
-        {this.props.location.pathname === '/admin/enrollment' && <div>
-          <h3 className="app-subtitle">Enrollment Statistics</h3>
-          <h5>Last Updated: {moment(this.props.updateDate).format('dddd, MMMM Do YYYY')}</h5>
-          <div className="request box-shadow center">
-            <h4 className="app-subtitle"><i className="fa fa-user-md"></i> Doctors</h4>
-            <h1>{this.props.doctorCount}</h1>
-          </div>
-          <div className="request box-shadow center">
-            <h4 className="app-subtitle"><i className="fa fa-user-graduate"></i> Students</h4>
-            <h1>{this.props.studentCount}</h1>
-          </div>
-          <div className="request box-shadow center">
-            <h4 className="app-subtitle"><i className="fas fa-envelope"></i> Requests</h4>
-            <h1>{this.props.requestCount}</h1>
-          </div>
-        </div>}
-        {this.props.location.pathname === '/admin/email-templates' && <div>
-          <h3 className="app-subtitle">Email Templates</h3>
-          <nav>
-            <button className="secondary" onClick={() => { this.changeTemplate('student-welcome-email-template') }}>Student Welcome Email Template</button>
-            <button className="secondary" onClick={() => { this.changeTemplate('doctor-welcome-email-template') }}>Doctor Welcome Email Template</button>
-            <button className="secondary" onClick={() => { this.changeTemplate('new-request-email-template') }}>New Request Email Template</button>
-            <button className="secondary" onClick={() => { this.changeTemplate('doctor-approved-email-template') }}>Doctor Approved Email Template</button>
-          </nav>
-          <div className="request box-shadow">
-            <div className="data-item">
-              <h5>Template Name</h5>
-              <div className="value">
-                <input type="text" name="name" value={this.state.emailTemplate.TemplateName} onChange={this.onInputChange} placeholder="Template Name" required />
-              </div>
-            </div>
-            <div className="data-item">
-              <h5>Template Subject</h5>
-              <div className="value">
-                <input type="text" name="subject" value={this.state.emailTemplate.SubjectPart} onChange={this.onInputChange} placeholder="Template Name" required />
-              </div>
-            </div>
-            <h5 className="">Template Body</h5>
-            <Editor
-              editorState={this.state.editorState}
-              toolbarClassName="toolbarClassName"
-              wrapperClassName="wrapper"
-              editorClassName="editor"
-              onEditorStateChange={this.onEditorStateChange}
-            />
-            <div className="center">
-              <button className="button secondary" onClick={this.sendTestEmail}>Send Test Email</button>
-              <button className="button primary" onClick={this.updateEmailTemplate}>Save Template</button>
-            </div>
-          </div>
-          {this.props.showUpdateTemplateConfirmation && <div className="modal center">
-            <div className="modal-content">
-              <span className="close" onClick={this.props.handleUpdateTemplateConfirmation}>&times;</span>
-              <div className="modal-text">
-                <h1>Template Successfully Updated</h1>
-                <p>The email template has been successfully updated and will now be used for outgoing emails. You can send a test email at any time to preview the text and format.</p>
-              </div>
-              <button className="button primary" onClick={this.props.handleUpdateTemplateConfirmation}> Close </button>
-            </div>
-          </div>}
-        </div>}
+        {this.props.location.pathname === '/admin/pending-doctors' &&
+          <DoctorsPendingApproval
+            doctorsForApproval={doctorsForApproval}
+          />}
+        {this.props.location.pathname === '/admin/enrollment' &&
+          <Enrollment
+            updateDate={this.props.updateDate}
+            doctors={this.props.doctors}
+            showDoctors={this.state.showDoctors}
+            doctorCount={this.props.doctorCount}
+            showStudents={this.state.showStudents}
+            studentCount={this.props.studentCount}
+            requestCount={this.props.requestCount}
+            toggleEnrollmentVisibility={this.toggleEnrollmentVisibility}
+
+          />}
+        {this.props.location.pathname === '/admin/email-templates' &&
+          <EmailTemplates
+            changeTemplate={this.changeTemplate}
+            emailTemplate={this.state.emailTemplate}
+            onInputChange={this.onInputChange}
+            editorState={this.state.editorState}
+            onEditorStateChange={this.onEditorStateChange}
+            sendTestEmail={this.sendTestEmail}
+            updateEmailTemplate={this.updateEmailTemplate}
+            showUpdateTemplateConfirmation={this.props.showUpdateTemplateConfirmation}
+            handleUpdateTemplateConfirmation={this.props.handleUpdateTemplateConfirmation}
+          />}
       </div>
     )
   }
@@ -211,7 +184,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getDoctorsForApproval: () => dispatch(userActions.getDoctorsForApproval()),
+  // getDoctorsForApproval: () => dispatch(userActions.getDoctorsForApproval()),
+  getDoctors: () => dispatch(userActions.getDoctors()),
   approveDoctor: (doctor) => dispatch(userActions.approveDoctor(doctor)),
   getAdminData: () => dispatch(adminActions.getAdminData()),
   getEmailTemplates: () => dispatch(emailActions.getEmailTemplates()),
