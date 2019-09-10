@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
+import ReactPixel from 'react-facebook-pixel';
 import Geocode from 'react-geocode';
 
 import SearchMapComponent from './SearchMapComponent';
@@ -75,6 +76,7 @@ class SearchPage extends Component {
     const history = createBrowserHistory();
     history.push(`/search?${this.createQueryString(query)}`);
 
+    ReactPixel.track('Search', { search_string: query.zipCode });
     this.props.getDoctors(query);
 
     if (window.innerWidth <= 480) {
@@ -127,6 +129,7 @@ class SearchPage extends Component {
 
     const history = createBrowserHistory();
     history.push(`/search?${this.createQueryString(filterObj)}`);
+    ReactPixel.track('Search', { search_string: filterObj.zipCode });
 
     this.props.getDoctors(filterObj, true);
 

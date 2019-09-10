@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactPixel from 'react-facebook-pixel';
 import { Provider } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router'
@@ -19,6 +20,9 @@ import AdminPage from './components/AdminPage/AdminPage';
 import * as serviceWorker from './serviceWorker';
 import store, { history } from './store';
 import * as authActions from './actions/authTypes';
+
+ReactPixel.init('766457217144846', {}, { autoConfig: true });
+ReactPixel.pageView();
 
 ReactDOM.render((
   <Provider store={store}>
