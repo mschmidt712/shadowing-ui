@@ -116,7 +116,7 @@ class RequestModal extends Component {
           <div className="modal-text">
             <div className="form">
               <h1 className="app-title">Request Shadowing</h1>
-              <h3 className="app-subtitle">Dr. {this.props.selectedDoctor.name}, {this.props.selectedDoctor.degree}</h3>
+              <h3 className="app-subtitle">{this.props.selectedDoctor.name}, {this.props.selectedDoctor.degree}</h3>
               <div className="data-item">
                 <h5 className="app-subtitle">Name:</h5>
                 {this.props.student.name}
@@ -146,7 +146,7 @@ class RequestModal extends Component {
                   id="additionalInfo"
                   value={this.state.additionalInfo}
                   onChange={this.onInputChange}
-                  placeholder={`Any additional information you would like Dr. ${this.props.selectedDoctor.name} to know when considering your request. 250 character limit.`}></textarea>
+                  placeholder={`Any additional information you would like ${this.props.selectedDoctor.name} to know when considering your request. 250 character limit.`}></textarea>
               </div>
               <button className="primary" id="submit" onClick={this.validateRequest}>Request</button>
             </div>

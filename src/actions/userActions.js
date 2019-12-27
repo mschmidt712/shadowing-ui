@@ -247,9 +247,12 @@ function uploadBadgePhoto(data, credentials) {
   const params = { Bucket: 'physician-badge-images', Key: `${data.id}.jpg`, Body: data.badgePhoto };
   const options = { partSize: 10 * 1024 * 1024, queueSize: 1 };
 
+  console.log(data.id);
+
   return new Promise((resolve, reject) => {
     return s3.upload(params, options, function (err, data) {
       if (err) {
+        console.error(err);
         return reject(err);
       }
       return resolve(data.Location);

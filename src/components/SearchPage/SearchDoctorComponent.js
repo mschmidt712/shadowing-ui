@@ -45,6 +45,12 @@ export default class SearchDoctorComponent extends Component {
     const acceptingRequests = this.getAcceptingRequests(this.props.doctor);
 
     let doctorComponent;
+    const professionalName = <div>
+      {this.props.doctor.career === 'MD/DO' && <h3>{this.props.doctor.specialty} Physician, {this.props.doctor.degree}</h3>}
+      {['PA', 'NP', 'RN'].includes(this.props.doctor.career) && <h3>{this.props.doctor.specialty} {this.props.doctor.career}</h3>}
+      {!['MD/DO', 'PA', 'NP', 'RN'].includes(this.props.doctor.career) && <h3>{this.props.doctor.career}</h3>}
+    </div>;
+
     if (this.props.isLoggedIn && acceptingRequests) {
       const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
       const availability = daysOfWeek.map(day => {
@@ -68,10 +74,7 @@ export default class SearchDoctorComponent extends Component {
         <div className="component-header">
           <div className="component-header-details">
             <i className="fa fa-user-md"></i>
-            <div>
-              <h3>Dr. {this.props.doctor.name}, {this.props.doctor.degree}</h3>
-              <h5 className="app-subtitle">{this.props.doctor.specialty}</h5>
-            </div>
+            {professionalName}
           </div>
           <div className="dropdown-container">
             <div className="component-header-right">
@@ -89,29 +92,16 @@ export default class SearchDoctorComponent extends Component {
           </div>
         </div>
         {this.state.expanded && <div>
-          <p className="with-horizontal-line"></p>
-          <div className="data-item spaced">
-            <div className="left-icon-container">
-              <i className="far fa-clock"></i>
-              <div className="data-item column nested">
-                <h5 className="request-data-header">Shift Length: </h5>
-                <span>{this.props.doctor.shiftLength[0]} hours to {this.props.doctor.shiftLength[1]} hours</span>
-              </div>
-            </div>
-            <div className="left-icon-container">
-              <i className="fas fa-map-marker-alt"></i>
-              <div className="data-item column nested">
-                <h5 className="request-data-header">Address: </h5>
-                <span>{this.props.doctor.address.streetAddress} </span>
-                <span>{this.props.doctor.address.city}, {this.props.doctor.address.state} {this.props.doctor.address.zipCode}</span>
-              </div>
-            </div>
-          </div>
-          <p className="with-horizontal-line"></p>
           <div className="nested">
             <h5>Availability</h5>
             <div className="availability-table">
               {availability}
+            </div>
+          </div>
+          <div className="data-item">
+            <div className="data-item column nested">
+              <h5 className="request-data-header">Shift Length: </h5>
+              <span>{this.props.doctor.shiftLength[0]} hours to {this.props.doctor.shiftLength[1]} hours</span>
             </div>
           </div>
           <div className="data-item column nested">
@@ -131,10 +121,7 @@ export default class SearchDoctorComponent extends Component {
         <div className="component-header">
           <div className="component-header-details">
             <i className="fa fa-user-md"></i>
-            <div>
-              <h3>{this.props.doctor.specialty} Physician</h3>
-              <h5 className="app-subtitle">{this.props.doctor.specialty}</h5>
-            </div>
+            {professionalName}
           </div>
           <div className="component-header-right">
             <i className="fas fa-map-marked-alt"></i>
@@ -149,8 +136,7 @@ export default class SearchDoctorComponent extends Component {
           <div className="component-header-details">
             <i className="fa fa-user-md"></i>
             <div>
-              <h3>{this.props.doctor.specialty} Physician</h3>
-              <h5 className="app-subtitle">{this.props.doctor.specialty}</h5>
+              {professionalName}
             </div>
           </div>
           <div className="component-header-right">

@@ -72,6 +72,7 @@ export default (state = initialState, action) => {
         doctor: {
           email: action.payload.email,
           name: action.payload.name,
+          career: action.payload.career,
           degree: action.payload.degree,
           address: action.payload.address,
           specialty: action.payload.specialty,
@@ -91,6 +92,7 @@ export default (state = initialState, action) => {
         doctor: {
           email: action.payload.email,
           name: action.payload.name,
+          career: action.payload.career,
           degree: action.payload.degree,
           address: action.payload.address,
           specialty: action.payload.specialty,
@@ -110,6 +112,7 @@ export default (state = initialState, action) => {
         doctor: {
           email: action.payload.email,
           name: action.payload.name,
+          career: action.payload.career,
           degree: action.payload.degree,
           address: action.payload.address,
           specialty: action.payload.specialty,
@@ -129,9 +132,8 @@ export default (state = initialState, action) => {
         active: false
       });
     case userAction.GET_DOCTORS:
-      return Object.assign({}, state, {
-        doctors: action.payload
-      });
+      state.doctors = action.payload;
+      return state;
     case userAction.GET_DOCTORS_FAILURE:
       return Object.assign({}, state, {
         doctors: []

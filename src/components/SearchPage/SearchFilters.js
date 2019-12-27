@@ -2,7 +2,8 @@ import React from 'react';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 
-import { medicalSpecialties } from '../SignUpPageDoctor/medicalSpecialtiesConstant';
+import medicalCareers from '../../constants/medicalCareers';
+import medicalSpecialties from '../../constants/medicalSpecialties';
 
 export default function SearchFilters(props) {
   function handleDistanceSlider(distance) {
@@ -19,6 +20,9 @@ export default function SearchFilters(props) {
   const specialties = medicalSpecialties.map((val, index) => {
     return <option value={val} key={index}>{val}</option>
   });
+  const careers = medicalCareers.map((career, index) => (
+    <option value={career.abbreviation} key={index}>{career.name}</option>
+  ));
 
   const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
   const availability = daysOfTheWeek.map(day => {
@@ -56,6 +60,15 @@ export default function SearchFilters(props) {
             value={parseInt(props.distance)}
             onChange={distance => { handleDistanceSlider(distance) }}
           />
+        </div>
+      </div>
+      <div className="data-item column">
+        <label htmlFor="career"><h5>Career:</h5></label>
+        <div className="select">
+          <select type="text" name="career" id="career" value={props.career} onChange={props.onInputChange} placeholder="Career">
+            {careers}
+          </select>
+          <i className="fas fa-angle-down"></i>
         </div>
       </div>
       <div className="data-item column">

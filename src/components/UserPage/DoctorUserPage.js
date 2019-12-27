@@ -30,7 +30,7 @@ export default function DoctorUserPage(props) {
   return (
     <div>
       <h1 className="user-header"><i className="fa fa-user icon"></i>{props.name}, {props.degree}</h1>
-      <h3 className="user-subheader">{props.specialty}</h3>
+      {props.specialty && <h3 className="user-subheader">{props.specialty}</h3>}
       {props.currentUser && <div className="data-item center">
         <h5 className="user-subheader react-switch">Your Account is Set To</h5>
         <Switch

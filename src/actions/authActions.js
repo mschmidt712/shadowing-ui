@@ -281,7 +281,6 @@ export const registerUser = (email, password, occupation) => {
         return resolve(cognitoUser);
       });
     }).then(user => {
-      console.log(`New User Registered with Email: ${user.getUsername()}`);
       dispatch({
         type: authAction.REGISTER_USER
       });
@@ -317,11 +316,9 @@ export const verifyUser = (email, password, verification, occupation) => {
         }
         return resolve(result);
       });
-    }).then(result => {
-      console.log(`Account Verification: ${result}`);
-
-      return dispatch(loginUser(email, password));
-    }).then(() => {
+    }).then(result => (
+      dispatch(loginUser(email, password))
+    )).then(() => {
       dispatch({
         type: authAction.VERIFY_USER,
         payload: {

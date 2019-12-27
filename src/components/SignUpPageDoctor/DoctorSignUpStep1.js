@@ -1,24 +1,32 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip';
-import { medicalSpecialties } from './medicalSpecialtiesConstant';
+import medicalSpecialties from '../../constants/medicalSpecialties';
+import medicalCareers from '../../constants/medicalCareers';
 
 export default function Step1(props) {
   function validateForm() {
     props.setTouched('stepOne');
 
-    if (!props.firstName || !props.lastName || !props.degree) {
-      alert('First name, last name, and degree are required!');
+    if (!props.firstName || !props.lastName || !props.career) {
+      alert('First name, last name, and career are required!');
+      return;
+    } else if (props.career === 'MD/DO' && !props.degree) {
+      alert('Degree is required!');
       return;
     } else if (!props.streetAddress || !props.city || !props.state || !props.zipCode) {
       alert('Full address is required!');
       return;
-    } else if (!props.specialty) {
+    } else if (['MD/DO', 'NP', 'PA', 'RN'].includes(props.career) && !props.specialty) {
       alert('Specialty is required!');
       return;
     }
 
     return props.nextStep();
   }
+
+  const careers = medicalCareers.map(career => (
+    <option value={career.abbreviation} key={career.abbreviation}>{career.name}</option>
+  ));
 
   const specialties = medicalSpecialties.map(specialty => (
     <option value={specialty} key={specialty}>{specialty}</option>
@@ -70,7 +78,19 @@ export default function Step1(props) {
         <div className="form-input value">
           <input type="text" name="firstName" value={props.firstName} onChange={props.onInputChange} placeholder="First Name" className={props.touched} required />
           <input type="text" name="lastName" value={props.lastName} onChange={props.onInputChange} placeholder="Last Name" className={props.touched} required />
-          <div className="select small">
+        </div>
+      </div>
+      <div className="form-element">
+        <label className="label">Career</label>
+        <div className="form-input value">
+          <div className="select">
+            <select type="text" name="career" value={props.career} onChange={props.onInputChange} placeholder="Career" className={props.touched} required>
+              <option value=""></option>
+              {careers}
+            </select>
+            <i className="fas fa-angle-down"></i>
+          </div>
+          {props.career === 'MD/DO' && <div className="select small">
             <select type="text" name="degree" value={props.degree} onChange={props.onInputChange} placeholder="Degree" className={props.touched} required>
               <option value=""></option>
               <option value="MD">MD</option>
@@ -78,9 +98,21 @@ export default function Step1(props) {
               <option value="MBBS">MBBS</option>
             </select>
             <i className="fas fa-angle-down"></i>
-          </div>
+          </div>}
         </div>
       </div>
+      {['MD/DO', 'PA', 'NP', 'RN'].includes(props.career) && <div className="form-element">
+        <label className="label">Specialty</label>
+        <div className="form-input value ">
+          <div className="select">
+            <select type="text" name="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty" className={props.touched} required >
+              <option value=""></option>
+              {specialties}
+            </select>
+            <i className="fas fa-angle-down"></i>
+          </div>
+        </div>
+      </div>}
       <div className="form-element">
         <div className="label">
           <label>Address</label>
@@ -155,18 +187,6 @@ export default function Step1(props) {
             <i className="fas fa-angle-down"></i>
           </span>
           <input type="text" name="zipCode" value={props.zipCode} onChange={props.onInputChange} placeholder="Zip Code" className={props.touched} required />
-        </div>
-      </div>
-      <div className="form-element">
-        <label className="label">Specialty</label>
-        <div className="form-input value ">
-          <div className="select">
-            <select type="text" name="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty" className={props.touched} required >
-              <option value=""></option>
-              {specialties}
-            </select>
-            <i className="fas fa-angle-down"></i>
-          </div>
         </div>
       </div>
       <button onClick={validateForm} type="button" className="primary">Next</button>

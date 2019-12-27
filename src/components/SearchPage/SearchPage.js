@@ -23,6 +23,7 @@ class SearchPage extends Component {
     this.state = {
       zipCode: undefined,
       distance: 20,
+      career: undefined,
       specialty: undefined,
       availability: {},
       approved: true,
@@ -61,6 +62,7 @@ class SearchPage extends Component {
 
     this.setState({
       zipCode: searchObj.zipCode,
+      career: searchObj.career,
       distance,
       specialty,
       availability
@@ -77,6 +79,8 @@ class SearchPage extends Component {
     history.push(`/search?${this.createQueryString(query)}`);
 
     ReactPixel.track('Search', { search_string: query.zipCode });
+    console.log('Query: ', query);
+
     this.props.getDoctors(query);
 
     if (window.innerWidth <= 480) {
@@ -86,6 +90,7 @@ class SearchPage extends Component {
     }
 
     handleEnterClick('zipCode');
+    handleEnterClick('career');
     handleEnterClick('specialty');
     const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     daysOfWeek.forEach(day => {
@@ -112,7 +117,7 @@ class SearchPage extends Component {
   }
 
   getDoctors() {
-    const filters = ['zipCode', 'distance', 'specialty', 'availability', 'approved', 'active'];
+    const filters = ['zipCode', 'career', 'distance', 'specialty', 'availability', 'approved', 'active'];
 
     const filterObj = filters.filter(val => {
       if (this.state[val]) {
@@ -130,6 +135,8 @@ class SearchPage extends Component {
     const history = createBrowserHistory();
     history.push(`/search?${this.createQueryString(filterObj)}`);
     ReactPixel.track('Search', { search_string: filterObj.zipCode });
+
+    console.log('Filter Obj: ', filterObj);
 
     this.props.getDoctors(filterObj, true);
 
@@ -265,6 +272,7 @@ class SearchPage extends Component {
         <div className="search-filters-column box-shadow mobile">
           <SearchFilters
             zipCode={this.state.zipCode}
+            career={this.state.career}
             distance={this.state.distance}
             specialty={this.state.specialty}
             availability={this.state.availability}
@@ -300,7 +308,7 @@ class SearchPage extends Component {
           <div className="search-results">
             {this.props.doctors.length >= 0 && doctors}
             {this.props.doctors.length === 0 && !this.props.loading ? <h3 className="no-results box-shadow">
-              No physicians matching your search criteria are currently registered. We are actively working on recruiting doctors at this time. Please check back soon.</h3> : <div></div>}
+              No professionals matching your search criteria are currently registered. We are actively working on recruiting medical professionals at this time. Please check back soon.</h3> : <div></div>}
           </div>
           {this.state.displayRequestModal && <RequestModal
             selectedDoctor={this.state.selectedDoctor}
@@ -318,6 +326,7 @@ class SearchPage extends Component {
         {this.state.filtersEnabled && <div className="search-filters-column box-shadow">
           <SearchFilters
             zipCode={this.state.zipCode}
+            career={this.state.career}
             distance={this.state.distance}
             specialty={this.state.specialty}
             availability={this.state.availability}
@@ -348,7 +357,7 @@ class SearchPage extends Component {
           <div className="search-results">
             {this.props.doctors.length >= 0 && doctors}
             {this.props.doctors.length === 0 && this.props.loading === 0 ? <h3 className="no-results box-shadow">
-              No physicians matching your search criteria are currently registered. We are actively working on recruiting doctors at this time. Please check back soon.</h3> : <div></div>}
+              No professionals matching your search criteria are currently registered. We are actively working on recruiting medical professionals at this time. Please check back soon.</h3> : <div></div>}
           </div>
           {this.state.displayRequestModal && <RequestModal
             selectedDoctor={this.state.selectedDoctor}

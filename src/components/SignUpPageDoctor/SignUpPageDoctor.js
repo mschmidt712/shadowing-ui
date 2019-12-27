@@ -13,8 +13,6 @@ class SignUpPageDoctor extends Component {
   constructor(props) {
     super(props)
 
-    const [firstName, lastName] = props.name.split(' ');
-
     let availability = {
       sunday: {
         checked: false,
@@ -45,41 +43,26 @@ class SignUpPageDoctor extends Component {
         times: []
       }
     };
-    if (props.scheduling) {
-      availability = Object.keys(props.scheduling).reduce((obj, day) => {
-        if (!props.scheduling[day]) {
-          obj[day] = {
-            checked: false,
-            times: []
-          };
-        } else {
-          obj[day] = {
-            checked: true,
-            times: props.scheduling[day]
-          }
-        }
-        return obj;
-      }, {})
-    }
 
     this.state = {
-      firstName: firstName || '',
-      lastName: lastName || '',
-      degree: props.degree || '',
-      email: props.email || '',
-      badgePhoto: props.badgePhoto || '',
-      streetAddress: props.address.streetAddress || '',
-      city: props.address.city || '',
-      state: props.address.state || '',
-      zipCode: props.address.zipCode || undefined,
-      specialty: props.specialty || '',
-      maxRequests: props.maxRequests || undefined,
-      requestEmail: props.requestEmail || '',
-      availability,
-      shiftLengthMin: props.shiftLength ? Number(props.shiftLength[0]) : undefined,
-      shiftLengthMax: props.shiftLength ? props.shiftLength[1] : undefined,
-      additionalComments: props.additionalComments || '',
-      photoUpload: props.badgePhoto || '',
+      firstName: '',
+      lastName: '',
+      career: '',
+      degree: '',
+      email: this.props.email,
+      badgePhoto: '',
+      streetAddress: '',
+      city: '',
+      state: '',
+      zipCode: undefined,
+      specialty: '',
+      maxRequests: undefined,
+      requestEmail: '',
+      availability: availability,
+      shiftLengthMin: undefined,
+      shiftLengthMax: undefined,
+      additionalComments: '',
+      photoUpload: '',
       step: 1,
       stepOneTouched: 'clean',
       stepTwoTouched: 'clean',
@@ -107,6 +90,52 @@ class SignUpPageDoctor extends Component {
 
     this.toggleChangeEmail = this.toggleChangeEmail.bind(this);
     this.toggleChangePasswordModal = this.toggleChangePasswordModal.bind(this);
+  }
+
+  componentDidMount () {
+    let availability = Object.assign({}, this.state.availability);
+    if (this.props.scheduling) {
+      availability = Object.keys(this.props.scheduling).reduce((obj, day) => {
+        if (!this.props.scheduling[day]) {
+          obj[day] = {
+            checked: false,
+            times: []
+          };
+        } else {
+          obj[day] = {
+            checked: true,
+            times: this.props.scheduling[day]
+          }
+        }
+        return obj;
+      }, {})
+    }
+
+    if (this.props.name && this.props.address) {
+      const [firstName, lastName] = this.props.name.split(' ');
+      const newState = {
+        firstName: firstName,
+        lastName: lastName,
+        career: this.props.career,
+        degree: this.props.degree,
+        email: this.props.email,
+        badgePhoto: this.props.badgePhoto,
+        streetAddress: this.props.address.streetAddress || '',
+        city: this.props.address.city || '',
+        state: this.props.address.state || '',
+        zipCode: this.props.address.zipCode || undefined,
+        specialty: this.props.specialty || '',
+        maxRequests: this.props.maxRequests || undefined,
+        requestEmail: this.props.requestEmail || '',
+        availability,
+        shiftLengthMin: this.props.shiftLength ? Number(this.props.shiftLength[0]) : undefined,
+        shiftLengthMax: this.props.shiftLength ? this.props.shiftLength[1] : undefined,
+        additionalComments: this.props.additionalComments || '',
+        photoUpload: this.props.badgePhoto || '',
+      }
+
+      this.setState(newState);
+    }
   }
 
   onInputChange(event) {
@@ -176,6 +205,15 @@ class SignUpPageDoctor extends Component {
 
   createDoctor() {
     const name = `${this.state.firstName} ${this.state.lastName}`;
+    let degree = this.state.career;
+    if (this.state.career === 'MD/DO') {
+      degree = this.state.degree;
+    }
+  
+    let specialty = undefined;
+    if (['MD/DO', 'NP', 'PA', 'RN'].includes(this.state.career)) {
+      specialty = this.state.specialty;
+    }
     const address = {
       streetAddress: this.state.streetAddress,
       city: this.state.city,
@@ -198,9 +236,10 @@ class SignUpPageDoctor extends Component {
       email: this.props.email,
       id: this.props.id,
       name,
-      degree: this.state.degree,
+      career: this.state.career,
+      degree: degree,
       address,
-      specialty: this.state.specialty,
+      specialty: specialty,
       maxRequests: this.state.maxRequests,
       requestEmail: this.state.requestEmail || this.props.email,
       scheduling,
@@ -234,6 +273,7 @@ class SignUpPageDoctor extends Component {
         {this.state.step === 1 && <Step1
           firstName={this.state.firstName}
           lastName={this.state.lastName}
+          career={this.state.career}
           degree={this.state.degree}
           email={this.state.email}
           streetAddress={this.state.streetAddress}

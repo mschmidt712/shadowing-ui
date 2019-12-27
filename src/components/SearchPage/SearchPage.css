@@ -74,6 +74,7 @@
   align-items: center;
   margin: 0.5em;
   position: relative;
+  background: var(--background-white);
 }
 
 .select.small {
