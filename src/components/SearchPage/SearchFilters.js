@@ -71,7 +71,7 @@ export default function SearchFilters(props) {
           <i className="fas fa-angle-down"></i>
         </div>
       </div>
-      <div className="data-item column">
+      {['MD/DO', 'NP', 'PA', 'RN'].includes(props.career) && <div className="data-item column">
         <label htmlFor="specialty"><h5>Specialty:</h5></label>
         <div className="select">
           <select type="text" name="specialty" id="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty">
@@ -80,7 +80,7 @@ export default function SearchFilters(props) {
           </select>
           <i className="fas fa-angle-down"></i>
         </div>
-      </div>
+      </div>}
       <div className="data-item column">
         <h5>Availability:</h5>
         {availability}

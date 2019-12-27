@@ -79,7 +79,6 @@ class SearchPage extends Component {
     history.push(`/search?${this.createQueryString(query)}`);
 
     ReactPixel.track('Search', { search_string: query.zipCode });
-    console.log('Query: ', query);
 
     this.props.getDoctors(query);
 
@@ -91,7 +90,6 @@ class SearchPage extends Component {
 
     handleEnterClick('zipCode');
     handleEnterClick('career');
-    handleEnterClick('specialty');
     const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     daysOfWeek.forEach(day => {
       handleEnterClick(day);
@@ -135,8 +133,6 @@ class SearchPage extends Component {
     const history = createBrowserHistory();
     history.push(`/search?${this.createQueryString(filterObj)}`);
     ReactPixel.track('Search', { search_string: filterObj.zipCode });
-
-    console.log('Filter Obj: ', filterObj);
 
     this.props.getDoctors(filterObj, true);
 
