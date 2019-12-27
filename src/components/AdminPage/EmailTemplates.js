@@ -7,9 +7,9 @@ export default function EmailTemplates(props) {
       <h3 className="app-subtitle">Email Templates</h3>
       <nav>
         <button className="secondary" onClick={() => { props.changeTemplate('student-welcome-email-template') }}>Student Welcome Email Template</button>
-        <button className="secondary" onClick={() => { props.changeTemplate('doctor-welcome-email-template') }}>Doctor Welcome Email Template</button>
+        <button className="secondary" onClick={() => { props.changeTemplate('doctor-welcome-email-template') }}>Medical Professional Welcome Email Template</button>
         <button className="secondary" onClick={() => { props.changeTemplate('new-request-email-template') }}>New Request Email Template</button>
-        <button className="secondary" onClick={() => { props.changeTemplate('doctor-approved-email-template') }}>Doctor Approved Email Template</button>
+        <button className="secondary" onClick={() => { props.changeTemplate('doctor-approved-email-template') }}>Medical Professional Approved Email Template</button>
       </nav>
       <div className="request box-shadow">
         <div className="data-item">

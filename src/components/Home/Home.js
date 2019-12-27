@@ -47,7 +47,7 @@ class Home extends Component {
       <div className="background-image">
         <div className="home main">
           <h1 className="app-title" >Find Shadowing</h1>
-          <h3 className="app-subtitle">A website built to help students find physicians to shadow in a number of specialities in their area.</h3>
+          <h3 className="app-subtitle">A website built to help students find medical professionals to shadow in a number of specialities in their area.</h3>
           <h3 className="app-subtitle">Enter your location below to get started</h3>
           <div className="search  data-item">
             <div className="select">
@@ -62,7 +62,7 @@ class Home extends Component {
               <i className="fa fa-search"></i>
             </Link>
           </div>
-          <button className="tertiary small" onClick={() => { this.props.handleSignUpClick(); this.setOccupation("doctor"); }}>Physician Sign Up</button>
+          <button className="tertiary small" onClick={() => { this.props.handleSignUpClick(); this.setOccupation("doctor"); }}>Professionals Sign Up</button>
         </div>
       </div>
     )
