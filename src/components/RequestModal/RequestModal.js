@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import handleEnterClick from '../utilities/handleEnterClick';
+import daysOfTheWeek from '../../constants/daysOfTheWeek';
 import * as requestActions from '../../actions/requestActions';
 
 class RequestModal extends Component {
@@ -10,15 +11,11 @@ class RequestModal extends Component {
     super(props)
 
     this.state = {
-      availability: {
-        'sunday': false,
-        'monday': false,
-        'tuesday': false,
-        'wednesday': false,
-        'thursday': false,
-        'friday': false,
-        'saturday': false
-      },
+      availability: daysOfTheWeek.reduce((obj, val) => (
+        Object.assign({}, obj, {
+          [val]: false
+        })
+      ), {}),
       additionalInfo: ''
     }
 
@@ -95,7 +92,6 @@ class RequestModal extends Component {
   }
 
   render() {
-    const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     const availableDays = daysOfTheWeek.filter(day => {
       return this.props.selectedDoctor.scheduling[day];
     });

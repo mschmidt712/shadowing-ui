@@ -5,6 +5,7 @@ import moment from 'moment';
 import Switch from "react-switch";
 
 import UserPageMapComponent from './UserPageMapComponent';
+import daysOfTheWeek from '../../constants/daysOfTheWeek';
 import './UserPage.css';
 import config from '../../aws-config.json';
 
@@ -14,8 +15,7 @@ export default function DoctorUserPage(props) {
   }
 
   const accountStatus = props.approved ? 'approved' : 'pending';
-  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-  const availability = days.filter(day => {
+  const availability = daysOfTheWeek.filter(day => {
     if (!props.scheduling[day]) {
       return false;
     }

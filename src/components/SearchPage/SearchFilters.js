@@ -4,6 +4,7 @@ import 'react-input-range/lib/css/index.css';
 
 import medicalCareers from '../../constants/medicalCareers';
 import medicalSpecialties from '../../constants/medicalSpecialties';
+import daysOfTheWeek from '../../constants/daysOfTheWeek';
 
 export default function SearchFilters(props) {
   function handleDistanceSlider(distance) {
@@ -24,7 +25,6 @@ export default function SearchFilters(props) {
     <option value={career.abbreviation} key={index}>{career.name}</option>
   ));
 
-  const daysOfTheWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
   const availability = daysOfTheWeek.map(day => {
     return <div className="form-input checkbox-container" key={day}>
       <input type="checkbox" id={day} name={day} checked={props.availability ? props.availability[day] : false} onChange={props.onAvailabilityChange} />

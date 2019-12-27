@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+
+import daysOfTheWeek from '../../constants/daysOfTheWeek';
 import './SignUpPageDoctor.css';
 
 export default function Step2(props) {
@@ -10,9 +12,8 @@ export default function Step2(props) {
   function validateForm() {
     props.setTouched('stepTwo');
 
-    const availabilityDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     let availabilityChecked = false;
-    availabilityDays.forEach(day => {
+    daysOfTheWeek.forEach(day => {
       if (props.availability[day].checked) {
         availabilityChecked = true;
       }
@@ -32,8 +33,7 @@ export default function Step2(props) {
     return props.nextStep();
   }
 
-  const availabilityDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];;
-  const availability = availabilityDays.map((day, key) => {
+  const availability = daysOfTheWeek.map((day, key) => {
     const checked = props.availability[day].checked;
     let classes = 'checkbox-container';
     if (checked) {

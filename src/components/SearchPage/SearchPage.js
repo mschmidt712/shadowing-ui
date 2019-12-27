@@ -12,6 +12,7 @@ import RequestConfirmationModal from '../RequestModal/RequestConfirmationModal';
 import handleEnterClick from '../utilities/handleEnterClick';
 import './SearchPage.css';
 import config from '../../aws-config.json';
+import daysOfTheWeek from '../../constants/daysOfTheWeek';
 
 import * as userActions from '../../actions/userActions';
 import * as requestActions from '../../actions/requestActions';
@@ -90,8 +91,7 @@ class SearchPage extends Component {
 
     handleEnterClick('zipCode');
     handleEnterClick('career');
-    const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    daysOfWeek.forEach(day => {
+    daysOfTheWeek.forEach(day => {
       handleEnterClick(day);
     });
   }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import moment from 'moment';
 
+import daysOfTheWeek from '../../constants/daysOfTheWeek';
+
 export default class SearchDoctorComponent extends Component {
   constructor(props) {
     super(props)
@@ -52,8 +54,7 @@ export default class SearchDoctorComponent extends Component {
     </div>;
 
     if (this.props.isLoggedIn && acceptingRequests) {
-      const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-      const availability = daysOfWeek.map(day => {
+      const availability = daysOfTheWeek.map(day => {
         if (!this.props.doctor.scheduling[day]) {
           return <table key={day}>
             <tbody>
