@@ -4,6 +4,7 @@ import 'react-input-range/lib/css/index.css';
 
 import medicalCareers from '../../constants/medicalCareers';
 import medicalSpecialties from '../../constants/medicalSpecialties';
+import medicalCareersWithSpecialties from '../../constants/medicalCareersWithSpecialties';
 import daysOfTheWeek from '../../constants/daysOfTheWeek';
 
 export default function SearchFilters(props) {
@@ -71,7 +72,7 @@ export default function SearchFilters(props) {
           <i className="fas fa-angle-down"></i>
         </div>
       </div>
-      {['MD/DO', 'NP', 'PA', 'RN'].includes(props.career) && <div className="data-item column">
+      {medicalCareersWithSpecialties.includes(props.career) && <div className="data-item column">
         <label htmlFor="specialty"><h5>Specialty:</h5></label>
         <div className="select">
           <select type="text" name="specialty" id="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty">

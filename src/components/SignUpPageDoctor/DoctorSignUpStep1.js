@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip';
+
 import medicalSpecialties from '../../constants/medicalSpecialties';
+import medicalCareersWithSpecialties from '../../constants/medicalCareersWithSpecialties';
 import medicalCareers from '../../constants/medicalCareers';
 
 export default function Step1(props) {
@@ -16,7 +18,7 @@ export default function Step1(props) {
     } else if (!props.streetAddress || !props.city || !props.state || !props.zipCode) {
       alert('Full address is required!');
       return;
-    } else if (['MD/DO', 'NP', 'PA', 'RN'].includes(props.career) && !props.specialty) {
+    } else if (medicalCareersWithSpecialties.includes(props.career) && !props.specialty) {
       alert('Specialty is required!');
       return;
     }
@@ -101,7 +103,7 @@ export default function Step1(props) {
           </div>}
         </div>
       </div>
-      {['MD/DO', 'PA', 'NP', 'RN'].includes(props.career) && <div className="form-element">
+      {medicalCareersWithSpecialties.includes(props.career) && <div className="form-element">
         <label className="label">Specialty</label>
         <div className="form-input value ">
           <div className="select">

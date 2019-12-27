@@ -5,7 +5,10 @@ import Step1 from './DoctorSignUpStep1';
 import Step2 from './DoctorSignUpStep2';
 import Step3 from './DoctorSignUpStep3';
 import ChangePasswordModal from '../SignUpPageShared/ChangePasswordModal';
+import daysOfTheWeek from '../../constants/daysOfTheWeek';
+import medicalCareersWithSpecialties from '../../constants/medicalCareersWithSpecialties';
 import './SignUpPageDoctor.css';
+
 import * as userActions from '../../actions/userActions';
 import * as authActions from '../../actions/authActions';
 
@@ -13,36 +16,14 @@ class SignUpPageDoctor extends Component {
   constructor(props) {
     super(props)
 
-    let availability = {
-      sunday: {
-        checked: false,
-        times: []
-      },
-      monday: {
-        checked: false,
-        times: []
-      },
-      tuesday: {
-        checked: false,
-        times: []
-      },
-      wednesday: {
-        checked: false,
-        times: []
-      },
-      thursday: {
-        checked: false,
-        times: []
-      },
-      friday: {
-        checked: false,
-        times: []
-      },
-      saturday: {
-        checked: false,
-        times: []
-      }
-    };
+    let availability = daysOfTheWeek.reduce((obj,val) => (
+      Object.assign({}, obj, {
+        [val]: {
+          checked: false,
+          times: []
+        }
+      })
+    ), {});
 
     this.state = {
       firstName: '',
@@ -211,7 +192,7 @@ class SignUpPageDoctor extends Component {
     }
   
     let specialty = undefined;
-    if (['MD/DO', 'NP', 'PA', 'RN'].includes(this.state.career)) {
+    if (medicalCareersWithSpecialties.includes(this.state.career)) {
       specialty = this.state.specialty;
     }
     const address = {
