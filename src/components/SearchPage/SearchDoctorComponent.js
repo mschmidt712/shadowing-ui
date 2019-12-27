@@ -100,12 +100,24 @@ export default class SearchDoctorComponent extends Component {
               {availability}
             </div>
           </div>
-          <div className="data-item">
-            <div className="data-item column nested">
-              <h5 className="request-data-header">Shift Length: </h5>
-              <span>{this.props.doctor.shiftLength[0]} hours to {this.props.doctor.shiftLength[1]} hours</span>
+          <p className="with-horizontal-line"></p>
+          <div className="data-item spaced">
+            <div className="left-icon-container">
+              <i className="far fa-clock"></i>
+              <div className="data-item column nested">
+                <h5 className="request-data-header">Shift Length: </h5>
+                <span>{this.props.doctor.shiftLength[0]} hours to {this.props.doctor.shiftLength[1]} hours</span>
+              </div>
+            </div>
+            <div className="left-icon-container">
+              <i className="fas fa-map-marker-alt"></i>
+              <div className="data-item column nested">
+                <h5 className="request-data-header">Location: </h5>
+                <span>{this.props.doctor.address.city}, {this.props.doctor.address.state} {this.props.doctor.address.zipCode}</span>
+              </div>
             </div>
           </div>
+          <p className="with-horizontal-line"></p>
           <div className="data-item column nested">
             <h4 className="request-data-header">Additional Details: </h4>
             <span>{this.props.doctor.additionalComments}</span>

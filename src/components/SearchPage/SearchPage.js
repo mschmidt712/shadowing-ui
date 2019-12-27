@@ -182,7 +182,7 @@ class SearchPage extends Component {
   geocodeDoctorAddresses(doctors) {
     Geocode.setApiKey(config['google-api-key']);
     const updatedDoctorsPromises = doctors.map(doctor => {
-      const address = `${doctor.address.streetAddress} ${doctor.address.city}, ${doctor.address.state} ${doctor.address.zipCode}`;
+      const address = `${doctor.address.city}, ${doctor.address.state} ${doctor.address.zipCode}`;
       return Geocode.fromAddress(address).then(
         response => {
           const { lat, lng } = response.results[0].geometry.location;

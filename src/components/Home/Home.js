@@ -14,7 +14,7 @@ class Home extends Component {
     this.state = {
       zipCode: undefined,
       occupation: undefined,
-      career: undefined
+      career: 'MD/DO'
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -52,7 +52,6 @@ class Home extends Component {
           <div className="search  data-item">
             <div className="select">
               <select type="text" name="career" id="career" value={this.state.career} onChange={this.onInputChange} placeholder="Career">
-                <option value="">Pick A Career</option>
                 {careersSelect}
               </select>
               <i className="fas fa-angle-down"></i>
