@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import moment from 'moment';
 
+import capitalizeWord from '../utilities/capitalizeWord';
+import convertTime from '../utilities/convertTime';
+import findGender from '../utilities/findGender';
 import medicalCareersWithSpecialties from '../../constants/medicalCareersWithSpecialties';
 import daysOfTheWeek from '../../constants/daysOfTheWeek';
 
@@ -12,19 +14,6 @@ export default class SearchDoctorComponent extends Component {
       expanded: false
     }
     this.toggleExpanded = this.toggleExpanded.bind(this);
-  }
-
-  capitalizeWord(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  convertTime(time) {
-    const minutes = time.split(':')[1];
-    if (minutes === '00') {
-      return moment(time, 'HH:mm:ss').format('h A');
-    } else {
-      return moment(time, 'HH:mm:ss').format('h:mm A');
-    }
   }
 
   getAcceptingRequests(doctor) {
@@ -52,6 +41,7 @@ export default class SearchDoctorComponent extends Component {
       {this.props.doctor.career === 'MD/DO' && <h3>{this.props.doctor.specialty} Physician, {this.props.doctor.degree}</h3>}
       {['PA', 'NP', 'RN'].includes(this.props.doctor.career) && <h3>{this.props.doctor.specialty} {this.props.doctor.career}</h3>}
       {!medicalCareersWithSpecialties.includes(this.props.doctor.career) && <h3>{this.props.doctor.career}</h3>}
+      <h5 className="app-subtitle">{findGender(this.props.doctor.gender)}</h5>
     </div>;
 
     if (this.props.isLoggedIn && acceptingRequests) {
@@ -59,15 +49,15 @@ export default class SearchDoctorComponent extends Component {
         if (!this.props.doctor.scheduling[day]) {
           return <table key={day}>
             <tbody>
-              <tr><th>{this.capitalizeWord(day)}</th></tr>
+              <tr><th>{capitalizeWord(day)}</th></tr>
               <tr><td>N/A</td></tr>
             </tbody>
           </table>
         }
         return <table key={day}>
           <tbody>
-            <tr><th>{this.capitalizeWord(day)}</th></tr>
-            <tr><td>{this.convertTime(this.props.doctor.scheduling[day][0])} to {this.convertTime(this.props.doctor.scheduling[day][1])}</td></tr>
+            <tr><th>{capitalizeWord(day)}</th></tr>
+            <tr><td>{convertTime(this.props.doctor.scheduling[day][0])} to {convertTime(this.props.doctor.scheduling[day][1])}</td></tr>
           </tbody>
         </table>
       });

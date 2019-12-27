@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 
+import capitalizeWord from '../utilities/capitalizeWord';
 import daysOfTheWeek from '../../constants/daysOfTheWeek';
 import './SignUpPageDoctor.css';
 
 export default function Step2(props) {
-  function capitalizeWord(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   function validateForm() {
     props.setTouched('stepTwo');
 

@@ -28,6 +28,7 @@ class SignUpPageDoctor extends Component {
     this.state = {
       firstName: '',
       lastName: '',
+      gender: '',
       career: '',
       degree: '',
       email: this.props.email,
@@ -97,6 +98,7 @@ class SignUpPageDoctor extends Component {
       const newState = {
         firstName: firstName,
         lastName: lastName,
+        gender: this.props.gender,
         career: this.props.career,
         degree: this.props.degree,
         email: this.props.email,
@@ -217,6 +219,7 @@ class SignUpPageDoctor extends Component {
       email: this.props.email,
       id: this.props.id,
       name,
+      gender: this.state.gender,
       career: this.state.career,
       degree: degree,
       address,
@@ -254,6 +257,7 @@ class SignUpPageDoctor extends Component {
         {this.state.step === 1 && <Step1
           firstName={this.state.firstName}
           lastName={this.state.lastName}
+          gender={this.state.gender}
           career={this.state.career}
           degree={this.state.degree}
           email={this.state.email}

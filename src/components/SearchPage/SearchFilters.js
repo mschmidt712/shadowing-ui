@@ -2,6 +2,7 @@ import React from 'react';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 
+import capitalizeWord from '../utilities/capitalizeWord';
 import medicalCareers from '../../constants/medicalCareers';
 import medicalSpecialties from '../../constants/medicalSpecialties';
 import medicalCareersWithSpecialties from '../../constants/medicalCareersWithSpecialties';
@@ -94,8 +95,4 @@ export default function SearchFilters(props) {
       }}>Search</button>
     </div>
   )
-}
-
-function capitalizeWord(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
 }

@@ -1,6 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 
+import capitalizeWord from '../utilities/capitalizeWord';
+import convertTime from '../utilities/convertTime';
+
 export default function StudentRequest({ request, deleteRequest }) {
   const availability = Object.keys(request.scheduling).filter(day => {
     return request.scheduling[day];
@@ -36,12 +39,4 @@ export default function StudentRequest({ request, deleteRequest }) {
       <span className={request.status}>{capitalizeWord(request.status)}</span>
     </div>}
   </div>);
-}
-
-function capitalizeWord(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function convertTime(time) {
-  return moment(time, 'HH:mm:ss').format('h:mm A');
 }

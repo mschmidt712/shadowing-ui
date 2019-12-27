@@ -4,13 +4,14 @@ import ReactTooltip from 'react-tooltip';
 import medicalSpecialties from '../../constants/medicalSpecialties';
 import medicalCareersWithSpecialties from '../../constants/medicalCareersWithSpecialties';
 import medicalCareers from '../../constants/medicalCareers';
+import genders from '../../constants/genders';
 
 export default function Step1(props) {
   function validateForm() {
     props.setTouched('stepOne');
 
-    if (!props.firstName || !props.lastName || !props.career) {
-      alert('First name, last name, and career are required!');
+    if (!props.firstName || !props.lastName || !props.gender || !props.career) {
+      alert('First name, last name, gender and career are required!');
       return;
     } else if (props.career === 'MD/DO' && !props.degree) {
       alert('Degree is required!');
@@ -26,12 +27,16 @@ export default function Step1(props) {
     return props.nextStep();
   }
 
-  const careers = medicalCareers.map(career => (
+  const careersSelect = medicalCareers.map(career => (
     <option value={career.abbreviation} key={career.abbreviation}>{career.name}</option>
   ));
 
-  const specialties = medicalSpecialties.map(specialty => (
+  const specialtiesSelect = medicalSpecialties.map(specialty => (
     <option value={specialty} key={specialty}>{specialty}</option>
+  ));
+
+  const genderSelect = genders.map(gender => (
+    <option value={gender.value} key={gender.value}>{gender.name}</option>
   ));
 
   return (
@@ -83,12 +88,23 @@ export default function Step1(props) {
         </div>
       </div>
       <div className="form-element">
+        <label className="label">Gender</label>
+        <div className="form-input value">
+          <div className="select">
+            <select type="text" name="gender" value={props.gender} onChange={props.onInputChange} placeholder="Gender" className={props.touched} required>
+              {genderSelect}
+            </select>
+            <i className="fas fa-angle-down"></i>
+          </div>
+        </div>
+      </div>
+      <div className="form-element">
         <label className="label">Career</label>
         <div className="form-input value">
           <div className="select">
             <select type="text" name="career" value={props.career} onChange={props.onInputChange} placeholder="Career" className={props.touched} required>
               <option value=""></option>
-              {careers}
+              {careersSelect}
             </select>
             <i className="fas fa-angle-down"></i>
           </div>
@@ -109,7 +125,7 @@ export default function Step1(props) {
           <div className="select">
             <select type="text" name="specialty" value={props.specialty} onChange={props.onInputChange} placeholder="Specialty" className={props.touched} required >
               <option value=""></option>
-              {specialties}
+              {specialtiesSelect}
             </select>
             <i className="fas fa-angle-down"></i>
           </div>

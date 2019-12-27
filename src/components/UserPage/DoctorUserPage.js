@@ -5,6 +5,9 @@ import moment from 'moment';
 import Switch from "react-switch";
 
 import UserPageMapComponent from './UserPageMapComponent';
+import capitalizeWord from '../utilities/capitalizeWord';
+import convertTime from '../utilities/convertTime';
+import findGender from '../utilities/findGender';
 import daysOfTheWeek from '../../constants/daysOfTheWeek';
 import './UserPage.css';
 import config from '../../aws-config.json';
@@ -95,6 +98,10 @@ export default function DoctorUserPage(props) {
               </div>
             </div>
             <div className="data-item">
+              <h3 className="app-subtitle label">Gender:</h3>
+              <div className="value">{findGender(props.gender)}</div>
+            </div>
+            <div className="data-item">
               <h3 className="app-subtitle label">Email:</h3>
               <div className="value">{props.email}</div>
             </div>
@@ -126,12 +133,4 @@ export default function DoctorUserPage(props) {
       </div>
     </div>
   )
-}
-
-function capitalizeWord(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function convertTime(time) {
-  return moment(time, 'HH:mm:ss').format('h:mm A');
 }

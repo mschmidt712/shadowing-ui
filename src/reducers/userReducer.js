@@ -72,6 +72,7 @@ export default (state = initialState, action) => {
         doctor: {
           email: action.payload.email,
           name: action.payload.name,
+          gender: action.payload.gender,
           career: action.payload.career,
           degree: action.payload.degree,
           address: action.payload.address,
@@ -92,6 +93,7 @@ export default (state = initialState, action) => {
         doctor: {
           email: action.payload.email,
           name: action.payload.name,
+          gender: action.payload.gender,
           career: action.payload.career,
           degree: action.payload.degree,
           address: action.payload.address,
@@ -112,6 +114,7 @@ export default (state = initialState, action) => {
         doctor: {
           email: action.payload.email,
           name: action.payload.name,
+          gender: action.payload.gender,
           career: action.payload.career,
           degree: action.payload.degree,
           address: action.payload.address,

@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 
+import capitalizeWord from '../utilities/capitalizeWord';
+import convertTime from '../utilities/convertTime';
 import ResolveRequestModal from './ResolveRequestModal';
 
 class DoctorRequest extends React.Component {
@@ -28,8 +30,8 @@ class DoctorRequest extends React.Component {
         return request.scheduling[day];
       }).map((day, availIndex) => {
         const [start, end] = request.scheduling[day];
-        availabilityText.push(`${this.capitalizeWord(day)}: ${this.convertTime(start)} to ${this.convertTime(end)}`);
-        return <div key={availIndex}>{this.capitalizeWord(day)}: {this.convertTime(start)} to {this.convertTime(end)}</div>
+        availabilityText.push(`${capitalizeWord(day)}: ${convertTime(start)} to ${convertTime(end)}`);
+        return <div key={availIndex}>{capitalizeWord(day)}: {convertTime(start)} to {convertTime(end)}</div>
       });
       availabilityText = availabilityText.join(' and ');
 
@@ -79,18 +81,10 @@ class DoctorRequest extends React.Component {
 
     const arr = str.split('-');
     return arr.map(string => {
-      return this.capitalizeWord(string);
+      return capitalizeWord(string);
     }).reduce((str, val) => {
       return `${str} ${val}`
     }, '').trim();
-  }
-
-  capitalizeWord(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  convertTime(time) {
-    return moment(time, 'HH:mm:ss').format('h:mm A');
   }
 
   render() {
@@ -140,7 +134,7 @@ class DoctorRequest extends React.Component {
             </div>}
             {request.status !== 'pending' && <div className="data-item nested">
               <h5>Status:</h5>
-              <span className={request.status}>{this.capitalizeWord(request.status)}</span>
+              <span className={request.status}>{capitalizeWord(request.status)}</span>
             </div>}
           </div>
           {this.props.displayResolveRequestModal &&

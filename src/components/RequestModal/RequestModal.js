@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import handleEnterClick from '../utilities/handleEnterClick';
+import capitalizeWord from '../utilities/capitalizeWord';
 import daysOfTheWeek from '../../constants/daysOfTheWeek';
 import * as requestActions from '../../actions/requestActions';
 
@@ -58,10 +59,6 @@ class RequestModal extends Component {
     });
   }
 
-  capitalizeWord(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   requestShadowing() {
     let formattedAvailability = Object.assign({}, this.state.availability);
     Object.keys(this.state.availability).filter(day => {
@@ -100,7 +97,7 @@ class RequestModal extends Component {
         <div className="form-input checkbox-container inline">
           <input type="checkbox" id={`request-${day}`} name={day} checked={this.state.availability[day]} onChange={this.onAvailabilityChange} className="checkbox" />
           <span className="checkbox"></span>
-          <label htmlFor={`request-${day}`}>{this.capitalizeWord(day)}</label>
+          <label htmlFor={`request-${day}`}>{capitalizeWord(day)}</label>
         </div>
       </div>
     });
