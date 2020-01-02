@@ -6,6 +6,7 @@ import userReducer from './userReducer';
 import requestReducer from './requestReducer';
 import adminReducer from './adminReducer';
 import loadingReducer from './loadingReducer';
+import organizationReducer from './organizationReducer';
 import emailReducer from './emailReducer';
 
 export default (history) => combineReducers({
@@ -15,5 +16,6 @@ export default (history) => combineReducers({
   requestReducer,
   adminReducer,
   loadingReducer,
+  organizationReducer,
   emailReducer
 });

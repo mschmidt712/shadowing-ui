@@ -15,6 +15,7 @@ import handleEnterClick from './utilities/handleEnterClick';
 import * as authActions from '../actions/authActions';
 import * as userActions from '../actions/userActions';
 import * as requestActions from '../actions/requestActions';
+import * as organizationActions from '../actions/organizationActions';
 
 class App extends Component {
   constructor(props) {
@@ -51,6 +52,9 @@ class App extends Component {
     } else if (this.props.requestErr) {
       alert(this.props.requestErr.body);
       this.props.handleRequestError();
+    } else if (this.props.organizationErr) {
+      alert(this.props.organizationErr.body);
+      this.props.handleOrganizationError();
     }
 
     if (this.props.displayLogin) {
@@ -197,7 +201,8 @@ const mapDispatchToProps = dispatch => ({
   // Error Actions
   handleError: () => dispatch(authActions.handleError()),
   handleUserError: () => dispatch(userActions.handleError()),
-  handleRequestError: () => dispatch(requestActions.handleError())
+  handleRequestError: () => dispatch(requestActions.handleError()),
+  handleOrganizationError: () => dispatch(organizationActions.handleError())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import Select from 'react-select';
 
 import capitalizeWord from '../utilities/capitalizeWord';
 import daysOfTheWeek from '../../constants/daysOfTheWeek';
@@ -50,6 +51,22 @@ export default function Step2(props) {
     </div>
   });
 
+  const options = props.allOrganizations.reduce((arr, org) => {
+    return [...arr, {
+      value: org.value,
+      label: org.name
+    }];
+  }, []);
+  console.log('User Organizations: ', props.userOrganizations);
+  console.log('Options: ', options);
+
+  const orgSelect = <Select 
+    isMulti={true}
+    isSearchable={true}
+    value={null}
+    onChange={org => props.onOrganizationChange(org)}
+    options={options}
+  />
   return (
     <div className="form">
       <h4 className="app-subtitle">
@@ -87,6 +104,12 @@ export default function Step2(props) {
         <div className="form-input">
           <input type="number" name="shiftLengthMin" value={props.shiftLengthMin} onChange={props.onInputChange} placeholder="Minimum" min="1" max="12" className={`small ${props.touched}`} required />
           <input type="number" name="shiftLengthMax" value={props.shiftLengthMax} onChange={props.onInputChange} placeholder="Maximum" min="1" max="12" className={`small ${props.touched}`} required />
+        </div>
+      </div>
+      <div className="form-element column">
+        <label>Do you only accept students from specific organization? If so, please search and select those organizations below or add them if they do not already exist.</label>
+        <div className="form-input">
+          {orgSelect}
         </div>
       </div>
       <div className="form-element column">

@@ -10,6 +10,7 @@ import medicalCareersWithSpecialties from '../../constants/medicalCareersWithSpe
 import './SignUpPageDoctor.css';
 
 import * as userActions from '../../actions/userActions';
+import * as orgActions from '../../actions/organizationActions';
 import * as authActions from '../../actions/authActions';
 
 class SignUpPageDoctor extends Component {
@@ -43,6 +44,7 @@ class SignUpPageDoctor extends Component {
       availability: availability,
       shiftLengthMin: undefined,
       shiftLengthMax: undefined,
+      organizations: [],
       additionalComments: '',
       photoUpload: '',
       step: 1,
@@ -60,6 +62,7 @@ class SignUpPageDoctor extends Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
+    this.onOrganizationChange = this.onOrganizationChange.bind(this);
     this.onPhotoInputChange = this.onPhotoInputChange.bind(this);
     this.setTouched = this.setTouched.bind(this);
     this.nextStep = this.nextStep.bind(this);
@@ -75,6 +78,8 @@ class SignUpPageDoctor extends Component {
   }
 
   componentDidMount () {
+    this.props.getOrganizations();
+
     let availability = Object.assign({}, this.state.availability);
     if (this.props.scheduling) {
       availability = Object.keys(this.props.scheduling).reduce((obj, day) => {
@@ -113,6 +118,7 @@ class SignUpPageDoctor extends Component {
         availability,
         shiftLengthMin: this.props.shiftLength ? Number(this.props.shiftLength[0]) : undefined,
         shiftLengthMax: this.props.shiftLength ? this.props.shiftLength[1] : undefined,
+        organizations: this.props.organizations || [],
         additionalComments: this.props.additionalComments || '',
         photoUpload: this.props.badgePhoto || '',
       }
@@ -134,6 +140,14 @@ class SignUpPageDoctor extends Component {
     this.setState({
       changePassword: newState
     });
+  }
+
+  onOrganizationChange(org) {
+    const organizations = [...this.state.organizations, org];
+    const newState = Object.assign({}, this.state, {
+      organizations
+    });
+    this.setState(newState);
   }
 
   onPhotoInputChange(event) {
@@ -282,10 +296,13 @@ class SignUpPageDoctor extends Component {
           availability={this.state.availability}
           shiftLengthMin={this.state.shiftLengthMin}
           shiftLengthMax={this.state.shiftLengthMax}
+          userOrganizations={this.state.organizations}
+          allOrganizations={this.props.organizations}
           additionalComments={this.state.additionalComments}
           onInputChange={this.onInputChange}
           handleAvailabilityDays={this.handleAvailabilityDays}
           handleAvailabilityTimes={this.handleAvailabilityTimes}
+          onOrganizationChange={this.onOrganizationChange}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
           touched={this.state.stepTwoTouched}
@@ -316,14 +333,16 @@ class SignUpPageDoctor extends Component {
 
 const mapStateToProps = state => ({
   ...state.authReducer,
-  ...state.userReducer.doctor
+  ...state.userReducer.doctor,
+  ...state.organizationReducer
 });
 
 const mapDispatchToProps = dispatch => ({
   updateEmailAttribute: (email) => dispatch(authActions.updateEmailAttribute(email)),
   changePassword: (oldPassword, newPassword) => dispatch(authActions.changePassword(oldPassword, newPassword)),
   createDoctor: (data, credentials) => dispatch(userActions.createDoctor(data, credentials)),
-  updateDoctor: (data, credentials) => dispatch(userActions.updateDoctor(data, credentials))
+  updateDoctor: (data, credentials) => dispatch(userActions.updateDoctor(data, credentials)),
+  getOrganizations: () => dispatch(orgActions.getOrganizations()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPageDoctor);
