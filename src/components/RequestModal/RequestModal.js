@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 import handleEnterClick from '../utilities/handleEnterClick';
 import capitalizeWord from '../utilities/capitalizeWord';
@@ -101,6 +102,15 @@ class RequestModal extends Component {
         </div>
       </div>
     });
+    const organizations = this.props.selectedDoctor.organizations.map((org) => {
+      return <div className="form-input" key={org.value}>
+        <div className="form-input checkbox-container">
+          <input type="checkbox" id={org.value} name={org.value} className="checkbox" />
+          <span className="checkbox"></span>
+          <label htmlFor={org.value}>{capitalizeWord(org.label)}</label>
+        </div>
+      </div>
+    });
 
     return (
       <div className="modal">
@@ -127,9 +137,24 @@ class RequestModal extends Component {
                   <Link to={`/user?id=${this.props.id}`} className="no-decoration secondary">Edit Contact Info in Your Profile</Link>
                 </button>
               </div>
-              <div className="data-item">
+              <div>
                 <h5 className="app-subtitle">Scheduling:</h5>
-                <div>{availability}</div>
+                <div className="data-item">{availability}</div>
+              </div>
+              <div>
+                <h5 className="app-subtitle">
+                  Organizations:
+                  <i
+                    data-for="organization-info"
+                    data-tip="This provider only accepts shadowing from individuals associated with the following organizations. If you are a member of any of the below organizations, please select the organizations to request shadowing."
+                    className="fas fa-info-circle icon">
+                  </i>
+                </h5>
+                <ReactTooltip
+                  id="organization-info"
+                  className="tooltip"
+                />
+                <div className="data-item">{organizations}</div>
               </div>
               <div className="textarea-container">
                 <h5 className="app-subtitle">Additional Info:</h5>
