@@ -54,6 +54,47 @@ export const getOrganizations = () => {
   }
 }
 
+export const createOrganization = (org) => {
+  return (dispatch) => {
+    dispatch(loadingStart());
+
+    const url = `${baseUrl}/organization`;
+    let orgRespStatus;
+    return fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({organization: org}),
+    })
+      .then(response => {
+        orgRespStatus = response.ok;
+        return response.json();
+      }).then( resp => {
+        if (!orgRespStatus) {
+          throw new Error(resp.errorMessage);
+        }
+  
+        dispatch({
+          type: orgAction.CREATE_ORGANIZATION,
+          payload: org
+        });
+        dispatch(loadingStop());
+        return;
+      }).catch(err => {
+        dispatch({
+          type: orgAction.ORGANIZATION_ERROR,
+          payload: {
+            err: err.message
+          }
+        });
+        dispatch(loadingStop());
+        return;
+      });
+  }
+}
+
 //************************* Error Actions *************************//
 export const handleError = () => {
   return dispatch => (

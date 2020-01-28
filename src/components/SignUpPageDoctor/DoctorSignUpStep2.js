@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 
 import capitalizeWord from '../utilities/capitalizeWord';
 import daysOfTheWeek from '../../constants/daysOfTheWeek';
@@ -51,21 +51,16 @@ export default function Step2(props) {
     </div>
   });
 
-  const options = props.allOrganizations.reduce((arr, org) => {
-    return [...arr, {
-      value: org.value,
-      label: org.name
-    }];
-  }, []);
-  console.log('User Organizations: ', props.userOrganizations);
-  console.log('Options: ', options);
-
-  const orgSelect = <Select 
+  const orgSelect = <CreatableSelect 
     isMulti={true}
     isSearchable={true}
-    value={null}
+    isClearable={true}
+    value={props.userOrganizations}
     onChange={org => props.onOrganizationChange(org)}
-    options={options}
+    onCreateOption = {(inputValue) => {
+      props.createOrganization(inputValue);
+    }}
+    options={props.allOrganizations}
   />
   return (
     <div className="form">

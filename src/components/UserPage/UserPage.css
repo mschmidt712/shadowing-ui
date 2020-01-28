@@ -103,14 +103,14 @@
 /* *************** ALIGNMENT *************** */
 @media screen and (min-width: 768px) {
   .label {
-    width: 30%;
+    width: 40%;
     display: inline-block;
     box-sizing:border-box;
     text-align:right;
   }
 
   .value {
-    width: 70%;
+    width: 60%;
     justify-content: left;
     box-sizing:border-box;
     text-align:left;

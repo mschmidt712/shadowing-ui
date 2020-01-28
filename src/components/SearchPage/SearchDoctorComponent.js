@@ -109,6 +109,12 @@ export default class SearchDoctorComponent extends Component {
           </div>
           <p className="with-horizontal-line"></p>
           <div className="data-item column nested">
+            <h4 className="request-data-header">Affiliated Organizations: </h4>
+            <span>{this.props.doctor.organizations.map(org => {
+            return <div key={org.value}>{org.label}</div>
+            })}</span>
+          </div>
+          <div className="data-item column nested">
             <h4 className="request-data-header">Additional Details: </h4>
             <span>{this.props.doctor.additionalComments}</span>
           </div>

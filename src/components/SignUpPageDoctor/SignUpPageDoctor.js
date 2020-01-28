@@ -63,6 +63,7 @@ class SignUpPageDoctor extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
     this.onOrganizationChange = this.onOrganizationChange.bind(this);
+    this.onCreateOrganization = this.onCreateOrganization.bind(this);
     this.onPhotoInputChange = this.onPhotoInputChange.bind(this);
     this.setTouched = this.setTouched.bind(this);
     this.nextStep = this.nextStep.bind(this);
@@ -118,7 +119,7 @@ class SignUpPageDoctor extends Component {
         availability,
         shiftLengthMin: this.props.shiftLength ? Number(this.props.shiftLength[0]) : undefined,
         shiftLengthMax: this.props.shiftLength ? this.props.shiftLength[1] : undefined,
-        organizations: this.props.organizations || [],
+        organizations: this.props.userOrganizations || [],
         additionalComments: this.props.additionalComments || '',
         photoUpload: this.props.badgePhoto || '',
       }
@@ -143,11 +144,29 @@ class SignUpPageDoctor extends Component {
   }
 
   onOrganizationChange(org) {
-    const organizations = [...this.state.organizations, org];
-    const newState = Object.assign({}, this.state, {
-      organizations
-    });
+    let newState;
+    if (org) {
+      newState = Object.assign({}, this.state, {
+        organizations: [...org]
+      });
+    } else {
+      newState = Object.assign({}, this.state, {
+        organizations: []
+      });
+    }
+
     this.setState(newState);
+  }
+
+  onCreateOrganization(org) {
+    const data = {
+      label: org,
+      value: org.toLowerCase().replace(/ /g, '-')
+    };
+
+    this.props.createOrganization(data).then(() => {
+      this.onOrganizationChange([...this.state.organizations, data]);
+    })
   }
 
   onPhotoInputChange(event) {
@@ -243,6 +262,7 @@ class SignUpPageDoctor extends Component {
       scheduling,
       shiftLength,
       additionalComments: this.state.additionalComments || 'None',
+      organizations: this.state.organizations,
       badgePhoto: this.state.photoUpload
     }
 
@@ -303,6 +323,7 @@ class SignUpPageDoctor extends Component {
           handleAvailabilityDays={this.handleAvailabilityDays}
           handleAvailabilityTimes={this.handleAvailabilityTimes}
           onOrganizationChange={this.onOrganizationChange}
+          createOrganization={this.onCreateOrganization}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
           touched={this.state.stepTwoTouched}
@@ -343,6 +364,7 @@ const mapDispatchToProps = dispatch => ({
   createDoctor: (data, credentials) => dispatch(userActions.createDoctor(data, credentials)),
   updateDoctor: (data, credentials) => dispatch(userActions.updateDoctor(data, credentials)),
   getOrganizations: () => dispatch(orgActions.getOrganizations()),
+  createOrganization: (orgName) => dispatch(orgActions.createOrganization(orgName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPageDoctor);

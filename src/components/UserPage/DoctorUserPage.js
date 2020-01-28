@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import Switch from "react-switch";
 
 import UserPageMapComponent from './UserPageMapComponent';
@@ -29,6 +28,13 @@ export default function DoctorUserPage(props) {
     const end = props.scheduling[day][1];
     return <div key={index} className="scheduling-item"><h4>{capitalizeWord(day)}:</h4> {convertTime(start)} - {convertTime(end)}</div>
   });
+  let organizations = 'No affiliated organizations.'; 
+
+  if (props.userOrganizations.length > 0) {
+    organizations = props.userOrganizations.map(org => {
+      return <div key={org.value} className="scheduling-item">{org.label}</div>
+    });
+  }
 
   return (
     <div>
@@ -120,6 +126,10 @@ export default function DoctorUserPage(props) {
             <div className="data-item">
               <h3 className="app-subtitle label">Preferred Shift Length:</h3>
               <div className="value">{props.shiftLength[0]} to {props.shiftLength[1]} hrs</div>
+            </div>
+            <div className="data-item">
+              <h3 className="app-subtitle label">Organizations:</h3>
+              <div className="value">{organizations}</div>
             </div>
             <div className="data-item">
               <h3 className="app-subtitle label">Additional Comments:</h3>

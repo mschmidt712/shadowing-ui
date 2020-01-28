@@ -11,6 +11,10 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         organizations: action.payload
       });
+    case organizationAction.CREATE_ORGANIZATION:
+      return Object.assign({}, state, {
+        organizations: [...state.organizations, action.payload]
+      });
     case organizationAction.ORGANIZATION_ERROR:
       let err;
       try {
