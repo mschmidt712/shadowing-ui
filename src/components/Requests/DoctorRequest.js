@@ -14,6 +14,7 @@ class DoctorRequest extends React.Component {
       hipaaCert: 'No',
       availabilityText: [],
       availability: [],
+      organizations: [],
       acceptRequestBody: '',
       denyRequestBody: ''
     }
@@ -54,6 +55,7 @@ class DoctorRequest extends React.Component {
         hipaaCert,
         availabilityText,
         availability,
+        organizations: request.organizations,
         school: request.student.school,
         schoolYear: request.student.schoolYear,
         acceptRequestBody,
@@ -107,6 +109,17 @@ class DoctorRequest extends React.Component {
         <p className="with-horizontal-line"></p>
         <div>
           <div className="data-item column nested">
+            <h5 className="request-data-header">Availability:</h5>
+            {this.state.availability}
+          </div>
+          <div className="data-item column nested">
+            <h5 className="request-data-header">Organizations:</h5>
+            {this.state.organizations.length > 0 && this.state.organizations.map(org => {
+              return <div key={org.value}>{org.label}</div>;
+            })}
+            {this.state.organizations.length === 0 && <div>No affiliated organizations.</div>}
+          </div>
+          <div className="data-item column nested">
             <h5 className="request-data-header">School Information: </h5>
             {this.state.school} - {this.formatSchoolYear(this.state.schoolYear)}
           </div>
@@ -115,13 +128,9 @@ class DoctorRequest extends React.Component {
             {this.state.hipaaCert}
           </div>
           <div className="data-item column nested">
-            <h5 className="request-data-header">Availability:</h5>
-            {this.state.availability}
-          </div>
-          <div className="data-item column nested">
             <h5 className="request-data-header">Additional Info:</h5>
-            {request.additionalInfo && <span>{request.additionalInfo}</span>}
-            {!request.additionalInfo && <span>No additional info given.</span>}
+            {request.additionalInfo && <div>{request.additionalInfo}</div>}
+            {!request.additionalInfo && <div>No additional info given.</div>}
           </div>
           <div className="data-item request-response-btn">
             {request.status === 'pending' && <div>

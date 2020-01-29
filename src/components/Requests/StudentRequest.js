@@ -29,9 +29,16 @@ export default function StudentRequest({ request, deleteRequest }) {
       {availability}
     </div>
     <div className="data-item column nested">
+      <h5 className="request-data-header">Organizations: </h5>
+      {request.organizations.length > 0 && request.organizations.map(org => {
+        return <div key={org.value}>{org.label}</div>
+      })}
+      {request.organizations.length === 0 && <div>No affiliated organizations.</div>}
+    </div>
+    <div className="data-item column nested">
       <h5 className="request-data-header">Additional Info: </h5>
-      {request.additionalInfo && <p>{request.additionalInfo}</p>}
-      {!request.additionalInfo && <p>No additional information given.</p>}
+      {request.additionalInfo && <div>{request.additionalInfo}</div>}
+      {!request.additionalInfo && <div>No additional information given.</div>}
     </div>
     {request.status === 'pending' && <button className="secondary request-response-btn" onClick={() => { deleteRequest(request.uuid) }}>Delete Request</button>}
     {request.status !== 'pending' && <div className="data-item nested">
