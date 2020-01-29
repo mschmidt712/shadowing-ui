@@ -55,7 +55,7 @@ class DoctorRequest extends React.Component {
         hipaaCert,
         availabilityText,
         availability,
-        organizations: request.organizations,
+        organizations: request.organizations || [],
         school: request.student.school,
         schoolYear: request.student.schoolYear,
         acceptRequestBody,
