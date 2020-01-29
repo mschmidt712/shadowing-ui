@@ -18,11 +18,13 @@ class RequestModal extends Component {
           [val]: false
         })
       ), {}),
-      additionalInfo: ''
+      additionalInfo: '',
+      organizations: []
     }
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onAvailabilityChange = this.onAvailabilityChange.bind(this);
+    this.onOrganizationChange = this.onOrganizationChange.bind(this);
     this.validateRequest = this.validateRequest.bind(this);
     this.requestShadowing = this.requestShadowing.bind(this);
   }
@@ -38,6 +40,11 @@ class RequestModal extends Component {
 
     if (requestedDays.length === 0) {
       alert('Please select at least one day to request shadowing.');
+      return;
+    }
+
+    if (this.props.selectedDoctor.organizations && this.props.selectedDoctor.organizations.length > 0 && this.state.organizations.length === 0) {
+      alert('This provider only accepts learners affiliated with his or her organizations. If you are not affiliated with one of the below organizations, please request shadowing with another provider.');
       return;
     }
 
@@ -60,6 +67,17 @@ class RequestModal extends Component {
     });
   }
 
+  onOrganizationChange(e) {
+    const organization = {
+      label: e.target.name,
+      value: e.target.id
+    };
+
+    this.setState({
+      organizations: [...this.state.organizations, organization]
+    });
+  }
+
   requestShadowing() {
     let formattedAvailability = Object.assign({}, this.state.availability);
     Object.keys(this.state.availability).filter(day => {
@@ -76,7 +94,8 @@ class RequestModal extends Component {
     let requestData = {
       student: this.props.id,
       doctor: this.props.selectedDoctor.id,
-      scheduling: formattedAvailability
+      scheduling: formattedAvailability,
+      organizations: this.state.organizations
     }
 
     if (this.state.additionalInfo) {
@@ -102,15 +121,18 @@ class RequestModal extends Component {
         </div>
       </div>
     });
-    const organizations = this.props.selectedDoctor.organizations.map((org) => {
-      return <div className="form-input" key={org.value}>
-        <div className="form-input checkbox-container">
-          <input type="checkbox" id={org.value} name={org.value} className="checkbox" />
-          <span className="checkbox"></span>
-          <label htmlFor={org.value}>{capitalizeWord(org.label)}</label>
+    let organizations = 'No affiliated organizations';
+    if (this.props.selectedDoctor.organizations && this.props.selectedDoctor.organizations.length > 0) {      
+      organizations = this.props.selectedDoctor.organizations.map((org) => {
+        return <div className="form-input" key={org.value}>
+          <div className="form-input checkbox-container">
+            <input type="checkbox" id={org.value} name={org.label} onChange={this.onOrganizationChange} className="checkbox" />
+            <span className="checkbox"></span>
+            <label htmlFor={org.value}>{capitalizeWord(org.label)}</label>
+          </div>
         </div>
-      </div>
-    });
+      });
+    }
 
     return (
       <div className="modal">

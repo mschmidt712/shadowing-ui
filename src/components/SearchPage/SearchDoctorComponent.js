@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import ReactTooltip from 'react-tooltip';
 
 import capitalizeWord from '../utilities/capitalizeWord';
 import convertTime from '../utilities/convertTime';
@@ -61,6 +62,12 @@ export default class SearchDoctorComponent extends Component {
           </tbody>
         </table>
       });
+      let organizations = 'No affiliated organizations';
+      if (this.props.doctor.organizations && this.props.doctor.organizations.length > 0) {
+        organizations = this.props.doctor.organizations.map(org => {
+          return <div key={org.value}>{org.label}</div>
+        });
+      }
 
       doctorComponent = <div className="request box-shadow">
         <div className="component-header">
@@ -109,10 +116,18 @@ export default class SearchDoctorComponent extends Component {
           </div>
           <p className="with-horizontal-line"></p>
           <div className="data-item column nested">
-            <h4 className="request-data-header">Affiliated Organizations: </h4>
-            <span>{this.props.doctor.organizations.map(org => {
-            return <div key={org.value}>{org.label}</div>
-            })}</span>
+            <h4 className="request-data-header">Affiliated Organizations:
+              <i
+                data-for="organization-info"
+                data-tip="This provider only accepts shadowing from individuals associated with the following organizations. If you do not belong to one of the below organizations, please search for another provider. You may be asked to provide proof of affiliation."
+                className="fas fa-info-circle icon">
+              </i>
+            </h4>
+            <ReactTooltip
+            id="organization-info"
+            className="tooltip"
+            />
+            <span>{organizations}</span>
           </div>
           <div className="data-item column nested">
             <h4 className="request-data-header">Additional Details: </h4>
