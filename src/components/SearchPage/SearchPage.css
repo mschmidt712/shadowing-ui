@@ -84,7 +84,7 @@
 .select select {
   background: transparent;
   border: none;
-  padding: 0 1em;
+  padding: 0 2em 0 1em;
   margin: 0;
   -webkit-appearance: none;
   -moz-appearance: none;

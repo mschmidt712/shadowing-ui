@@ -1,6 +1,6 @@
 export default [{
   abbreviation: 'MD/DO',
-  name: 'Doctor of Medicine/Doctor of Osteopathic Medicine'
+  name: 'Doctor of Medicine (MD & DO)'
 }, {
   abbreviation: 'DDS',
   name: 'Doctor of Dental Surgery'

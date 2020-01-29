@@ -17,3 +17,7 @@
 .time-picker {
   width: 40%;
 }
+
+#react-select-2-input {
+  height:1em;
+}
