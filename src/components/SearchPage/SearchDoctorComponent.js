@@ -4,7 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import capitalizeWord from '../utilities/capitalizeWord';
 import convertTime from '../utilities/convertTime';
 import findGender from '../utilities/findGender';
-import medicalCareersWithSpecialties from '../../constants/medicalCareersWithSpecialties';
+import createProviderName from '../utilities/createProviderName';
 import daysOfTheWeek from '../../constants/daysOfTheWeek';
 
 export default class SearchDoctorComponent extends Component {
@@ -39,9 +39,7 @@ export default class SearchDoctorComponent extends Component {
 
     let doctorComponent;
     const professionalName = <div>
-      {this.props.doctor.career === 'MD/DO' && <h3>{this.props.doctor.specialty} Physician, {this.props.doctor.degree}</h3>}
-      {['PA', 'NP', 'RN'].includes(this.props.doctor.career) && <h3>{this.props.doctor.specialty} {this.props.doctor.career}</h3>}
-      {!medicalCareersWithSpecialties.includes(this.props.doctor.career) && <h3>{this.props.doctor.career}</h3>}
+      <h3>{createProviderName(this.props.doctor)}</h3>
       <h5 className="app-subtitle">{findGender(this.props.doctor.gender)}</h5>
     </div>;
 

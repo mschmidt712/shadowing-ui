@@ -5,6 +5,7 @@ import ReactTooltip from 'react-tooltip';
 
 import handleEnterClick from '../utilities/handleEnterClick';
 import capitalizeWord from '../utilities/capitalizeWord';
+import createProviderName from '../utilities/createProviderName';
 import daysOfTheWeek from '../../constants/daysOfTheWeek';
 import * as requestActions from '../../actions/requestActions';
 
@@ -141,7 +142,7 @@ class RequestModal extends Component {
           <div className="modal-text">
             <div className="form">
               <h1 className="app-title">Request Shadowing</h1>
-              <h3 className="app-subtitle">{this.props.selectedDoctor.specialty} Physician, {this.props.selectedDoctor.degree}</h3>
+              <h3 className="app-subtitle">{createProviderName(this.props.selectedDoctor)}</h3>
               <div className="data-item">
                 <h5 className="app-subtitle">Name:</h5>
                 {this.props.student.name}

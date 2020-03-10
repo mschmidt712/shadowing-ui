@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import capitalizeWord from '../utilities/capitalizeWord';
 import convertTime from '../utilities/convertTime';
+import createProviderName from '../utilities/createProviderName';
 
 export default function StudentRequest({ request, deleteRequest }) {
   const availability = Object.keys(request.scheduling).filter(day => {
@@ -17,8 +18,7 @@ export default function StudentRequest({ request, deleteRequest }) {
       <div className="component-header-details">
         <i className="fa fa-user-md"></i>
         <div>
-          <h3 className="request-data-header">Dr. {request.doctor.name}, {request.doctor.degree}</h3>
-          <h5 className="app-subtitle">{request.doctor.specialty}</h5>
+          <h3 className="request-data-header">{createProviderName(request.doctor)}</h3>
         </div>
       </div>
       <p className="component-header-right">{moment(request.createdDate).format('MM/DD/YYYY')}</p>
