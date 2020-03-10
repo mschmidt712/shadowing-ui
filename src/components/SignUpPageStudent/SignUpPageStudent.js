@@ -11,21 +11,19 @@ class SignUpPageStudent extends Component {
   constructor(props) {
     super(props)
 
-    const [firstName, lastName] = props.name.split(' ');
-
     this.state = {
-      firstName: firstName || '',
-      lastName: lastName || '',
-      email: props.email || '',
-      streetAddress: props.address.streetAddress || '',
-      city: props.address.city || '',
-      state: props.address.state || '',
-      zipCode: props.address.zipCode || undefined,
-      phoneNumber: props.phoneNumber || undefined,
-      school: props.school || '',
-      schoolYear: props.schoolYear || undefined,
-      hipaaCert: props.hipaaCert || false,
-      cv: props.cv || '',
+      firstName: '',
+      lastName: '',
+      email: props.email,
+      streetAddress: '',
+      city: '',
+      state: '',
+      zipCode: undefined,
+      phoneNumber: undefined,
+      school: '',
+      schoolYear: undefined,
+      hipaaCert: false,
+      cv: '',
       subscribe: true,
       step: 1,
       stepOneTouched: 'clean',
@@ -37,6 +35,25 @@ class SignUpPageStudent extends Component {
         newPassword: '',
         confirmNewPassword: ''
       }
+    }
+
+    let firstName, lastName;
+    if (props.name) {
+      [firstName, lastName] = props.name.split(' ');
+      this.state = Object.assign({}, this.state, {
+        firstName: firstName,
+        lastName: lastName,
+        email: props.email,
+        streetAddress: props.address.streetAddress,
+        city: props.address.city,
+        state: props.address.state,
+        zipCode: props.address.zipCode,
+        phoneNumber: props.phoneNumber,
+        school: props.school,
+        schoolYear: props.schoolYear,
+        hipaaCert: props.hipaaCert,
+        cv: props.cv
+      });
     }
 
     this.onInputChange = this.onInputChange.bind(this);
